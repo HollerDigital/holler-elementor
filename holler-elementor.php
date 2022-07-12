@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:     2.0.4
+ * Version:     2.0.5
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: elementor-test-extension
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.0.4' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.0.5' );
 
 // Plugin Updater
 // https://github.com/YahnisElsts/plugin-update-checker
@@ -116,7 +116,7 @@ final class Elementor_Test_Extension {
 
 		add_action( 'init', [ $this, 'i18n' ] );
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
-		add_menu_page( 'Holler Elementor', 'Holler E',  'manage_options' , 'holler-elementor', null ,  'https://s3.ca-central-1.amazonaws.com/cdn.hollerdigital.com/holler-images/holler-icon.svg', 40 );
+		add_menu_page( 'Holler Elementor', 'Holler E',  'manage_options' , 'holler-elementor',  [ $this, 'holler_elementor_settings' ]  ,  'https://s3.ca-central-1.amazonaws.com/cdn.hollerdigital.com/holler-images/holler-icon.svg', 40 );
 	}
 
 	/**
@@ -136,6 +136,10 @@ final class Elementor_Test_Extension {
 
 	}
 
+	public function holler_elementor_settings(){
+		global $cm_options;
+		$cm_options = get_option('holler_signup_cm_settings');
+	}
 	/**
 	 * Initialize the plugin
 	 *
