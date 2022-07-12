@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:     1.0.0
+ * Version:     2.0.0
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: elementor-test-extension
@@ -22,7 +22,7 @@ define( 'HOLLER_ELEMENTOR_VERSION', '2.0.0' );
 // https://github.com/YahnisElsts/plugin-update-checker
 require 'plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/HollerDigital/holler-signup',
+	'https://github.com/HollerDigital/holler-elementor',
 	__FILE__,
 	'holler-signup'
 );
