@@ -1,0 +1,101 @@
+//Radio Buttons
+
+/* The version of Bourbon used in this Pen was 4.* */
+/*
+@import "bourbon";
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:300,);
+*/
+
+//$gradient:      linear-gradient(100deg, rgb(255,90,100) 0%, rgb(250,160,75) 30%, rgb(210,220,105) 70%, rgb(14,244,155) 100%);
+$background:    white;
+
+$button-height: 40px;
+$border-radius: 5px; //$button-height / 2;
+
+.button-link {
+  text-decoration: none;
+}
+
+.btns {
+  background-color: $background; 
+  z-index: 0;
+  height: $button-height;
+  float: none;
+  margin: 0 auto;
+  width: 260px;
+  max-width: 100%;
+  border-radius: $border-radius;
+  display: block;
+  box-shadow: 0 2px 4px -1px rgba(25, 25, 25, 0.2);
+  
+  input {
+    display: none !important;
+  }
+  
+  label {
+    display: table;
+    float: left;
+    padding: 0;
+    width: 25%;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    border-radius: 0 !important;
+    border-left: 1px solid transparentize(#000, .95);
+    
+    &:first-child {
+      border-left: none;
+      border-radius: $border-radius 0 0 $border-radius !important;
+    }
+    &:last-child {
+      border-radius: 0 $border-radius $border-radius 0 !important;
+    }
+  }
+  
+  label.half {
+    width: 50%;
+  }
+  
+  .btn {
+    font-size: 18px;
+    cursor: pointer;
+    font-family: $font-family-heading;
+    font-weight: 400;
+    font-size: 18px;
+    //padding: 5px 20px;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: 400;
+    background-color: $brandt-light-gray;
+    color: $brandt-type-base;
+    text-shadow: 0 1px 2px rgba(0,0,0,.04);
+    //box-shadow: inset 0 30px 20px -20px rgba(255,255,255,.15);
+    
+    &:hover {
+      background-color: $brandt-orange;
+      color: white;
+      box-shadow: inset 0 30px 30px -20px rgba(50,50,50,.02);
+    }
+    
+  }
+  
+  .first {
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+  
+  .last {
+    border-radius: 0 $border-radius $border-radius 0;
+  }
+  
+  input:checked + .btn {
+    text-shadow: none;
+    background-color: $brandt-orange;
+    color: white;
+    box-shadow: inset 0 10px 50px rgba(25,25,25,.08);
+    
+    &:after {
+      margin-left: 12px;
+    }
+    
+  }
+}

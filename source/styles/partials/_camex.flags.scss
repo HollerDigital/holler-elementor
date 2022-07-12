@@ -1,0 +1,51 @@
+.flag {
+  display: inline-block;
+  background: $brandt-type-light;
+  color: $brandt-type-base;
+  margin: 0px 0px 4px 0px;
+  padding: 2px 6px;
+  font-size: 14px;
+  font-family: $font-family-heading;
+  font-weight: 400;
+  text-transform: uppercase;
+  border: 1px solid #eee;
+}
+
+.flag-available,
+.flag-lease {
+  background: $brandt-type-light;
+  color: $brandt-type-base;
+}
+
+.flag-deal-pending,
+.flag-sold,
+.flag-rented,
+.flag-out-of-service,
+.flag-maintenance-required {
+  background-color: $brandt-type-base;
+  color: $brandt-type-light;
+}
+
+.flag-good-buy-alley,
+.flag-rental-purchase,
+.flag-sales-promo {
+  background: $brandt-orange;
+  color: $white;
+}
+
+
+.btrt-product-id{
+  margin-bottom: -20px;
+}
+
+.btrt-product-name{
+  
+}
+
+.btrt-product-description{
+  
+}
+
+.product-price .elementor-heading-title span.currency{
+  font-size: 24px !important;
+}

@@ -1,0 +1,88 @@
+#brandt-tabs{
+	.ui-tabs-panel {
+		padding: 20px 10px !important;
+		background: #f2f2f2; 
+		margin: 6px 6px 6px 0px; 
+		padding: 6px;
+		margin-left: 2px;
+		font-size: 16px;
+		font-family: proxima-nova, Helvetica, Arial,sans-serif;
+		
+		@media (min-width: $screen-md-min) { 
+			padding: 20px;
+			font-size: 16px;
+		}
+		
+		p {
+			font-size: 16px;
+			padding: auto 20px;
+		}
+	}
+	
+	.ui-tabs-tab {
+		background: #d1d3d4;
+		transition-duration: 0.5s;
+		.ui-tabs-anchor{
+			font-size: 18px;
+			letter-spacing: 0.2;
+			font-family: "league-gothic", Helvetica, Arial, sans-serif;
+			font-weight: 400;
+			padding: 0.5em  0.6em;	
+			color: #58595b !important;
+			
+			@media (min-width: $screen-md-min) { 
+				padding: 0.5em  2em;	 
+				font-size: 24px;
+			}
+		}
+	
+		&:hover{
+			background: #E53E30;
+			.ui-tabs-anchor {
+				color: #fff !important;
+			}				
+		}
+	
+	}
+	
+	.ui-state-active{
+		background: #E53E30;
+		.ui-tabs-anchor {
+			color: #fff !important;
+		}
+	}
+}
+
+#spec-table {
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows:  auto;
+	margin: 0px;
+	padding: 0px;
+	font-size: 16px;
+	@media (min-width: $screen-md-min) { 
+		grid-template-columns: 50% 50%; 
+	}
+		
+	dl{
+		background: #f2f2f2; 
+		margin: 6px 6px 6px 0px; 
+		padding: 6px;
+	}
+}
+
+
+.table-grid {
+  display: grid;
+  grid: 50% 50%;
+  grid-template-columns: 50% 50%;
+  column-gap: 20px;
+  padding: 0px 30px 0 10px;
+  font-size: 16px;
+  table {
+	font-size: 16px;
+	td{
+		font-size: 16px;
+	}
+  }
+}

@@ -1,0 +1,72 @@
+#product-grid {
+	display: grid;
+	grid-template-columns:100%; 
+	grid-row-gap: 20px; 
+	grid-column-gap: 10px;	
+	
+	@media (min-width: $screen-md-min) { 
+		grid-template-columns: 33% 33% 33%; 
+	}
+}
+
+
+div#brandt-jump-menu a.brandt-jump-button {
+	width: 100%;
+	clear: both;
+	display: block;
+	max-width: 160px;
+	margin: 5px 0;
+	padding: 6px 12px;
+	background-color: transparent;
+    color: #494949 !important;
+    text-decoration: none;
+	.elementor-button-text{
+		text-align: left;
+		font-size: 14px;
+	}
+	&:hover{
+		background-color: #e53e30;
+		color: white !important;
+		text-decoration: none;
+	}
+}
+
+#brandt-model-slider-thumbs{
+  display: flex;
+  flex-flow: row wrap;
+  align-content: stretch;
+  margin: 20px 0;
+  align-items: center;
+  
+  .thumb {
+    flex: 1 1 auto;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    margin-right: 10px;
+    max-width: 182px;
+	max-height: 121.33px;
+	overflow: hidden;
+    	
+    	img{
+	    	width: 100%;
+	    	height: auto;
+    	}
+    
+    &:last-child {
+	     margin-right: 0px;
+    }
+    
+    }
+}
+
+
+.tbl-nopad {
+  margin-bottom:  0px;
+}
+
+.table-cell-dark {
+  background: #000;
+  color: #fff;
+  font-weight: bold;
+}
