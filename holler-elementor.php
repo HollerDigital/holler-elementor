@@ -20,7 +20,7 @@ define( 'HOLLER_ELEMENTOR_VERSION', '2.0.1' );
 
 // Plugin Updater
 // https://github.com/YahnisElsts/plugin-update-checker
-require 'plugin-update-checker/plugin-update-checker.php';
+require 'inc/plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'https://github.com/HollerDigital/holler-elementor',
 	__FILE__,
