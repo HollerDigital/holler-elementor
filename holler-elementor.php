@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:     2.0.2
+ * Version:     2.0.3
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: elementor-test-extension
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.0.2' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.0.3' );
 
 // Plugin Updater
 // https://github.com/YahnisElsts/plugin-update-checker
@@ -51,7 +51,7 @@ final class Elementor_Test_Extension {
 	 *
 	 * @var string The plugin version.
 	 */
-	const VERSION = '2.0.2';
+	const VERSION = '2.0.3';
 
 	/**
 	 * Minimum Elementor Version
