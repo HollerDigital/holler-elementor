@@ -116,7 +116,7 @@ final class Elementor_Test_Extension {
 
 		add_action( 'init', [ $this, 'i18n' ] );
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
-		add_menu_page( 'Holler Elementor', 'Holler E',  'manage_options' , 'holler-elementor', null ,  'https://s3.ca-central-1.amazonaws.com/cdn.hollerdigital.com/holler-images/holler-icon.svg', 40 );
+		add_menu_page( 'Holler Elementor', 'Holler E',  'manage_options' , 'holler-elementor',  [ $this, 'holler_elementor_settings' ]  ,  'https://s3.ca-central-1.amazonaws.com/cdn.hollerdigital.com/holler-images/holler-icon.svg', 40 );
 	}
 
 	/**
@@ -136,6 +136,10 @@ final class Elementor_Test_Extension {
 
 	}
 
+	public function holler_elementor_settings(){
+		global $cm_options;
+		$cm_options = get_option('holler_signup_cm_settings');
+	}
 	/**
 	 * Initialize the plugin
 	 *
