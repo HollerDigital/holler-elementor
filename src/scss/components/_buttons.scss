@@ -1,0 +1,132 @@
+/*--------------------------------------------------------------
+ BASE BUTTON STYLES 
+ --------------------------------------------------------------
+ Used in other modules using the @extend rule to pull in styles
+ and keep button styles consistent across all components.
+--------------------------------------------------------------*/
+
+.theme-button{
+    // transition: all 0.3s;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 0;
+    font-family: 'custom_font_1864', sans-serif;
+    font-weight: 600;
+    font-size: var(--button-text-size);
+    width: auto;
+    text-transform: uppercase;
+}
+
+// [class*="brxe-"], .brx-container{
+    .button-1{
+        @extend .theme-button;
+    
+        background-color: var(--button-1);
+        color: var(--button-1-text);
+    
+        &:hover{
+            background-color: var(--button-1-hover);
+            color: var(--button-1-text);
+
+            a, span{
+                background-color: var(--button-1-hover);
+            }
+        }
+
+        &:active{
+            background-color: var(--button-1-active);
+            color: var(--button-1-text);
+
+            a, span{
+                background-color: var(--button-1-active);
+            }
+        }
+    }
+    
+    .button-2{
+        @extend .theme-button;
+    
+        background-color: var(--button-2);
+        color: var(--button-2-text);
+    
+        &:hover{
+            background-color: var(--button-2-hover);
+            color: var(--button-2-text);
+
+            a, span{
+                background-color: var(--button-2-hover);
+            }
+        }
+
+        &:active{
+            background-color: var(--button-2-active);
+            color: var(--button-2-text);
+
+            a, span{
+                background-color: var(--button-2-active);
+            }
+        }
+    }
+    
+    .button-3{
+        @extend .theme-button;
+    
+        background-color: var(--button-3);
+        color: var(--button-3-text);
+    
+        &:hover{
+            background-color: var(--button-3-hover);
+            color: var(--button-3-text);
+
+            a, span{
+                background-color: var(--button-3-hover);
+            }
+        }
+
+        &:active{
+            background-color: var(--button-3-active);
+            color: var(--button-3-text);
+
+            a, span{
+                background-color: var(--button-3-active);
+            }
+        }
+    }
+// }
+
+
+a, button, [class*="brxe-"], .bricks-container{
+
+    &.button-1{
+        @extend .button-1;
+    }
+
+    &.button-2{
+        @extend .button-2;
+    }
+
+    &.button-3{
+        @extend .button-3;
+    }
+
+    &.button-sm {
+        padding: var(--button-sm-padding-v) var(--button-sm-padding-h);
+    }
+    
+    &.button-md {
+        padding: var(--button-md-padding-v) var(--button-md-padding-h);
+    }
+    
+    &.button-lg{
+        padding: var(--button-lg-padding-v) var(--button-lg-padding-h);
+    }
+    
+    // &.button-min-width{
+    //     width: 100%;
+    //     max-width: var(--button-min-width);
+    // }
+}

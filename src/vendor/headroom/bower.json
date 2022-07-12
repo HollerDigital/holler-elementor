@@ -1,0 +1,29 @@
+{
+  "name": "headroom",
+  "main": [
+    "dist/headroom.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "spec",
+    "Gruntfile.js",
+    "bower_components",
+    "test",
+    "tests",
+    "dist/*.min.js"
+  ],
+
+  "homepage": "http://wicky.nillia.ms/headroom.js/",
+  "authors": [
+    "WickyNilliams"
+  ],
+  "description": "Hide your header until you need it",
+  "keywords": [
+    "header",
+    "js",
+    "scroll"
+  ],
+  "license": "MIT"
+}

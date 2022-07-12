@@ -1,0 +1,156 @@
+/*------------------------------------*\
+    #TYPOGRAPHY
+\*------------------------------------*/
+/**
+ * Global font improvements
+ */
+ 
+body, div, p {
+  font-weight: $font-weight-body;
+  font-size: $font-size-body;
+  font-family: $font-family-body;
+  color: $text-color-body;
+  line-height: $line-height-base;
+  white-space: normal;
+  b{
+    font-weight: 800;
+  }
+}
+ 
+input {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/**
+ * Text-selection styles
+ */
+::-moz-selection {
+  color: $theme-white;
+  text-shadow: none;
+  background-color: rgba($theme-primary, 0.6);
+}
+
+::selection {
+  color: $theme-white;
+  text-shadow: none;
+  background-color: rgba($theme-primary, 0.6);
+}
+
+/**
+ * Form input placeholder styles
+ */
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: inherit;
+  opacity: 0.6;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+  color: inherit;
+  opacity: 0.6;
+}
+
+:-ms-input-placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+/**
+ * Quotations
+ */
+
+blockquote {
+  margin: $widget-margin-bottom 0 $widget-margin-bottom 0;
+  font-weight: $font-weight-body;
+  font-size: $font-size-body;
+  font-family: $font-family-body;
+  color: $text-color;
+  border-left: solid 3px $theme-accent;
+  line-height: $line-height-base;
+  padding-left: 60px;
+ 
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  cite {
+    display: block;
+    //font-family: $font-body;
+    text-indent: 0;
+
+    &:before {
+      content: "\2014";
+    }
+  }
+}
+
+/**
+ * Definition lists
+ */
+dl {
+  margin-top: 0;
+  margin-bottom: $line-height-base;
+
+  > dt {
+    font-weight: bold;
+  }
+
+  > dd {
+    margin-bottom: $line-height-base / 2;
+    margin-left: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+/**
+ * Other lists
+ */
+
+ol{
+
+  list-style: none;
+  counter-reset: ol-counter;
+
+  li:before {
+    content: counter(ol-counter) ".";
+    counter-increment: ol-counter;
+    font-weight: bold;
+
+  }
+
+  ol{
+      counter-reset: ol-counter-inner;
+
+      li:before{
+        content: counter(ol-counter-inner, lower-alpha) ".";
+        counter-increment: ol-counter-inner;
+      }
+    }
+}
+
+
+/**
+ * Base table styles
+ */
+
+.text-upper{
+  text-transform: uppercase;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+
+ 

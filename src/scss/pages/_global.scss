@@ -1,0 +1,54 @@
+/*--------------------------------------------------------------
+# Global Scope CSS - Applied accross entire site
+--------------------------------------------------------------*/
+/*Base font-size of 10px; Adjusted for easier rem calculations*/
+html, body {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+
+// Remove padding from SEOPress HTML breadcrumbs
+ol.breadcrumb{
+    padding-left: 0;
+}
+
+/* User Interaction Deferred Elements (only impacts mobile) */
+html:not(.js-user-action){
+    .js-defer-el{
+        display:none!important;
+    }
+}
+
+.c-pt-fl-16{
+    @include fluid_prop( padding-top, 48px, 128px );
+}
+
+.c-mt-fl-12{
+    @include fluid_prop( margin-top, 48px, 96px );
+}
+
+.c-mb-fl-12{
+    @include fluid_prop( margin-bottom, 48px, 96px );
+}
+
+.c-mt-fl-15{
+    @include fluid_prop( margin-top, 56px, 120px );
+}
+
+.c-mb-fl-15{
+    @include fluid_prop( margin-bottom, 56px, 120px );
+}
+
+h1 .service-areas{
+    display: block;
+    width: fit-content;
+    margin-top: 16px;
+    padding: 8px 24px;
+    font-size: 18px;
+    background-color: var(--brand-1);
+    color: var(--light-1);
+    font-family: "Poppins Pro", sans-serif;
+    line-height: 1.25em;
+    font-weight: 600;
+}

@@ -1,0 +1,33 @@
+/*--------------------------------------------------------------
+# Media Query Responsive Breakpoint Variables
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+# Creates a media query with a min and max pixel range
+--------------------------------------------------------------*/
+@mixin MQRANGE($min, $max) {
+
+  @media only screen and (min-width: $min) and (max-width: $max) { @content; }
+
+}
+
+/*--------------------------------------------------------------
+# Creates a media query with a max pixel value
+--------------------------------------------------------------*/
+@mixin MQMAX($max) {
+
+  @media only screen and (max-width: $max) { @content; }
+
+}
+
+/*--------------------------------------------------------------
+# Creates a media query with a min pixel value
+--------------------------------------------------------------*/
+@mixin MQMIN($min) {
+
+  @media only screen and (min-width: $min) { @content; }
+
+}
+
+

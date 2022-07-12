@@ -1,0 +1,63 @@
+/*
+ Theme Name:   Holler Astra Child Theme
+ Theme URI:    https://www.HollerDigital.com
+ Description:  Theme settings, styling, and functionality for custom WordPress theme built by Holler Digital.
+ Author:       Holler Digital
+ Author URI:    https://www.HollerDigital.com
+ Template:     astra
+ Version:      2.0.0
+ License:	   GPL-2.0+
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.txt
+ Text Domain:  holler-astra
+*/
+
+
+/*--------------------------------------------------------------
+# INSTRUCTIONS:
+# -------------
+# This is the master stylesheet. This is where you control what
+# other SASS files will be included in the final CSS file. 
+#
+# NOTE:
+# The only exception are the files under /page/templates/
+# which are standalone files that will be created as separeate
+# CSS stylesheets and only loaded on the pages they pertain to.
+--------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------
+# Helpers
+--------------------------------------------------------------*/
+@import "helpers/variables";
+@import 'helpers/mixins';
+@import 'helpers/mediaqueries';
+
+
+/*--------------------------------------------------------------
+# Typography
+--------------------------------------------------------------*/
+@import 'components/typography';
+
+
+/*--------------------------------------------------------------
+# Components
+--------------------------------------------------------------*/
+@import 'components/buttons';
+@import 'components/footer';
+@import 'components/header';
+@import 'components/sliders';
+@import 'components/forms';
+// @import 'components/tables';
+
+
+/*--------------------------------------------------------------
+# Theme Elements
+--------------------------------------------------------------*/
+@import 'elements/definition-box';
+
+
+/*--------------------------------------------------------------
+# Global Page Styles
+--------------------------------------------------------------*/
+@import 'pages/global';

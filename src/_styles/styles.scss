@@ -1,0 +1,34 @@
+/**
+  * Theme Name:  baseTheme
+  * Theme URI:   http://baseTheme.ca/
+  * Description: You can't outrun the thunder.
+  * Author:      James Murgatroyd Communicaitons
+  * Author URI:  http://jamesmurgatroyd.com
+  * Version:     1.0.0
+**/
+
+/**
+ * Generic utility styles etc.
+**/
+
+@charset "UTF-8";
+
+@import "mixins";
+@import "variables";
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+
+# Colors
+# Global
+# Typography
+--------------------------------------------------------------*/
+
+@import "partials/_base.colors";
+@import "partials/_base.global";
+@import "partials/_base.typography";
+
+//@import "partials/_style-kit";
+//@import "partials/_woo";
+	

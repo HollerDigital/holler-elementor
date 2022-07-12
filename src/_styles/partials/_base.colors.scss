@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Color styles
+   ========================================================================== */
+   
+// Backgrounds
+:root {
+  --main-color: hotpink;
+  --pane-padding: 5px 42px;
+}
+
+.bg-black { background-color: $theme-black; }
+.bg-white { background-color: $theme-white; }
+.bg-light-grey{ background-color:  #818285;}
+.bg-main{background-color:  #fcfcfc;}
+.bg-light{ background-color: #efefef}
+
+// Colors
+.black { color:  $theme-black; }
+.white { color: #FFFFFF; }
+ 

@@ -1,0 +1,36 @@
+
+
+.slick-arrow{
+    cursor: pointer;
+}
+
+.js-slider{
+    position: relative;
+}
+
+.services-slider{
+
+    .slick-arrow{
+        padding: 18px;
+        border-radius: 100%;
+        background: var(--brand-2);
+        line-height: 0.65em;
+        position: absolute;
+        z-index: 2;
+
+        &.prev-arrow, &.next-arrow{
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &.prev-arrow{
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        &.next-arrow{
+            right: 0;
+            transform: translateX(100%);
+        }
+    }
+}

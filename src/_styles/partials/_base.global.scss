@@ -1,0 +1,129 @@
+/*------------------------------------*\
+    #GLOBAL
+\*------------------------------------*/
+/**
+ * Set the global `box-sizing` state to `border-box`.
+ *
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ * paulirish.com/2012/box-sizing-border-box-ftw
+ */
+@charset "UTF-8";
+ 
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+  font-display: auto;
+}
+
+*, *:before, *:after { box-sizing: inherit; }
+
+img { box-sizing: content-box; }
+
+/**
+ * High-, page-level styling.
+ *
+ * 1. Set the default `font-size` and `line-height` for the entire project,
+ *    sourced from our default variables. The `font-size` is calculated to exist
+ *    in ems, the `line-height` is calculated to exist unitlessly.
+ * 2. Force scrollbars to always be visible to prevent awkward 'jumps' when
+ *    navigating between pages that do/do not have enough content to produce
+ *    scrollbars naturally.
+ * 3. Ensure the page always fills at least the entire height of the viewport.
+ * 4. Prevent certain mobile browsers from automatically zooming fonts.
+ * 5. Fonts on OSX will look more consistent with other systems that do not
+ *    render text using sub-pixel anti-aliasing.
+ */
+html {
+  min-height: 100%; /* [3] */
+  font-size: $font-size-body;
+  overflow-y: scroll; /* [2] */
+  -webkit-font-smoothing: antialiased; /* [5] */
+  -moz-osx-font-smoothing: grayscale; /* [5] */
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-text-size-adjust: 100%; /* [4] */
+  -ms-text-size-adjust: 100%; /* [4] */
+  -webkit-transform-style: preserve-3d;
+}
+
+//The height of this DIV element is equal to the 100% height of its parent element's height.
+
+/**
+ * Push menu styles
+ */
+html,
+body {
+ // overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+   padding:0px 0px !important;
+   margin: 0px !important;
+  -webkit-font-smoothing: none;
+  -webkit-font-smoothing: antialiased;
+   background-color: $body-bg; 
+   //height: 100%;
+   cursor:  default;
+}
+
+a{  cursor: hand;  }
+/**
+ * 1. Fluid images for responsive purposes.
+ * 2. Offset `alt` text from surrounding copy.
+ * 3. Setting `vertical-align` removes the whitespace that appears under `img`
+ *    elements when they are dropped into a page as-is. Safer alternative to
+ *    using `display: block;`.
+ */
+
+img {
+  height: auto;
+  max-width: 100%; /* [1] */
+  font-style: italic; /* [2] */
+  vertical-align: middle; /* [3] */
+  box-sizing: content-box;
+  
+  &.alignright {
+    float: right;  
+  }
+
+  &.alignleft {
+    float: left;
+  }
+}
+
+p > img {
+  margin: 0 auto;
+}
+
+
+/**
+* Text meant only for screen readers.
+*/
+%visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+
+  &:hover,
+  &:focus,
+  &:active {
+    top: 5px;
+    left: 5px;
+    z-index: 100000; /* Above WP toolbar */
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 15px 23px 14px;
+    clip: auto !important;
+    line-height: normal;
+   
+    text-decoration: none;
+ 
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  }
+}
+
+p.site_link a, .iosclick{cursor: pointer;}
+
+.skip-link {
+  @extend %visually-hidden;
+}

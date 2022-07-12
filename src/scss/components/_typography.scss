@@ -1,0 +1,118 @@
+/*--------------------------------------------------------------
+# Typography Styles
+--------------------------------------------------------------*/
+
+// @font-face {
+//     font-family: 'BW Nista Geo';
+//     src: local( 'BW Nista Geo' ),
+//          url('../fonts/bwnistageo-bk-webfont.woff2') format('woff2'),
+//          url('../fonts/bwnistageo-bk-webfont.woff') format('woff');
+//     font-weight: 900;
+//     font-style: normal;
+// }
+
+// body.bricks-is-frontend{
+//     color: var(--black);
+// }
+
+h1, h2, h3, h4, h5, h6{
+    line-height: 1.25em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-family: 'Open Sans', sans-serif;
+
+    &.mt-0{
+        margin-top: 0;
+    }
+    &.mb-0{
+        margin-bottom: 0;
+    }
+}
+
+h1, h2, h3, h4, h5, h6{
+    color: unset;
+}
+
+.style-h{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 900;
+    line-height: 1.25;
+}
+
+
+.ct-text-block, .oxy-rich-text{
+
+    a{
+        text-underline-position: under;
+        text-decoration: underline;
+        font-weight: 700;
+        opacity: 0.8;
+    
+        &:hover{
+            text-underline-position: under;
+            text-decoration: underline;
+            opacity: 1;
+        }
+    }
+
+    &.link-white{
+        a{
+            color: rgba(255,255,255,0.6);
+            transition: all 300ms;
+
+            &:hover{
+                color: rgba( 255, 255,255, 1);
+            }
+        }
+    }
+}
+
+strong, b{
+    font-weight: 800;
+}
+
+
+.ct-text-block, .oxy-rich-text, .ct-code-block{
+    ul, ol{
+        li{
+            margin-bottom: 1em;
+        }
+    }
+}
+
+.external-link-style{
+    position: relative;
+    padding-right: 0.5em;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-position: under;
+
+    &:after{
+        content: '';
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0.5em;
+        height: 0.5em;
+        color: black;
+        background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNDc4Ljk2NyI+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBkPSJNNDAwLDI3OS45Njd2MTQ1YTYuMDE3Niw2LjAxNzYsMCwwLDEtNiw2SDU0YTYuMDE3Niw2LjAxNzYsMCwwLDEtNi02di0zNDBhNi4wMTc2LDYuMDE3NiwwLDAsMSw2LTZIMTk4di00OEg0OGE0OC4wMTI0LDQ4LjAxMjQsMCwwLDAtNDgsNDh2MzUyYTQ4LjAxMjQsNDguMDEyNCwwLDAsMCw0OCw0OEg0MDBhNDguMDEyNCw0OC4wMTI0LDAsMCwwLDQ4LTQ4di0xNTFaIi8+PHBhdGggZD0iTTIzNC43ODE1LDE2NC42ODYsMzI3LjQ2NzUsNzJsLTMyLjkyMi0zMS4wMjlDMjc5LjQyNTUsMjUuODUxLDI5MC4xMzM1LDAsMzExLjUxNTUsMGgxMTJhMjMuOTU4OSwyMy45NTg5LDAsMCwxLDIzLjk1MiwyNFYxMzZjMCwyMS4zODItMjUuODAzLDMyLjA5LTQwLjkyMiwxNi45NzFMMzc1LjQ2NzUsMTIwbC05Mi42ODYsOTIuNjg2YTE2LDE2LDAsMCwxLTIyLjYyNywwbC0yNS4zNzMtMjUuMzczYTE1Ljk5ODQsMTUuOTk4NCwwLDAsMSwwLTIyLjYyN1oiLz48L2c+PC9nPjwvc3ZnPg==") no-repeat;
+    }
+}
+
+.hint-external-links{
+
+    a{
+        text-decoration: underline;
+        text-underline-position: under;
+
+        &:hover{
+            text-decoration: underline;
+            text-underline-position: under;
+        }
+    }
+
+    a:not([href^="https://template-oxy.pdms.ca/"]):not([href^="#"]):not([href^="/"]){
+        @extend .external-link-style;
+    }
+}

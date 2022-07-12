@@ -1,0 +1,42 @@
+/*--------------------------------------------------------------
+* Mixin for applying Fuild Values to CSS properties like font-size or line-height
+--------------------------------------------------------------*/
+
+// @mixin fluid_prop( $property, $min_size, $max_size, $min_viewport: 485px, $max_viewport: 1920px ) {
+//     $multiplier_fs: 100 * ( strip-unit( $max_size ) - strip-unit( $min_size ) );
+//     $multiplier_vp: strip-unit( $max_viewport ) - strip-unit( $min_viewport );
+//     $multiplier: $multiplier_fs / $multiplier_vp;
+
+//     #{$property}: clamp( #{$min_size}, calc( #{get-font-rem-size($min_size)}  + (( 1vw - #{$min_viewport / 100}) * #{$multiplier} )), #{$max_size} );
+// }
+
+@mixin fluid_prop( $property, $min_size, $max_size, $min_viewport: 485px, $max_viewport: 1920px ) {
+    $multiplier_fs: 100 * ( strip-unit( $max_size ) - strip-unit( $min_size ) );
+    $multiplier_vp: strip-unit( $max_viewport ) - strip-unit( $min_viewport );
+    $multiplier: $multiplier_fs / $multiplier_vp;
+
+    #{$property}: clamp( #{$min_size}, calc( #{$min_size}  + (( 1vw - #{$min_viewport / 100}) * #{$multiplier} )), #{$max_size} );
+}
+
+
+
+@function get-font-rem-size($font-size){
+    $numeric_value: strip-unit( $font-size );
+    $rem_value: $numeric_value / 16;
+
+    @return #{$rem_value}rem;
+}
+  
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+
+// @function fluid_val( $min_size, $max_size, $min_viewport: 485px, $max_viewport: 1920px ) {
+//     $multiplier_fs: 100 * ( strip-unit( $max_size ) - strip-unit( $min_size ) );
+//     $multiplier_vp: strip-unit( $max_viewport ) - strip-unit( $min_viewport );
+//     $multiplier: $multiplier_fs / $multiplier_vp;
+
+//     @return clamp( #{$min_size}, calc( #{get-font-rem-size($min_size)}  + (( 1vw - #{$min_viewport / 100}) * #{$multiplier} )), #{$max_size} );
+// }
+

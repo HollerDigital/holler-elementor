@@ -1,0 +1,10 @@
+
+.brxe-form{
+    
+    button[type="submit"]{
+        @extend .theme-button;
+        @extend .button-1;
+        padding: var(--button-sm-padding-v) var(--button-lg-padding-h);
+    }
+    
+}

@@ -1,0 +1,555 @@
+body.elementor-page {
+  --ang-classes-border: rgba(79, 122, 233, 0.58);
+  --ang-classes-label: #406DE1;
+  --ang-css-border: rgba(211, 0, 0, 0.35);
+  background-color: #FFFFFF;
+  --ang_background_light_background: #E6E7E8;
+  --ang_background_light_heading: #333333;
+  --ang_background_dark_background: #333333;
+  --ang_background_dark_heading: #FFFFFF;
+  --ang_background_accent_background: #58595B;
+  --ang_background_accent_text: #FFFFFF;
+  --ang_background_accent_heading: #FFFFFF;
+  --ang_color_accent_primary: #58595B;
+  --ang_color_accent_secondary: #58595B;
+  color: #0d1321;
+  font-family: "Poppins", Sans-serif;
+  font-size: 16px;
+  text-transform: none;
+  font-style: normal;
+  text-decoration: none;
+  line-height: 1.8em;
+  --ang_color_heading: #0d1321;
+}
+
+body.elementor-page .sk-light-bg:not(.elementor-column) {
+  background-color: #E6E7E8;
+  color: var(--ang_color_text_light);
+}
+
+body.elementor-page .sk-dark-bg .elementor-counter-title, body.elementor-page .sk-dark-bg .elementor-counter-number-wrapper {
+  color: currentColor;
+}
+
+body.elementor-page .sk-light-bg.elementor-column > .elementor-element-populated {
+  background-color: #E6E7E8;
+  color: var(--ang_color_text_light);
+}
+
+body.elementor-page .sk-light-bg {
+  color: #333333;
+}
+
+body.elementor-page, body.elementor-page .sk-text-light {
+  --ang_color_text_light: #333333;
+}
+
+body.elementor-page .sk-text-light {
+  color: #333333;
+}
+
+body.elementor-page .sk-text-light .elementor-heading-title {
+  color: #333333;
+}
+
+body.elementor-page .sk-light-bg h1,body.elementor-page .sk-light-bg h1.elementor-heading-title,body.elementor-page .sk-light-bg h2,body.elementor-page .sk-light-bg h2.elementor-heading-title,body.elementor-page .sk-light-bg h3,body.elementor-page .sk-light-bg h3.elementor-heading-title,body.elementor-page .sk-light-bg h4,body.elementor-page .sk-light-bg h4.elementor-heading-title,body.elementor-page .sk-light-bg h5,body.elementor-page .sk-light-bg h5.elementor-heading-title,body.elementor-page .sk-light-bg h6,body.elementor-page .sk-light-bg h6.elementor-heading-title,body.elementor-page .sk-dark-bg .sk-light-bg h1,body.elementor-page .sk-dark-bg .sk-light-bg h1.elementor-heading-title,body.elementor-page .sk-dark-bg .sk-light-bg h2,body.elementor-page .sk-dark-bg .sk-light-bg h2.elementor-heading-title,body.elementor-page .sk-dark-bg .sk-light-bg h3,body.elementor-page .sk-dark-bg .sk-light-bg h3.elementor-heading-title,body.elementor-page .sk-dark-bg .sk-light-bg h4,body.elementor-page .sk-dark-bg .sk-light-bg h4.elementor-heading-title,body.elementor-page .sk-dark-bg .sk-light-bg h5,body.elementor-page .sk-dark-bg .sk-light-bg h5.elementor-heading-title,body.elementor-page .sk-dark-bg .sk-light-bg h6,body.elementor-page .sk-dark-bg .sk-light-bg h6.elementor-heading-title {
+  color: #333333;
+}
+
+body.elementor-page .sk-accent-bg .sk-light-bg h1,body.elementor-page .sk-accent-bg .sk-light-bg h2,body.elementor-page .sk-accent-bg .sk-light-bg h3,body.elementor-page .sk-accent-bg .sk-light-bg h4,body.elementor-page .sk-accent-bg .sk-light-bg h5,body.elementor-page .sk-accent-bg .sk-light-bg h6 {
+  color: #333333;
+}
+
+body.elementor-page .sk-dark-bg:not(.elementor-column) {
+  background-color: #333333;
+  color: var(--ang_color_text_dark);
+}
+
+body.elementor-page .sk-light-bg .elementor-counter-title, body.elementor-page .sk-light-bg .elementor-counter-number-wrapper {
+  color: currentColor;
+}
+
+body.elementor-page .sk-dark-bg.elementor-column > .elementor-element-populated {
+  background-color: #333333;
+  color: var(--ang_color_text_dark);
+}
+
+body.elementor-page .sk-dark-bg {
+  color: #ffffff;
+}
+
+body.elementor-page, body.elementor-page .sk-text-dark {
+  --ang_color_text_dark: #ffffff;
+}
+
+body.elementor-page .sk-text-dark {
+  color: #ffffff;
+}
+
+body.elementor-page .sk-text-dark .elementor-heading-title {
+  color: #ffffff;
+}
+
+body.elementor-page .sk-dark-bg h1,body.elementor-page .sk-dark-bg h1.elementor-heading-title,body.elementor-page .sk-dark-bg h2,body.elementor-page .sk-dark-bg h2.elementor-heading-title,body.elementor-page .sk-dark-bg h3,body.elementor-page .sk-dark-bg h3.elementor-heading-title,body.elementor-page .sk-dark-bg h4,body.elementor-page .sk-dark-bg h4.elementor-heading-title,body.elementor-page .sk-dark-bg h5,body.elementor-page .sk-dark-bg h5.elementor-heading-title,body.elementor-page .sk-dark-bg h6,body.elementor-page .sk-dark-bg h6.elementor-heading-title,body.elementor-page .sk-light-bg .sk-dark-bg h1,body.elementor-page .sk-light-bg .sk-dark-bg h1.elementor-heading-title,body.elementor-page .sk-light-bg .sk-dark-bg h2,body.elementor-page .sk-light-bg .sk-dark-bg h2.elementor-heading-title,body.elementor-page .sk-light-bg .sk-dark-bg h3,body.elementor-page .sk-light-bg .sk-dark-bg h3.elementor-heading-title,body.elementor-page .sk-light-bg .sk-dark-bg h4,body.elementor-page .sk-light-bg .sk-dark-bg h4.elementor-heading-title,body.elementor-page .sk-light-bg .sk-dark-bg h5,body.elementor-page .sk-light-bg .sk-dark-bg h5.elementor-heading-title,body.elementor-page .sk-light-bg .sk-dark-bg h6,body.elementor-page .sk-light-bg .sk-dark-bg h6.elementor-heading-title {
+  color: #FFFFFF;
+}
+
+body.elementor-page .sk-accent-bg .sk-dark-bg h1,body.elementor-page .sk-accent-bg .sk-dark-bg h2,body.elementor-page .sk-accent-bg .sk-dark-bg h3,body.elementor-page .sk-accent-bg .sk-dark-bg h4,body.elementor-page .sk-accent-bg .sk-dark-bg h5,body.elementor-page .sk-accent-bg .sk-dark-bg h6 {
+  color: #FFFFFF;
+}
+
+body.elementor-page .sk-accent-bg:not(.elementor-column) {
+  background-color: #58595B;
+  color: var(--ang_color_text_accent);
+}
+
+body.elementor-page .sk-accent-bg .elementor-counter-title, body.elementor-page .sk-accent-bg .elementor-counter-number-wrapper {
+  color: currentColor;
+}
+
+body.elementor-page .sk-accent-bg.elementor-column > .elementor-element-populated {
+  background-color: #58595B;
+  color: var(--ang_color_text_accent);
+}
+
+body.elementor-page .sk-accent-bg {
+  color: #FFFFFF;
+}
+
+body.elementor-page, body.elementor-page .sk-text-accent {
+  --ang_color_text_accent: #FFFFFF;
+}
+
+body.elementor-page .sk-text-accent {
+  color: #FFFFFF;
+}
+
+body.elementor-page .sk-text-accent .elementor-heading-title {
+  color: #FFFFFF;
+}
+
+body.elementor-page .sk-accent-bg h1,body.elementor-page .sk-accent-bg h2,body.elementor-page .sk-accent-bg h3,body.elementor-page .sk-accent-bg h4,body.elementor-page .sk-accent-bg h5,body.elementor-page .sk-accent-bg h6 {
+  color: #FFFFFF;
+}
+
+body.elementor-page .sk-light-bg .sk-accent-bg h1,body.elementor-page .sk-light-bg .sk-accent-bg h2,body.elementor-page .sk-light-bg .sk-accent-bg h3,body.elementor-page .sk-light-bg .sk-accent-bg h4,body.elementor-page .sk-light-bg .sk-accent-bg h5,body.elementor-page .sk-light-bg .sk-accent-bg h6 {
+  color: #FFFFFF;
+}
+
+body.elementor-page .sk-dark-bg .sk-accent-bg h1,body.elementor-page .sk-dark-bg .sk-accent-bg h2,body.elementor-page .sk-dark-bg .sk-accent-bg h3,body.elementor-page .sk-dark-bg .sk-accent-bg h4,body.elementor-page .sk-dark-bg .sk-accent-bg h5,body.elementor-page .sk-dark-bg .sk-accent-bg h6 {
+  color: #FFFFFF;
+}
+
+body.elementor-page .elementor-view-stacked .elementor-icon {
+  color: #fff;
+}
+
+body.elementor-page .elementor-view-framed .elementor-icon, body.elementor-page .elementor-view-default .elementor-icon {
+  border-color: #58595B;
+}
+
+.theme-hello-elementor .comment-form input#submit {
+  color: #fff;
+  border: none;
+}
+
+body.elementor-page .elementor-tab-title a {
+  color: inherit;
+}
+
+body.elementor-page .e--pointer-framed .elementor-item:before,body.elementor-page .e--pointer-framed .elementor-item:after {
+  border-color: #58595B;
+}
+
+body.elementor-page .elementor-sub-item:hover {
+  color: #fff;
+}
+
+body.elementor-page .dialog-message {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+body.elementor-page .sk-accent-1,body.elementor-page .elementor-view-default .elementor-icon-box-icon .elementor-icon,body.elementor-page .elementor-view-framed .elementor-icon-box-icon .elementor-icon,body.elementor-page .elementor-icon-list-icon,body.elementor-page .elementor-view-framed .elementor-icon,body.elementor-page .elementor-view-default .elementor-icon,body.elementor-page .sk-primary-accent,body.elementor-page .sk-primary-accent.sk-primary-accent h1,body.elementor-page .sk-primary-accent.sk-primary-accent h2,body.elementor-page .sk-primary-accent.sk-primary-accent h3,body.elementor-page .sk-primary-accent.sk-primary-accent h4,body.elementor-page .sk-primary-accent.sk-primary-accent h5,body.elementor-page .sk-primary-accent.sk-primary-accent h6,body.elementor-page *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"]),body.elementor-page a:not([class]),body.elementor-page .elementor-tab-title.elementor-active,body.elementor-page .elementor-post-info__terms-list-item,body.elementor-page .elementor-post__title,body.elementor-page .elementor-post__title a,body.elementor-page .elementor-heading-title a,body.elementor-page .elementor-post__read-more,body.elementor-page .elementor-image-box-title a,body.elementor-page .elementor-icon-box-icon a,body.elementor-page .elementor-icon-box-title a,body.elementor-page .elementor-nav-menu--main .elementor-nav-menu a:not(.elementor-sub-item),body.elementor-page .elementor-nav-menu--main .elementor-nav-menu .elementor-sub-item:not(:hover) a,body.elementor-page .elementor-nav-menu--dropdown a {
+  color: #58595B;
+}
+
+body.elementor-page .elementor-view-stacked .elementor-icon,body.elementor-page .elementor-progress-bar,body.elementor-page .comment-form input#submit,body.elementor-page .sk-primary-bg:not(.elementor-column),body.elementor-page .elementor-nav-menu--dropdown .elementor-item:hover,body.elementor-page .elementor-nav-menu--dropdown .elementor-item.elementor-item-active,body.elementor-page .elementor-nav-menu--dropdown .elementor-item.highlighted,body.elementor-page .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:before,body.elementor-page .elementor-nav-menu--main:not(.e--pointer-framed) .elementor-item:after,body.elementor-page .elementor-sub-item:hover,body.elementor-page .sk-primary-bg.elementor-column > .elementor-element-populated {
+  background-color: #58595B;
+}
+
+body.elementor-page .elementor-button, body.elementor-page .button, body.elementor-page button, body.elementor-page .sk-accent-2 {
+  background-color: #58595B;
+}
+
+body.elementor-page .sk-secondary-accent,body.elementor-page .sk-secondary-accent.sk-secondary-accent h1,body.elementor-page .sk-secondary-accent.sk-secondary-accent h2,body.elementor-page .sk-secondary-accent.sk-secondary-accent h3,body.elementor-page .sk-secondary-accent.sk-secondary-accent h4,body.elementor-page .sk-secondary-accent.sk-secondary-accent h5,body.elementor-page .sk-secondary-accent.sk-secondary-accent h6 {
+  color: #58595B;
+}
+
+body.elementor-page .sk-secondary-bg:not(.elementor-column) {
+  background-color: #58595B;
+}
+
+body.elementor-page .sk-secondary-bg.elementor-column > .elementor-element-populated {
+  background-color: #58595B;
+}
+
+body.elementor-page a {
+  color: #58595B;
+}
+
+body.elementor-page h1, body.elementor-page h2, body.elementor-page h3, body.elementor-page h4, body.elementor-page h5, body.elementor-page h6 {
+  color: #0d1321;
+  font-family: "Bebas Neue", Sans-serif;
+}
+
+body.elementor-page h1 {
+  font-size: 60px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-style: normal;
+  text-decoration: none;
+  line-height: 1.3em;
+}
+
+body.elementor-page h2 {
+  font-size: 35px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-style: normal;
+  text-decoration: none;
+  line-height: 1.2em;
+}
+
+body.elementor-page h3 {
+  font-size: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: normal;
+  text-decoration: none;
+  line-height: 1.2em;
+}
+
+body.elementor-page h4 {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: normal;
+  text-decoration: none;
+  line-height: 1.4em;
+}
+
+body.elementor-page h5 {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: normal;
+  text-decoration: none;
+  line-height: 1.3em;
+  letter-spacing: 0px;
+}
+
+body.elementor-page h6 {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: normal;
+  text-decoration: none;
+  line-height: 1.5em;
+  letter-spacing: 1px;
+}
+
+body.elementor-page h1.elementor-heading-title.elementor-size-xxl,body.elementor-page h2.elementor-heading-title.elementor-size-xxl,body.elementor-page h3.elementor-heading-title.elementor-size-xxl,body.elementor-page h4.elementor-heading-title.elementor-size-xxl,body.elementor-page h5.elementor-heading-title.elementor-size-xxl,body.elementor-page h6.elementor-heading-title.elementor-size-xxl {
+  font-size: 60px;
+}
+
+body.elementor-page h1.elementor-heading-title.elementor-size-xl,body.elementor-page h2.elementor-heading-title.elementor-size-xl,body.elementor-page h3.elementor-heading-title.elementor-size-xl,body.elementor-page h4.elementor-heading-title.elementor-size-xl,body.elementor-page h5.elementor-heading-title.elementor-size-xl,body.elementor-page h6.elementor-heading-title.elementor-size-xl {
+  font-size: 45px;
+}
+
+body.elementor-page h1.elementor-heading-title.elementor-size-large,body.elementor-page h2.elementor-heading-title.elementor-size-large,body.elementor-page h3.elementor-heading-title.elementor-size-large,body.elementor-page h4.elementor-heading-title.elementor-size-large,body.elementor-page h5.elementor-heading-title.elementor-size-large,body.elementor-page h6.elementor-heading-title.elementor-size-large {
+  font-size: 25px;
+}
+
+body.elementor-page h1.elementor-heading-title.elementor-size-medium,body.elementor-page h2.elementor-heading-title.elementor-size-medium,body.elementor-page h3.elementor-heading-title.elementor-size-medium,body.elementor-page h4.elementor-heading-title.elementor-size-medium,body.elementor-page h5.elementor-heading-title.elementor-size-medium,body.elementor-page h6.elementor-heading-title.elementor-size-medium {
+  font-size: 18px;
+}
+
+body.elementor-page h1.elementor-heading-title.elementor-size-small,body.elementor-page h2.elementor-heading-title.elementor-size-small,body.elementor-page h3.elementor-heading-title.elementor-size-small,body.elementor-page h4.elementor-heading-title.elementor-size-small,body.elementor-page h5.elementor-heading-title.elementor-size-small,body.elementor-page h6.elementor-heading-title.elementor-size-small {
+  font-size: 14px;
+}
+
+body.elementor-page .elementor-widget-heading .elementor-heading-title.elementor-size-xxl:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-size: 25px;
+  line-height: 1.5em;
+}
+
+body.elementor-page .elementor-widget-heading .elementor-heading-title.elementor-size-xl:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-size: 20px;
+  line-height: 1.6em;
+}
+
+body.elementor-page .elementor-widget-heading .elementor-heading-title.elementor-size-large:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-size: 16px;
+}
+
+body.elementor-page .elementor-widget-heading .elementor-heading-title.elementor-size-medium:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-size: 14px;
+}
+
+body.elementor-page .elementor-widget-heading .elementor-heading-title.elementor-size-small:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-size: 12px;
+}
+
+body.elementor-page button,body.elementor-page input[type="button"],body.elementor-page input[type="submit"],body.elementor-page .elementor-button {
+  color: #ffffff;
+  background-color: #58595B;
+}
+
+body.elementor-page button:hover,body.elementor-page button:focus,body.elementor-page input[type="button"]:hover,body.elementor-page input[type="button"]:focus,body.elementor-page input[type="submit"]:hover,body.elementor-page input[type="submit"]:focus,body.elementor-page .elementor-button:hover,body.elementor-page .elementor-button:focus {
+  background-color: #333333;
+}
+
+body.elementor-page a.elementor-button.elementor-size-xs, body.elementor-page .elementor-button.elementor-size-xs {
+  border-radius: 0px 0px 0px 0px;
+}
+
+body.elementor-page .elementor-button.elementor-size-sm {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+body.elementor-page a.elementor-button.elementor-size-sm, body.elementor-page .elementor-button.elementor-size-sm {
+  color: #E6E7E8;
+  background-color: rgba(0,0,0,0);
+  border-radius: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+body.elementor-page .elementor-button.elementor-size-md {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.3em;
+  border-style: solid;
+  border-width: 0px 0px 0px 0px;
+}
+
+body.elementor-page a.elementor-button.elementor-size-md, body.elementor-page .elementor-button.elementor-size-md {
+  color: #ffffff;
+  border-radius: 0px 0px 0px 0px;
+}
+
+body.elementor-page .elementor-button.elementor-size-lg {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+body.elementor-page a.elementor-button.elementor-size-lg, body.elementor-page .elementor-button.elementor-size-lg {
+  border-radius: 0px 0px 0px 0px;
+}
+
+body.elementor-page .elementor-button.elementor-size-xl {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+body.elementor-page a.elementor-button.elementor-size-xl, body.elementor-page .elementor-button.elementor-size-xl {
+  border-radius: 0px 0px 0px 0px;
+}
+
+body.elementor-page label {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+body.elementor-page input:not([type="button"]):not([type="submit"]),body.elementor-page textarea,body.elementor-page .elementor-field-textual {
+  font-size: 1em;
+  background-color: #EEEEEE;
+  border-radius: 0px 0px 0px 0px;
+}
+
+body.elementor-page .elementor-field-group {
+  padding-right: calc( 20px/2 );
+  padding-left: calc( 20px/2 );
+  margin-bottom: 20px;
+}
+
+body.elementor-page .elementor-form-fields-wrapper {
+  margin-left: calc( -20px/2 );
+  margin-right: calc( -20px/2 );
+  margin-bottom: -20px;
+}
+
+body.elementor-page .elementor-field-group.recaptcha_v3-bottomleft, body.elementor-page .elementor-field-group.recaptcha_v3-bottomright {
+  margin-bottom: 0;
+}
+
+body.elementor-kit-93.rtl .elementor-labels-inline .elementor-field-group > label {
+  padding-left: 0px;
+}
+
+body.elementor-page:not(.rtl) .elementor-labels-inline .elementor-field-group > label {
+  padding-right: 0px;
+}
+
+body.elementor-page .elementor-labels-above .elementor-field-group > label {
+  padding-bottom: 0px;
+}
+
+body.elementor-page .ang-section-padding-default {
+  padding: 80px 20px 80px 20px;
+}
+
+body.elementor-page .ang-section-padding-narrow {
+  padding: 10px 20px 10px 20px;
+}
+
+body.elementor-page .ang-section-padding-extended {
+  padding: 40px 20px 40px 20px;
+}
+
+body.elementor-page .ang-section-padding-wide {
+  padding: 120px 20px 120px 20px;
+}
+
+body.elementor-page .ang-section-padding-wider {
+  padding: 160px 20px 160px 20px;
+}
+
+body.elementor-page .elementor-column-gap-default > .elementor-row > .elementor-column > .elementor-element-populated {
+  padding: 20px 20px 20px 20px;
+}
+
+body.elementor-page .elementor-column-gap-narrow > .elementor-row > .elementor-column > .elementor-element-populated {
+  padding: 10px 10px 10px 10px;
+}
+
+body.elementor-page .elementor-column-gap-extended > .elementor-row > .elementor-column > .elementor-element-populated {
+  padding: 40px 40px 40px 40px;
+}
+
+body.elementor-page .elementor-column-gap-wide > .elementor-row > .elementor-column > .elementor-element-populated {
+  padding: 80px 80px 80px 80px;
+}
+
+body.elementor-page .elementor-column-gap-wider > .elementor-row > .elementor-column > .elementor-element-populated {
+  padding: 80px 80px 80px 80px;
+}
+
+@media(max-width:1024px) {
+  body.elementor-page {
+    font-size: 16px;
+  }
+
+  body.elementor-page h1 {
+    font-size: 40px;
+  }
+
+  body.elementor-page h2 {
+    font-size: 30px;
+  }
+
+  body.elementor-page h3 {
+    font-size: 22px;
+  }
+
+  body.elementor-page h4 {
+    font-size: 16px;
+  }
+
+  body.elementor-page h5 {
+    font-size: 14px;
+  }
+
+  body.elementor-page h6 {
+    font-size: 12px;
+  }
+
+  body.elementor-page h1.elementor-heading-title.elementor-size-xxl,body.elementor-page h2.elementor-heading-title.elementor-size-xxl,body.elementor-page h3.elementor-heading-title.elementor-size-xxl,body.elementor-page h4.elementor-heading-title.elementor-size-xxl,body.elementor-page h5.elementor-heading-title.elementor-size-xxl,body.elementor-page h6.elementor-heading-title.elementor-size-xxl {
+    font-size: 40px;
+  }
+
+  body.elementor-page h1.elementor-heading-title.elementor-size-xl,body.elementor-page h2.elementor-heading-title.elementor-size-xl,body.elementor-page h3.elementor-heading-title.elementor-size-xl,body.elementor-page h4.elementor-heading-title.elementor-size-xl,body.elementor-page h5.elementor-heading-title.elementor-size-xl,body.elementor-page h6.elementor-heading-title.elementor-size-xl {
+    font-size: 35px;
+  }
+
+  body.elementor-page .ang-section-padding-default {
+    padding: 40px 20px 40px 20px;
+  }
+
+  body.elementor-page .ang-section-padding-wide {
+    padding: 80px 20px 80px 20px;
+  }
+
+  body.elementor-page .ang-section-padding-wider {
+    padding: 120px 20px 120px 20px;
+  }
+
+  body.elementor-page .elementor-column-gap-narrow > .elementor-row > .elementor-column > .elementor-element-populated {
+    padding: 20px 20px 20px 20px;
+  }
+
+  body.elementor-page .elementor-column-gap-extended > .elementor-row > .elementor-column > .elementor-element-populated {
+    padding: 20px 20px 20px 20px;
+  }
+
+  body.elementor-page .elementor-column-gap-wide > .elementor-row > .elementor-column > .elementor-element-populated {
+    padding: 40px 20px 40px 20px;
+  }
+
+  body.elementor-page .elementor-column-gap-wider > .elementor-row > .elementor-column > .elementor-element-populated {
+    padding: 40px 20px 40px 20px;
+  }
+}
+
+@media(max-width:767px) {
+  body.elementor-page h1 {
+    font-size: 40px;
+  }
+
+  body.elementor-page h2 {
+    font-size: 30px;
+  }
+
+  body.elementor-page h3 {
+    font-size: 20px;
+  }
+
+  body.elementor-page h4 {
+    font-size: 16px;
+  }
+
+  body.elementor-page h5 {
+    font-size: 14px;
+    line-height: 1em;
+  }
+
+  body.elementor-page h6 {
+    font-size: 12px;
+  }
+
+  body.elementor-page h1.elementor-heading-title.elementor-size-xxl,body.elementor-page h2.elementor-heading-title.elementor-size-xxl,body.elementor-page h3.elementor-heading-title.elementor-size-xxl,body.elementor-page h4.elementor-heading-title.elementor-size-xxl,body.elementor-page h5.elementor-heading-title.elementor-size-xxl,body.elementor-page h6.elementor-heading-title.elementor-size-xxl {
+    font-size: 40px;
+  }
+
+  body.elementor-page h1.elementor-heading-title.elementor-size-xl,body.elementor-page h2.elementor-heading-title.elementor-size-xl,body.elementor-page h3.elementor-heading-title.elementor-size-xl,body.elementor-page h4.elementor-heading-title.elementor-size-xl,body.elementor-page h5.elementor-heading-title.elementor-size-xl,body.elementor-page h6.elementor-heading-title.elementor-size-xl {
+    font-size: 30px;
+  }
+
+  body.elementor-page h1.elementor-heading-title.elementor-size-large,body.elementor-page h2.elementor-heading-title.elementor-size-large,body.elementor-page h3.elementor-heading-title.elementor-size-large,body.elementor-page h4.elementor-heading-title.elementor-size-large,body.elementor-page h5.elementor-heading-title.elementor-size-large,body.elementor-page h6.elementor-heading-title.elementor-size-large {
+    font-size: 20px;
+  }
+
+  body.elementor-page h1.elementor-heading-title.elementor-size-medium,body.elementor-page h2.elementor-heading-title.elementor-size-medium,body.elementor-page h3.elementor-heading-title.elementor-size-medium,body.elementor-page h4.elementor-heading-title.elementor-size-medium,body.elementor-page h5.elementor-heading-title.elementor-size-medium,body.elementor-page h6.elementor-heading-title.elementor-size-medium {
+    font-size: 16px;
+  }
+
+  body.elementor-page .elementor-widget-heading .elementor-heading-title.elementor-size-xxl:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+    font-size: 20px;
+  }
+
+}

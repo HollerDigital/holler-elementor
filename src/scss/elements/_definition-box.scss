@@ -1,0 +1,25 @@
+
+.definition-box--lg{
+    padding: 24px;
+    @include MQMIN( 768px ){
+        @include fluid_prop( padding, 24px, 48px );
+    }
+}
+
+.definition-box__title-wrap{
+    padding-bottom: 24px;
+
+    @include MQMIN( 768px ){
+        padding-bottom: 0;
+        @include fluid_prop( padding-right, 24px, 42px );
+    }
+}
+
+.definition-box__def-wrap{
+    padding-top: 24px;
+
+    @include MQMIN( 768px ){
+        padding-top: 0;
+        @include fluid_prop( padding-left, 24px, 78px );
+    }
+}
