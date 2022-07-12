@@ -9,6 +9,7 @@
  * Text Domain: elementor-test-extension
  */
 
+ //https://s3.ca-central-1.amazonaws.com/cdn.hollerdigital.com/holler-images/holler-icon.svg
 // don't allow direct access
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -115,7 +116,7 @@ final class Elementor_Test_Extension {
 
 		add_action( 'init', [ $this, 'i18n' ] );
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
-
+		add_menu_page( 'Holler Elementor', 'Holler E',  'manage_options' , 'holler-elementor', null ,  'https://s3.ca-central-1.amazonaws.com/cdn.hollerdigital.com/holler-images/holler-icon.svg', 40 );
 	}
 
 	/**
