@@ -61,7 +61,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [ 'general','holler' ];
+		return [  'holler' ];
 	}
 
 	/**
@@ -82,52 +82,63 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 			]
 		);
 		
-	 		
+		$this->add_control(
+			'team_image',
+			[
+				'label' => __( 'Team Image', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'description' => __("Image Thumbnail 128px by 128px", 'plugin-domain' ),
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+			]
+		);
 		
+
 		$this->add_control(
-			'equip_type',
+			'team_image_dimension',
 			[
-				'label' => __( 'Equipment Type', 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => 'Product',
-				'dynamic' => [
-                              'active' => true,
-                             ],
-				'options' => [
-					'Truck' => __( 'Truck', 'plugin-domain' ),
-					'Trailer' => __( 'Trailer', 'plugin-domain' )
-					 
+				'label' => esc_html__( 'Image Dimension', 'plugin-name' ),
+				'type' => \Elementor\Controls_Manager::IMAGE_DIMENSIONS,
+				'description' => esc_html__( 'Crop the original image size to any custom size. Set custom width or height to keep the original size ratio.', 'plugin-name' ),
+				'default' => [
+					'width' => '128',
+					'height' => '128',
 				],
 			]
 		);
-
-
-		$this->add_control(
-			'card_type',
-			[
-				'label' => __( 'Card Format', 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => 'Product',
-				'dynamic' => [
-                              'active' => true,
-                             ],
-				'options' => [
-					'Product' => __( 'Product', 'plugin-domain' ),
-					'Rental' => __( 'Rental', 'plugin-domain' ),
-					'Special' => __( 'Special', 'plugin-domain' )
-				],
-			]
-		);
+	
 				
 		$this->add_control(
-			'widget_ids',
+			'team_name',
 			[
-				'label' => __( 'Product ID', 'plugin-domain' ),
+				'label' => __( 'Name', 'plugin-domain' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => __( 'Default title', 'plugin-domain' ),
-				'placeholder' => __( 'Comma Separated List of IDs', 'plugin-domain' ),
+				'default' => __( 'Full Name', 'plugin-domain' ),
+				'placeholder' => __( 'Full Name', 'plugin-domain' ),
 			]
 		);
+
+		$this->add_control(
+			'team_title',
+			[
+				'label' => __( 'Title', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => __( 'Job Title', 'plugin-domain' ),
+				'placeholder' => __( 'Job Title', 'plugin-domain' ),
+			]
+		);
+
+		$this->add_control(
+			'team_bio',
+			[
+				'label' => __( 'Bio', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::WYSIWYG,
+				'default' => __( 'Bio', 'plugin-domain' ),
+				'placeholder' => __( 'Bio', 'plugin-domain' ),
+			]
+		);
+		
 		
 		
 
@@ -145,23 +156,10 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	 */
 	protected function render() {
  
-  	 
-  	
-    
-		$target = $settings['button_url']['is_external'] ? ' target="_blank"' : '';
-		$nofollow = $settings['button_url']['nofollow'] ? ' rel="nofollow"' : '';
-	 
-	
-            
-		
-  
-    
+		$settings = $this->get_settings_for_display();
 	      
-	    $result .=   _card_template($Product[0], $card_type, $equip_type);
+	    $result = _holler_team_template($settings);
 
-    
-
- 
        echo $result;
 	}
 

@@ -176,14 +176,14 @@ final class Elementor_Test_Extension {
     	// In our Dynamic Tag we use a group named request-variables so we need 
     	// To register that group as well before the tag
     	\Elementor\Plugin::$instance->dynamic_tags->register_group( 'brandt-tags', [
-    		'title' => 'Brandt Tags' 
+    		'title' => 'Holler Tags' 
     	]);
     
     	 
-    	require_once( __DIR__ . '/inc/tags/brandt-tags.php' );
+    	//require_once( __DIR__ . '/inc/tags/brandt-tags.php' );
     
     	// Finally register the tag
-    	$dynamic_tags->register_tag( 'Elementor_Server_Var_Tag' );
+    	//$dynamic_tags->register_tag( 'Elementor_Server_Var_Tag' );
     });
 
     
@@ -330,9 +330,9 @@ final class Elementor_Test_Extension {
   public function add_elementor_widget_categories( $elements_manager ) {
 
   	$elements_manager->add_category(
-  		'brandt',
+  		'holler',
   		[
-  			'title' => __( 'Brandt Equipment', 'plugin-name' ),
+  			'title' => __( 'Holler Widgets', 'plugin-name' ),
   			'icon' => 'fa fa-plug',
   		]
   	);
