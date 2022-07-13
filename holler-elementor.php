@@ -352,49 +352,15 @@ final class Elementor_Test_Extension {
 	public function init_widgets() {
 
 		// Include Widget files
-	  require_once( __DIR__ . '/inc/widgets/brandt-feature.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-card.php' );
-		require_once( __DIR__ . '/inc/widgets/brandt-module.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-product-grid.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-jump.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-model-card.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-model-slider.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-tabs.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-breadcrumbs.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-basic-card.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-table-highlighs.php' );
-    
-    
-    
-	  // Product stuff
-	  require_once( __DIR__ . '/inc/widgets/brandt-product-title.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-product-flag.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-product-tabs.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-product-slider.php' );
-	  require_once( __DIR__ . '/inc/widgets/brandt-product-rental-table.php' ); 
-	  require_once( __DIR__ . '/inc/widgets/brandt-product-calculator.php' ); 
+	 
+	  require_once( __DIR__ . '/inc/widgets/holler-team.php' );
+ 
+ 
 	   
 	     	   
 		// Register widget
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Feature_Widget() );	
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Card_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Module_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Product_Grid_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Jump_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Model_Card_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Model_Slider_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Tabs_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Breadcrumbs_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Basic_Card_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Table_Highlights_Widget() );
-		
-		// Product Stuff		
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_product_title_Widget() );
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Product_Flag_Widget() );
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Product_Tabs_Widget() );
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Product_Slider_Widget() );
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Product_Rental_Table_Widget() );
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Brandt_Product_Calculator_Widget() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Holler_Team_Widget() );	
+ 
     
     
 	}
@@ -426,21 +392,7 @@ Elementor_Test_Extension::instance();
 require_once( __DIR__ .'/inc/helpers/functions.php' );
 
 // Layouts
-
-require_once( __DIR__ .'/inc/layouts/card-basic.php' );
-require_once( __DIR__ .'/inc/layouts/card-product.php' );
-require_once( __DIR__ .'/inc/layouts/card-product-mini.php' );
-require_once( __DIR__ .'/inc/layouts/card-model.php' );
-require_once( __DIR__ .'/inc/layouts/model-slideshow.php' );
-require_once( __DIR__ .'/inc/layouts/product-title.php' );
-require_once( __DIR__ .'/inc/layouts/product-flag.php' );
-require_once( __DIR__ .'/inc/layouts/product-slideshow.php' );
-require_once( __DIR__ .'/inc/layouts/brandt-product-tabs.php' );
-require_once( __DIR__ .'/inc/layouts/brandt-tabs.php' );
-require_once( __DIR__ .'/inc/layouts/brandt-breadcrumbs.php' );
-require_once( __DIR__ .'/inc/layouts/product-rentals-table.php' );
-require_once( __DIR__ .'/inc/layouts/brandt-calculator.php' );
-require_once( __DIR__ .'/inc/layouts/brandt-table.php' );
+require_once( __DIR__ .'/inc/layouts/holler-team.php' );
 
 
 

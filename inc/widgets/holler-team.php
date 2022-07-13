@@ -6,7 +6,7 @@
  *
  * @since 1.0.0
  */
-class Brandt_Model_Slider_Widget extends \Elementor\Widget_Base {
+class Holler_Team_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
@@ -19,7 +19,7 @@ class Brandt_Model_Slider_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'Brandt Model Slider';
+		return 'holler-team';
 	}
 
 	/**
@@ -33,7 +33,7 @@ class Brandt_Model_Slider_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Brandt Model Slider', 'plugin-name' );
+		return __( 'Holler Team', 'plugin-name' );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class Brandt_Model_Slider_Widget extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [ 'brandt' ];
+		return [ 'general','holler' ];
 	}
 
 	/**
@@ -83,51 +83,52 @@ class Brandt_Model_Slider_Widget extends \Elementor\Widget_Base {
 		);
 		
 	 		
-		 
 		
-		
-		$repeater = new \Elementor\Repeater();
-
-		$repeater->add_control(
-			'image',
+		$this->add_control(
+			'equip_type',
 			[
-				'label' => __( 'Profile Image', 'plugin-domain' ),
-				'description' => __("Image size 1650px by 1100px", 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::MEDIA,
-				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				'label' => __( 'Equipment Type', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'Product',
+				'dynamic' => [
+                              'active' => true,
+                             ],
+				'options' => [
+					'Truck' => __( 'Truck', 'plugin-domain' ),
+					'Trailer' => __( 'Trailer', 'plugin-domain' )
+					 
 				],
-			]
-		);
-		
-		$repeater->add_control(
-			'list_title', [
-				'label' => __( 'Title & Alt Text', 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => __( 'Title & Alt Text' , 'plugin-domain' ),
-				'label_block' => true,
 			]
 		);
 
 
 		$this->add_control(
-			'list',
+			'card_type',
 			[
-				'label' => __( 'Repeater List', 'plugin-domain' ),
-				'type' => \Elementor\Controls_Manager::REPEATER,
-				'fields' => $repeater->get_controls(),
-				'prevent_empty' => true,
-				'default' => [
-					[
-						'list_title' => __( 'Title #1', 'plugin-domain' ),
-					],
-					[
-						'list_title' => __( 'Title #2', 'plugin-domain' ),
-					],
+				'label' => __( 'Card Format', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'Product',
+				'dynamic' => [
+                              'active' => true,
+                             ],
+				'options' => [
+					'Product' => __( 'Product', 'plugin-domain' ),
+					'Rental' => __( 'Rental', 'plugin-domain' ),
+					'Special' => __( 'Special', 'plugin-domain' )
 				],
-				'title_field' => '{{{ list_title }}}',
 			]
 		);
+				
+		$this->add_control(
+			'widget_ids',
+			[
+				'label' => __( 'Product ID', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => __( 'Default title', 'plugin-domain' ),
+				'placeholder' => __( 'Comma Separated List of IDs', 'plugin-domain' ),
+			]
+		);
+		
 		
 
 		$this->end_controls_section();
@@ -143,26 +144,27 @@ class Brandt_Model_Slider_Widget extends \Elementor\Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
+ 
+  	 
   	
-  	$settings = $this->get_settings_for_display();       
-		
-	$output =  _slideshow_template($settings);
+    
+		$target = $settings['button_url']['is_external'] ? ' target="_blank"' : '';
+		$nofollow = $settings['button_url']['nofollow'] ? ' rel="nofollow"' : '';
 	 
-	     
-    echo $output;
+	
+            
+		
+  
+    
+	      
+	    $result .=   _card_template($Product[0], $card_type, $equip_type);
+
+    
+
+ 
+       echo $result;
 	}
 
-	protected function _content_template() {
-		?>
-		<# if ( settings.list.length ) { #>
-		<div id="brandt-model-slider" class="owl-carousel owl-theme">
-			<# _.each( settings.list, function( item ) { #>
-			<div class="slide"><img src="{{ item.image.url }}" alt="{{ item.list_content }}" data-hash="{{ item.list_content }}" /></div>
-				 
-			<# }); #>
-			</div>
-		<# } #>
-		<?php
-	}
+
 
 }
