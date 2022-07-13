@@ -1,3 +1,32 @@
+/**
+  * Theme Name:  Camex 
+  * Theme URI:   https://camex.com/
+  * Description: Theme For Camex Website
+  * Author:      James Murgatroyd Communicaitons
+  * Author URI:  http://jamesmurgatroyd.com
+  * Version:     2.0.0
+**/
+/*
+$icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../fonts/bootstrap/") !default;
+
+//** File name for all font files.
+$icon-font-name:          "glyphicons-halflings-regular" !default;
+//** Element ID within SVG icon file.
+$icon-font-svg-id:        "glyphicons_halflingsregular" !default;
+*/
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Plugins
+# Wordpress
+# Base Styles
+# Mobile
+# Objects
+# Sections
+# Holler
+
+--------------------------------------------------------------*/
+
 .holler-widget {}
 .holler-team {}
 .holler-team figure.img-wrap { margin-bottom: 1em !important; }
@@ -16,4 +45,81 @@
   line-height: 1.4;
   margin-bottom: 1em;
   color: #A1AEB7;
+}
+
+.holler-team-lightbox-wrap{
+  display: flex;
+  border-radius: 8px;
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  padding: 2em 4em;
+  background-color: #fff;
+  margin: 10% auto; /* 10% from the top and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 1000px;
+}
+.team-lightbox-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  align-content: center;
+  width: 100%;
+  margin-bottom: 1em;
+  
+}
+.team-lightbox-header .img-wrap {
+  width: 33.3%;
+  max-width: 166px;
+}
+.team-lightbox-header .img-wrap img{ border-radius: 50%; max-width: 166px;}
+.lightboox-team-header{
+  width: 66.6%;
+  margin: 1em;
+}
+.lightboox-team-header h2.team-name{ 
+  font-size: 1.75em;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 0;
+  color: #505D68;
+}
+.lightboox-team-header h3.team-title {
+  font-size: 1.725em;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 1em;
+  color: #A1AEB7;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 99; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+  transition-duration: 0.5s;
+}
+
+ /* The Close Button */
+.close {
+  color: #aaa;
+  display: block;
+  position: absolute;
+  right: 2em;
+  font-size: 28px;
+  font-weight: bold;
+  transition-duration: 0.5s;
+}
+.close:hover {
+  color: #505D68;
 }

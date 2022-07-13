@@ -95,18 +95,18 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		);
 		
 
-		$this->add_control(
-			'team_image_dimension',
-			[
-				'label' => esc_html__( 'Image Dimension', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::IMAGE_DIMENSIONS,
-				'description' => esc_html__( 'Crop the original image size to any custom size. Set custom width or height to keep the original size ratio.', 'plugin-name' ),
-				'default' => [
-					'width' => '128',
-					'height' => '128',
-				],
-			]
-		);
+		// $this->add_control(
+		// 	'team_image_dimension',
+		// 	[
+		// 		'label' => esc_html__( 'Image Dimension', 'plugin-name' ),
+		// 		'type' => \Elementor\Controls_Manager::IMAGE_DIMENSIONS,
+		// 		'description' => esc_html__( 'Crop the original image size to any custom size. Set custom width or height to keep the original size ratio.', 'plugin-name' ),
+		// 		'default' => [
+		// 			'width' => '128',
+		// 			'height' => '128',
+		// 		],
+		// 	]
+		// );
 	
 				
 		$this->add_control(
