@@ -32,7 +32,7 @@
     "gulp-modulizr": "^0.0.2",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.2.0",
-    "gulp-rename": "^1.4.0",
+    "gulp-rename": "^1.4.0", 
     "gulp-replace": "^0.5.0",
     "gulp-sass": "^4.0.2",
     "gulp-size": "^1.0.0",
