@@ -25,7 +25,7 @@ require 'inc/plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'https://github.com/HollerDigital/holler-elementor',
 	__FILE__,
-	'holler-signup'
+	'holler-elementor'
 );
  
 //Set the branch that contains the stable release.
