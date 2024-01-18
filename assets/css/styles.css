@@ -102,12 +102,13 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   z-index: 99; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
   transition-duration: 0.5s;
+  overflow: hidden;
 }
 
  /* The Close Button */
