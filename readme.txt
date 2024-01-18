@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: Holler Digital, James Murgatroyd
+Contributors: 
 Donate link: https://hollerdigital.com/
 Tags: holler-elementor
 Requires at least: 4.7
 Tested up to: 5.8.1
-Stable tag: 2.0.11
+Stable tag: 2.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,9 +24,6 @@ Holler Elementor is a custom set of light weight widgets created by Holler Digit
 Documentation to come.
 
 == Changelog ==
-
-= 2.0.11 - 18.01.2024 =
-* minor updates to the css. 
 
 = 2.0.1 - 07.12.2022 =
 * Initial version of the plugin. 

@@ -157,7 +157,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	protected function render() {
  
 		$settings = $this->get_settings_for_display();
-	      
+	    
 	    $result = _holler_team_template($settings);
 
        echo $result;

@@ -70,7 +70,7 @@ final class Elementor_Test_Extension {
 	 *
 	 * @var string Minimum PHP version required to run the plugin.
 	 */
-	const MINIMUM_PHP_VERSION = '7.4';
+	const MINIMUM_PHP_VERSION = '7.2';
 
 	/**
 	 * Instance
@@ -206,22 +206,22 @@ final class Elementor_Test_Extension {
 		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'brandt_styles' ] );
 		//add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'brandt_scripts' ] );
 		
-		add_action( 'elementor/frontend/before_enqueue_scripts', function() {
-		   wp_enqueue_script(
-		   	'brandt-elementor-plugins',
-		   	plugins_url( '/assets/js/plugins.js', __FILE__ ),
-		   	[
-		   		'elementor-frontend', // dependency
-		   	],
-		   	HOLLER_ELEMENTOR_VERSION,
-		   	true // in_footer
-		   );
-		} );
+		// add_action( 'elementor/frontend/before_enqueue_scripts', function() {
+		//    wp_enqueue_script(
+		//    	'brandt-elementor-plugins',
+		//    	plugins_url( '/assets/js/plugins.js', __FILE__ ),
+		//    	[
+		//    		'elementor-frontend', // dependency
+		//    	],
+		//    	HOLLER_ELEMENTOR_VERSION,
+		//    	true // in_footer
+		//    );
+		// } );
 		
 		add_action( 'elementor/frontend/before_enqueue_scripts', function() {
 		   wp_enqueue_script(
-		   	'brandt-elementor',
-		  plugins_url( '/assets/js/brandt-elementor-app.js', __FILE__ ),
+		   	'holler-elementor',
+		  plugins_url( '/assets/js/holler-elementor-app.js', __FILE__ ),
 		   	[
 		   		'elementor-frontend', // dependency
 		   	],
@@ -236,17 +236,17 @@ final class Elementor_Test_Extension {
 	}
   
 	public function brandt_styles() {
-    	wp_register_style( 'brandt-elementor',  plugins_url( '/assets/css/styles.css', __FILE__ ), array( ),  HOLLER_ELEMENTOR_VERSION, 'all' );
-    	wp_enqueue_style( 'brandt-elementor');
+    	wp_register_style( 'holler-elementor',  plugins_url( '/assets/css/styles.css', __FILE__ ), array( ),  HOLLER_ELEMENTOR_VERSION, 'all' );
+    	wp_enqueue_style( 'holler-elementor');
 	}
 	
 	public function brandt_scripts() {
-    	wp_register_script( 'brandt-elementor-plugins', plugins_url( '/assets/js/plugins.js', __FILE__ ), array('jquery'),HOLLER_ELEMENTOR_VERSION, true );
-    	wp_register_script( 'brandt-elementor', plugins_url( '/assets/js/brandt-elementor-app.js', __FILE__ ), array('jquery', 'brandt-elementor-plugins'),HOLLER_ELEMENTOR_VERSION, true );
-		wp_enqueue_script("jquery-ui-core");
-		wp_enqueue_script("jquery-ui-tabs");
-		wp_enqueue_script('brandt-elementor-plugins', 1);
-		wp_enqueue_script('brandt-elementor', 1);
+    	//wp_register_script( 'brandt-elementor-plugins', plugins_url( '/assets/js/plugins.js', __FILE__ ), array('jquery'),HOLLER_ELEMENTOR_VERSION, true );
+    	wp_register_script( 'holler-elementor', plugins_url( '/assets/js/holler-elementor-app.js', __FILE__ ), array('jquery'),HOLLER_ELEMENTOR_VERSION, true );
+		// wp_enqueue_script("jquery-ui-core");
+		// wp_enqueue_script("jquery-ui-tabs");
+		//wp_enqueue_script('brandt-elementor-plugins', 1);
+		wp_enqueue_script('holler-elementor', 1);
 	}
 
   

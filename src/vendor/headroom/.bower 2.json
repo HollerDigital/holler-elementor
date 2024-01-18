@@ -1,0 +1,39 @@
+{
+  "name": "headroom",
+  "main": [
+    "dist/headroom.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "spec",
+    "Gruntfile.js",
+    "bower_components",
+    "test",
+    "tests",
+    "dist/*.min.js"
+  ],
+  "homepage": "http://wicky.nillia.ms/headroom.js/",
+  "authors": [
+    "WickyNilliams"
+  ],
+  "description": "Hide your header until you need it",
+  "keywords": [
+    "header",
+    "js",
+    "scroll"
+  ],
+  "license": "MIT",
+  "version": "1.0.3",
+  "_release": "1.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.3",
+    "commit": "160f15da7fade2a0c3c8069ff7e1cb3531609c3d"
+  },
+  "_source": "https://github.com/lfpazmino/headroom.js.git",
+  "_target": "^1.0.3",
+  "_originalSource": "headroom",
+  "_direct": true
+}
