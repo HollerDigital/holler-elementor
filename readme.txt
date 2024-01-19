@@ -25,6 +25,11 @@ Documentation to come.
 
 == Changelog ==
 
+
+= 2.0.12 - 19.01.2024 =
+* Update CSS Vars
+
+
 = 2.0.1 - 07.12.2022 =
 * Initial version of the plugin. 
 

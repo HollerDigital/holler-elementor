@@ -26,28 +26,55 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
 # Holler
 
 --------------------------------------------------------------*/
+:root {
+  --holler-team-radius:  50%;
+  --holler-team-name-size: 1.2rem;
+  --holler-team-name-color: #08005C;
+  --holler-team-title-size:  1em;
+  --holler-team-title-color: #8C4EFD;
+  --holler-team-modal-bgcolor: rgba(8, 0, 92,0.9);
+  --holler-team-modal-name-size:1.5em;
+  --holler-team-modal-title-size: 1.25em;
+  --holler-team-modal-color: #08005C;
+  --holler-team-modal-hover-color: #8C4EFD;
+}
 
-.holler-widget {}
-.holler-team a{text-decoration: none !important;cursor: pointer;}
-.holler-team figure.img-wrap { margin-bottom: 1em !important; }
-.holler-team figure.img-wrap img{ border-radius: 50%;}
-.holler-team .team-header { text-align: center;}
+
+/* .holler-widget {} */
+.holler-team a{
+  text-decoration: none !important;
+  cursor: pointer;
+}
+.holler-team figure.img-wrap { 
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em !important; 
+}
+.holler-team figure.img-wrap img{ 
+  border-radius: var( --holler-team-radius );
+}
+.holler-team .team-header { 
+  text-align: center;
+}
 .holler-team .team-header h2.team-name{ 
-  font-size: 0.875em;
-  font-weight: 800;
+  font-size: var(--holler-team-name-size);
+  font-weight: 700;
   line-height: 1.4;
   margin-bottom: 0;
-  color: #08005C;
+  color:var(--holler-team-name-color);
   text-decoration: none !important;
 }
 .holler-team .team-header h3.team-title {
-  font-size: 0.75em;
+  font-size: var(--holler-team-title-size);
   font-weight: 500;
   line-height: 1.4;
   margin-bottom: 1em;
-  color: #8C4EFD;
+  color: var( --holler-team-title-color);
   text-decoration: none !important;
-
 }
 
 .holler-team-lightbox-wrap{
@@ -64,30 +91,31 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   align-content: left;
   width: 100%;
   margin-bottom: 1em;
-  
 }
 .team-lightbox-header .img-wrap {
   width: 100%;
- 
 }
-.team-lightbox-header .img-wrap img{ border-radius: 50%; max-width: 166px;}
+.team-lightbox-header .img-wrap img { 
+  border-radius: var( --holler-team-radius );
+  max-width: 166px;
+}
 .lightboox-team-header{
   width: 100%;
   margin: 1em;
 }
-.lightboox-team-header h2.team-name{ 
-  font-size: 1.75em;
-  font-weight: 800;
+.lightboox-team-header h2.team-name { 
+  font-size: var(--holler-team-modal-name-size);
+  font-weight: 700;
   line-height: 1.4;
   margin-bottom: 0;
-  color: #08005C;
+  color: var(--holler-team-name-color);
   text-decoration: none;
 }
 .lightboox-team-header h3.team-title {
-  font-size: 1.725em;
+  font-size: var(--holler-team-modal-title-size); 
   font-weight: 400;
   line-height: 1.4;
-  color: #8C4EFD;
+  color: var( --holler-team-title-color);
   text-decoration: none;
 }
 
@@ -99,18 +127,15 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   top: 0;
   width: 100vw; /* Full width */
   height: 100vh; /* Full height */
- 
   overflow: auto !important; /* Enable scroll if needed */
- 
-  background-color: rgb(8, 0, 92); /* Fallback color */
-  background-color: rgba(8, 0, 92,0.9); /* Black w/ opacity */
+  background-color: var(--holler-team-modal-bgcolor); /* Black w/ opacity */
   transition-duration: 0.5s;
   overflow: hidden;
 }
 
  /* The Close Button */
 .close {
-  color: #08005C;
+  color: var(-holler-team-modal-color);
   display: block;
   position: absolute;
   right: 2em;
@@ -119,37 +144,40 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   transition-duration: 0.5s;
 }
 .close:hover {
-  color: #8C4EFD;
+  color: var(--holler-team-modal-hover-color);
 }
 
-    /* Medium Devices, Desktops */
-    @media only screen and (min-width : 768px) {
-      .holler-team-lightbox-wrap{
-        padding: 2em 4em;
-        background-color: #fff;
-        margin: 10% auto; /* 10% from the top and centered */
-        border: 1px solid #888;
-        width: 80%; /* Could be more or less, depending on screen size */
-        max-width: 1000px;
-      }
-      .team-lightbox-header{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        align-content: center;
-        width: 100%;
-        margin-bottom: 1em;
-      }
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 768px) {
+  .holler-team-lightbox-wrap{
+    padding: 2em 4em;
+    background-color: #fff;
+    margin: 10% auto; /* 10% from the top and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 1000px;
+  }
+  
+  .team-lightbox-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+    width: 100%;
+    margin-bottom: 1em;
+  }
 
-.team-lightbox-header .img-wrap {
-  width: 33.3%;
-  max-width: 166px;
-}
-.team-lightbox-header .img-wrap img{ border-radius: 50%; max-width: 166px;}
-
-.lightboox-team-header{
-  width: 66.6%;
-  padding: 1em;
-}  
+  .team-lightbox-header .img-wrap {
+    width: 33.3%;
+    max-width: 166px;
+  }
+  .team-lightbox-header .img-wrap img{
+    border-radius:  var( --holler-team-radius ); 
+    max-width: 166px;
+  }
+  .lightboox-team-header{
+    width: 66.6%;
+    padding: 1em;
+  }  
 }

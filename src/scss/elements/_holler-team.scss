@@ -29,9 +29,21 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
 
 .holler-widget {}
 .holler-team {}
-.holler-team figure.img-wrap { margin-bottom: 1em !important; }
-.holler-team figure.img-wrap img{ border-radius: 50%;}
-.holler-team .team-header { text-align: center;}
+.holler-team figure.img-wrap {     
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em !important; 
+}
+.holler-team figure.img-wrap img{ 
+  border-radius: 50%;
+}
+.holler-team .team-header { 
+  text-align: center;
+}
 .holler-team .team-header h2.team-name{ 
   font-size: 0.875em;
   font-weight: 800;

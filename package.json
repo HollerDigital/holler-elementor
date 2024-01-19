@@ -1,6 +1,6 @@
 {
 	"name": "Holler-Elementor",
-	"version": "2.0.11",
+	"version": "2.0.12",
 	"description": "Gulpfile setup for Javascript ES6 compiling, plus SCSS, images, and fonts handling",
 	"author": "James Murgatroyd <hello@hollerdigital.com> (https://hollerdigital.com)",
 	"repository": {
@@ -12,33 +12,35 @@
 		"es6",
 		"scss"
 	],
+	"dependencies": {
+		"semver": "^7.5.4"
+	},
 	"devDependencies": {
-		"@babel/core": "^7.2.2",
-		"@babel/preset-env": "^7.2.3",
-		"babelify": "^10.0.0",
-		"browser-sync": "^2.27.7",
-		"browserify": "^16.2.3",
-		"browserify-shim": "^3.8.14",
-		"del": "^4.1.1",
-		"gulp": "^4.0.2",
-		"gulp-autoprefixer": "^6.0.0",
-		"gulp-concat": "^2.5.2",
-		"gulp-filter": "^5.1.0",
-		"gulp-if": "^2.0.2",
-		"gulp-line-ending-corrector": "^1.0.1",
-		"gulp-merge-media-queries": "^0.2.1",
-		"gulp-notify": "^4.0.0",
-		"gulp-options": "^1.1.1",
-		"gulp-plumber": "^1.2.1",
-		"gulp-rename": "^1.2.0",
-		"gulp-sass": "^5.1.0",
-		"gulp-sourcemaps": "^2.6.1",
-		"gulp-strip-debug": "^3.0.0",
-		"gulp-uglify": "^3.0.0",
-		"gulp-uglifycss": "^1.0.9",
-		"node-sass": "^7.0.1",
-		"vinyl-buffer": "^1.0.0",
-		"vinyl-source-stream": "^2.0.0"
+		"@babel/core": "latest",
+		"@babel/preset-env": "latest",
+		"babelify": "latest",
+		"browser-sync": "latest",
+		"browserify": "latest",
+		"browserify-shim": "latest",
+		"graceful-fs": "latest",
+		"del": "latest",
+		"gulp": "latest",
+		"gulp-autoprefixer":"latest",
+		"gulp-concat": "latest",
+		"gulp-line-ending-corrector": "latest",
+		"gulp-merge-media-queries": "latest",
+		"gulp-notify": "latest",
+		"gulp-options": "latest",
+		"gulp-plumber": "latest",
+		"gulp-rename": "latest",
+		"gulp-sass": "latest",
+		"gulp-sourcemaps": "latest",
+		"gulp-strip-debug":"latest",
+		"gulp-uglify": "latest",
+		"gulp-uglifycss": "latest",
+		"node-sass": "latest",
+		"vinyl-buffer": "latest",
+		"vinyl-source-stream": "latest"
 	},
 	"babel": {
 		"presets": [
@@ -58,4 +60,3 @@
 	},
 	"license": "GPL-3.0"
 }
-Copied
