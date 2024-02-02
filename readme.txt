@@ -4,7 +4,7 @@ Donate link: https://hollerdigital.com/
 Tags: holler-elementor
 Requires at least: 4.7
 Tested up to: 5.8.1
-Stable tag: 2.0.1
+Stable tag: 2.1.0 
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,6 +25,9 @@ Documentation to come.
 
 == Changelog ==
 
+
+= 2.1.0 - 02.02.2024 =
+* Added the new elementor widget manager. Also added the container spacing Contol
 
 = 2.0.12 - 19.01.2024 =
 * Update CSS Vars
