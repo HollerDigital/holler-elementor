@@ -394,12 +394,249 @@ require_once( __DIR__ .'/inc/helpers/functions.php' );
 // Layouts
 require_once( __DIR__ .'/inc/layouts/holler-team.php' );
 
+class Holler_Widgets_Manager {
+    public function __construct() {
+        add_action('admin_menu', array($this, 'register_my_custom_menu_page'));
+        add_action('admin_init', array($this, 'register_my_custom_settings'));
+        add_action('elementor/widgets/register', array($this, 'unregister_elementor_widgets_based_on_settings'), 99);
+        add_action('elementor/widgets/widgets_registered', array($this, 'unregister_elementor_widgets_based_on_settings'), 15);
+    }
+
+    public function register_my_custom_menu_page() {
+		add_options_page(
+			__('Holler Elementor Settings', 'holler'), // Page title
+			__('Holler Elementor', 'holler'), // Menu title
+			'manage_options', // Capability
+			'holler-elementor-settings', // Menu slug
+			array($this, 'elementor_widgets_settings_page'), // Function to display the settings page
+		);
+    }
+
+    public function elementor_widgets_settings_page() {
+        ?>
+        <div class="wrap">
+            <h2>Elementor Widgets Settings</h2>
+            <form method="post" action="options.php">
+                <?php
+                settings_fields('elementor-widgets-settings-group');
+                do_settings_sections('elementor-widgets-settings-group');
+                $elementor_widget_blacklist = get_option('elementor_widget_blacklist');
+                if (!is_array($elementor_widget_blacklist)) {
+                    $elementor_widget_blacklist = []; // Initialize as empty array if not set
+                }
+                // List of all widgets
+                $widgets = $this->get_all_widgets();
+
+                foreach ($widgets as $widget) {
+                    // Check if the widget is set in the array and then use its value for the checked attribute
+                    $is_checked = isset($elementor_widget_blacklist[$widget]) ? $elementor_widget_blacklist[$widget] : '';
+                    ?>
+                    <input type="checkbox" name="elementor_widget_blacklist[<?php echo $widget; ?>]" value="1" <?php checked(1, $is_checked, true); ?>><?php echo $widget; ?><br>
+                    <?php
+                }
+                submit_button();
+                ?>
+            </form>
+        </div>
+        <?php
+    }
+
+	public function register_my_custom_settings() {
+        register_setting(
+            'elementor-widgets-settings-group', // Option group
+            'elementor_widget_blacklist', // Option name
+            array($this, 'sanitize_elementor_widget_blacklist') // Sanitize callback
+        );
+    }
+
+	public function sanitize_elementor_widget_blacklist($input) {
+        // Ensure the input is an array
+        if (!is_array($input)) {
+            $input = [];
+        }
+
+        // Sanitize each widget name in the array
+        $input = array_map('sanitize_text_field', $input);
+
+        // Return the sanitized array
+        return $input;
+    }
 
 
+    public function unregister_elementor_widgets_based_on_settings($widgets_manager) {
+        $elementor_widget_blacklist = get_option('elementor_widget_blacklist');
+        if (!is_array($elementor_widget_blacklist)) {
+            return;
+        }
 
+        $all_widgets = $this->get_all_widgets();
 
+        foreach ($all_widgets as $widget_name) {
+            if (!in_array($widget_name, $elementor_widget_blacklist)) {
+                $widgets_manager->unregister($widget_name);
+            }
+        }
+    }
 
+	
 
+    protected function get_all_widgets() {
+        // Return the array of all widgets
+        return [
+			//'common'
+			//,'heading'
+			//,'image'
+			//,'text-editor'
+			//,'video'
+			//,'button'
+			'divider'
+			,'spacer'
+			,'image-box'
+			,'google-maps'
+			,'icon'
+			,'icon-box'
+			,'image-gallery'
+			,'image-carousel'
+			,'icon-list'
+			,'counter'
+			,'progress'
+			,'testimonial'
+			,'tabs'
+			,'accordion'
+			,'toggle'
+			,'social-icons'
+			,'alert'
+			,'audio'
+			,'shortcode'
+			,'html'
+			,'menu-anchor'
+			,'sidebar'
+		  
+			// pro ----------------- //
+		   	,'posts'
+			,'portfolio'
+			,'slides'
+			,'form'
+			,'login'
+			,'media-carousel'
+			,'testimonial-carousel'
+			,'nav-menu'
+			,'pricing'
+			,'facebook-comment'
+			,'nav-menu'
+			,'animated-headline'
+			,'price-list'
+			,'price-table'
+			,'facebook-button'
+			,'facebook-comments'
+			,'facebook-embed'
+			,'facebook-page'
+			,'add-to-cart'
+			,'categories'
+			,'elements'
+			,'products'
+			,'flip-box'
+			,'carousel'
+			,'countdown'
+			,'share-buttons'
+			,'author-box'
+			,'breadcrumbs'
+			,'search-form'
+			,'post-navigation'
+			,'post-comments'
+			,'theme-elements'
+			,'blockquote'
+			,'template'
+			,'wp-widget-audio'
+			,'woocommerce'
+			,'social'
+			,'library'
 
+			// wp widgets ----------------- //
+			,'wp-widget-pages'
+			,'wp-widget-archives'
+			,'wp-widget-media_audio'
+			,'wp-widget-media_image'
+			,'wp-widget-media_gallery'
+			,'wp-widget-media_video'
+			,'wp-widget-meta'
+			,'wp-widget-search'
+			,'wp-widget-text'
+			,'wp-widget-categories'
+			,'wp-widget-recent-posts'
+			,'wp-widget-recent-comments'
+			,'wp-widget-rss'
+			,'wp-widget-tag_cloud'
+			,'wp-widget-nav_menu'
+			,'wp-widget-custom_html'
+			,'wp-widget-polylang'
+			,'wp-widget-calendar'
+			,'wp-widget-elementor-library'
+        ];
+    }
+}
 
+// Instantiate the class
+new Holler_Widgets_Manager();
 
+class Holler_Elementor_Extension {
+    public function __construct() {
+        // Hook into Elementor to add custom controls
+        add_action('elementor/element/container/section_layout/after_section_end', array($this, 'add_custom_spacing_control'), 10, 2);
+
+        // Hook into Elementor's frontend rendering to modify container classes
+        add_action('elementor/frontend/container/before_render', array($this, 'modify_container_classes'));
+    }
+
+    public function add_custom_spacing_control($element, $args) {
+        $element->start_controls_section(
+            'my_custom_section',
+            [
+                'label' => __('Container Spacing', 'text-domain'),
+                'tab' => \Elementor\Controls_Manager::TAB_LAYOUT,
+            ]
+        );
+
+        $element->add_control(
+            'holler_container_spacing',
+            [
+                'label' => __('Container Spacing', 'text-domain'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'solid',
+                'options' => [
+                    '' => esc_html__('Default', 'textdomain'),
+                    'no-padding' => esc_html__('No Padding', 'textdomain'),
+                    'xxl-hero-padding' => esc_html__('XXL Hero Padding', 'textdomain'),
+                    'xl-padding' => esc_html__('XL Padding', 'textdomain'),
+                    'large-padding' => esc_html__('Large Padding', 'textdomain'),
+                    'medium-padding' => esc_html__('Medium Padding', 'textdomain'),
+					'small-padding' => esc_html__('Small Padding', 'textdomain'),
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .your-class' => 'border-style: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $element->end_controls_section();
+    }
+
+    public function modify_container_classes($element) {
+        // Check if it's the container widget
+        if ('container' === $element->get_name()) {
+            // Get the settings
+            $settings = $element->get_settings_for_display();
+
+            // Check if your custom control has a value
+            if (!empty($settings['holler_container_spacing'])) {
+                // Add the value of the custom control as a class
+                $element->add_render_attribute('_wrapper', 'class', 'holler-container-' . $settings['holler_container_spacing'], true);
+            } else {
+                $element->add_render_attribute('_wrapper', ['class' => ['holler-container-default']]);
+            }
+        }
+    }
+}
+
+// Instantiate the class to ensure it's loaded
+new Holler_Elementor_Extension();
