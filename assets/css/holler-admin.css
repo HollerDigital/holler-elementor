@@ -1,0 +1,85 @@
+.holler-menu-page-wrapper{
+    background-color: #f0f0f1;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.holler-widget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 48px;
+}
+.holler-widget-control {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 16px;
+}
+.holler-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+  }
+  
+  .holler-switch input {
+    display:none;
+  }
+  
+  .holler-switch-slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+  }
+  
+  .holler-switch-slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+  }
+  
+  input:checked + .holler-switch-slider {
+    background-color: #66bb6a;
+  }
+  
+  input:checked + .holler-switch-slider:before {
+    transform: translateX(26px);
+  }
+  
+  .holler-switch-slider.round {
+    border-radius: 34px;
+  }
+  
+  .holler-switch-slider.round:before {
+    border-radius: 50%;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* general styling */
+
+  
+  .holler-container {
+    margin: 0 auto;
+  }

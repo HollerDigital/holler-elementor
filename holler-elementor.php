@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:    	2.1.0 
+ * Version:    	2.1.1 
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: elementor-test-extension
@@ -400,6 +400,7 @@ class Holler_Widgets_Manager {
         add_action('admin_init', array($this, 'register_my_custom_settings'));
         add_action('elementor/widgets/register', array($this, 'unregister_elementor_widgets_based_on_settings'), 99);
         add_action('elementor/widgets/widgets_registered', array($this, 'unregister_elementor_widgets_based_on_settings'), 15);
+		add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
     }
 
     public function register_my_custom_menu_page() {
@@ -411,10 +412,15 @@ class Holler_Widgets_Manager {
 			array($this, 'elementor_widgets_settings_page'), // Function to display the settings page
 		);
     }
+	public function enqueue_admin_styles() {
+        // Enqueue your stylesheet here
+
+        wp_enqueue_style('holler-admin-style',  plugins_url( '/assets/css/holler-admin.css', __FILE__ ), array( ),  null, 'all' );
+    }
 
     public function elementor_widgets_settings_page() {
         ?>
-        <div class="wrap">
+        <div class="holler-menu-page-wrapper">
             <h2>Elementor Widgets Settings</h2>
             <form method="post" action="options.php">
                 <?php
@@ -427,13 +433,26 @@ class Holler_Widgets_Manager {
                 // List of all widgets
                 $widgets = $this->get_all_widgets();
 
+				echo "<div class='holler-widget-grid'>";
                 foreach ($widgets as $widget) {
                     // Check if the widget is set in the array and then use its value for the checked attribute
                     $is_checked = isset($elementor_widget_blacklist[$widget]) ? $elementor_widget_blacklist[$widget] : '';
                     ?>
-                    <input type="checkbox" name="elementor_widget_blacklist[<?php echo $widget; ?>]" value="1" <?php checked(1, $is_checked, true); ?>><?php echo $widget; ?><br>
+						<div class="holler-widget-control">
+							<h2><?php echo $widget; ?></h2>
+							<div class="holler-container">
+								<label class="holler-switch" for="<?php echo $widget; ?>">
+								<input type="checkbox" name="elementor_widget_blacklist[<?php echo $widget; ?>]" value="1" <?php checked(1, $is_checked, true); ?> id="<?php echo $widget; ?>">
+									<div class="holler-switch-slider round"></div>
+								</label>
+							</div>
+						</div>
+
+			 
+                  
                     <?php
                 }
+				echo "</div>";
                 submit_button();
                 ?>
             </form>
@@ -472,13 +491,15 @@ class Holler_Widgets_Manager {
         $all_widgets = $this->get_all_widgets();
 
         foreach ($all_widgets as $widget_name) {
-            if (!in_array($widget_name, $elementor_widget_blacklist)) {
-                $widgets_manager->unregister($widget_name);
-            }
+		 
+            // if (!in_array($widget_name, $elementor_widget_blacklist)) {
+			if( $elementor_widget_blacklist[$widget_name] == 1){
+				continue;
+			}else {
+				$widgets_manager->unregister($widget_name);
+			}
         }
     }
-
-	
 
     protected function get_all_widgets() {
         // Return the array of all widgets
@@ -572,6 +593,7 @@ class Holler_Widgets_Manager {
 			,'wp-widget-polylang'
 			,'wp-widget-calendar'
 			,'wp-widget-elementor-library'
+			,'wp-widget-block'
         ];
     }
 }
