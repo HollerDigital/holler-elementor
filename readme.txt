@@ -25,6 +25,9 @@ Documentation to come.
 
 == Changelog ==
 
+= 2.1.2- 02.02.2024 =
+* code cleanup and bug fixes
+
 = 2.1.1 - 02.02.2024 =
 * added stylized controls for the widgets
 

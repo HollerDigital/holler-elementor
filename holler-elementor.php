@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:    	2.1.1 
+ * Version:    	2.1.2 
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: elementor-test-extension
@@ -493,7 +493,7 @@ class Holler_Widgets_Manager {
         foreach ($all_widgets as $widget_name) {
 		 
             // if (!in_array($widget_name, $elementor_widget_blacklist)) {
-			if( $elementor_widget_blacklist[$widget_name] == 1){
+			if( isset($elementor_widget_blacklist[$widget_name]) && $elementor_widget_blacklist[$widget_name] == 1){
 				continue;
 			}else {
 				$widgets_manager->unregister($widget_name);
