@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.1.0' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.1.3' );
 
 // Plugin Updater
 // https://github.com/YahnisElsts/plugin-update-checker
@@ -599,15 +599,27 @@ class Holler_Widgets_Manager {
 }
 
 // Instantiate the class
-new Holler_Widgets_Manager();
+// new Holler_Widgets_Manager();
 
 class Holler_Elementor_Extension {
     public function __construct() {
+		//require_once( __DIR__ .'/inc/helpers/functions.php' );
+		add_action('elementor/editor/before_enqueue_scripts', function() {
+			wp_enqueue_script(
+				'holler-elementor-editor',
+				plugin_dir_url(__FILE__) . 'assets/js/holler-elementor-app.js', // Adjust the path
+				[], // Dependencies
+				'1.0.01', // Version number
+				true // In footer
+			);
+		});
+
         // Hook into Elementor to add custom controls
         add_action('elementor/element/container/section_layout/after_section_end', array($this, 'add_custom_spacing_control'), 10, 2);
 
         // Hook into Elementor's frontend rendering to modify container classes
         add_action('elementor/frontend/container/before_render', array($this, 'modify_container_classes'));
+		add_action('elementor/element/container/before_render', array($this, 'modify_container_classes'));
     }
 
     public function add_custom_spacing_control($element, $args) {

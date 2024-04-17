@@ -2,8 +2,8 @@
 Contributors: 
 Donate link: https://hollerdigital.com/
 Tags: holler-elementor
-Requires at least: 4.7
-Tested up to: 5.8.1
+Requires at least: 6.0
+Tested up to: 6.4.3
 Stable tag: 2.1.1 
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -24,6 +24,9 @@ Holler Elementor is a custom set of light weight widgets created by Holler Digit
 Documentation to come.
 
 == Changelog ==
+
+= 2.1.3- 17.04.2024 =
+* Remove Element Manager as E has added one
 
 = 2.1.2- 02.02.2024 =
 * code cleanup and bug fixes
