@@ -94,7 +94,20 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 			]
 		);
 		
-
+		$this->add_control(
+			'team_image_style',
+			[
+				'label' => __( 'Image Style', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'image-round' => __( 'Round', 'plugin-domain' ),
+					'image-square' => __( 'Square', 'plugin-domain' ),
+	
+				],
+				'default' => 'image-round',
+			]
+		);
+		
 		// $this->add_control(
 		// 	'team_image_dimension',
 		// 	[

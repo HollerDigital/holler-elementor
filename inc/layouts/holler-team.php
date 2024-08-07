@@ -6,6 +6,12 @@ function _holler_team_template( $settings) {
 	//print_r ($settings);
 	
 	$imgSrc = $settings['team_image']['url'];
+	$imgStyle = $settings['team_image_style'];
+
+	if(empty($imgStyle )){
+		$imgStyle  = 'image-round';
+	}
+	
 	$team_name = $settings['team_name'];
 	$team_title = $settings['team_title'];
 	$content =  $settings['team_bio'];
@@ -17,7 +23,7 @@ function _holler_team_template( $settings) {
 <article class="holler-widget <?php echo  $style; ?>">
 	 <a href="javascript:void(0)" data-modal="<?php echo $slug . $rand; ?>" id="myBtn_<?php echo  $slug . $rand; ?>" class="holler_team"> 	  
   	<figure class="img-wrap">
-	     <img src="<?php echo $imgSrc; ?>"  alt='$team_name'/>
+	     <img src="<?php echo $imgSrc; ?>"  alt='<?php echo $team_name; ?>' class='<?php echo $imgStyle; ?>' />
 		</figure>
     <header class="team-header">
 	    <h2 class="team-name"><?php echo $team_name; ?></h2>

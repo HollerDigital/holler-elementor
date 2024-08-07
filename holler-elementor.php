@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.1.3' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.1.4' );
 
 // Plugin Updater
 // https://github.com/YahnisElsts/plugin-update-checker

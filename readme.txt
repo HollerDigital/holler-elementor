@@ -25,6 +25,9 @@ Documentation to come.
 
 == Changelog ==
 
+= 2.1.4- 07.08.2024 =
+* Add Option of square or round image stylet to team widget
+
 = 2.1.3- 17.04.2024 =
 * Remove Element Manager as E has added one
 

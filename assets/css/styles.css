@@ -54,9 +54,14 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   align-items: center;
   margin-bottom: 1em !important; 
 }
-.holler-team figure.img-wrap img{ 
+.holler-team figure.img-wrap img.image-round { 
   border-radius: var( --holler-team-radius );
 }
+
+.holler-team figure.img-wrap img.image-square{ 
+  border-radius: none !important;
+}
+
 .holler-team .team-header { 
   text-align: center;
 }
