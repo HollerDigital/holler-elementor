@@ -153,6 +153,187 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		);
 		
 		$this->end_controls_section();
+
+
+		  // Styles Tab
+		  $this->start_controls_section(
+			'style_section',
+			[
+				'label' => __( 'Styles', 'plugin-name' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+	
+		$this->add_control(
+			'team_name_size',
+			[
+				'label' => __( 'Team Name Size', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'range' => [
+					'px' => [
+						'min' => 10,
+						'max' => 100,
+					],
+					'em' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+					'rem' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-name-size: {{SIZE}}{{UNIT}};',
+				],
+				'default' => [
+					'size' => 1.2,
+					'unit' => 'rem',
+				],
+			]
+		);
+	
+		$this->add_control(
+			'team_name_color',
+			[
+				'label' => __( 'Team Name Color', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-name-color: {{VALUE}};',
+				],
+				'default' => '#08005C',
+			]
+		);
+	
+		$this->add_control(
+			'team_title_size',
+			[
+				'label' => __( 'Team Title Size', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'range' => [
+					'px' => [
+						'min' => 10,
+						'max' => 100,
+					],
+					'em' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+					'rem' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-title-size: {{SIZE}}{{UNIT}};',
+				],
+				'default' => [
+					'size' => 1,
+					'unit' => 'em',
+				],
+			]
+		);
+	
+		$this->add_control(
+			'team_title_color',
+			[
+				'label' => __( 'Team Title Color', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-title-color: {{VALUE}};',
+				],
+				'default' => '#8C4EFD',
+			]
+		);
+	
+		$this->add_control(
+			'modal_bg_color',
+			[
+				'label' => __( 'Modal Background Color', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-modal-bgcolor: {{VALUE}};',
+				],
+				'default' => 'rgba(8, 0, 92, 0.9)',
+			]
+		);
+	
+		$this->add_control(
+			'modal_name_size',
+			[
+				'label' => __( 'Modal Name Size', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'range' => [
+					'px' => [
+						'min' => 10,
+						'max' => 100,
+					],
+					'em' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+					'rem' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-modal-name-size: {{SIZE}}{{UNIT}};',
+				],
+				'default' => [
+					'size' => 1.5,
+					'unit' => 'em',
+				],
+			]
+		);
+	
+		$this->add_control(
+			'modal_title_size',
+			[
+				'label' => __( 'Modal Title Size', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'range' => [
+					'px' => [
+						'min' => 10,
+						'max' => 100,
+					],
+					'em' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+					'rem' => [
+						'min' => 0.5,
+						'max' => 10,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-modal-title-size: {{SIZE}}{{UNIT}};',
+				],
+				'default' => [
+					'size' => 1.25,
+					'unit' => 'em',
+				],
+			]
+		);
+	
+		$this->add_control(
+			'modal_text_color',
+			[
+				'label' => __( 'Modal Text Color', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--holler-team-modal-color: {{VALUE}};',
+				],
+				'default' => '#08005C',
+			]
+		);
+	
+		$this->end_controls_section();
+		
 	}
 
 	/**

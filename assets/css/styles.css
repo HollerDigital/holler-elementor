@@ -28,7 +28,7 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
 --------------------------------------------------------------*/
 :root {
   --holler-team-radius:  50%;
-  --holler-team-name-size: 1.2rem;
+  /* --holler-team-name-size: 1.2rem;
   --holler-team-name-color: #08005C;
   --holler-team-title-size:  1em;
   --holler-team-title-color: #8C4EFD;
@@ -36,7 +36,7 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   --holler-team-modal-name-size:1.5em;
   --holler-team-modal-title-size: 1.25em;
   --holler-team-modal-color: #08005C;
-  --holler-team-modal-hover-color: #8C4EFD;
+  --holler-team-modal-hover-color: #8C4EFD; */
 }
 
 
@@ -112,7 +112,7 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   font-size: var(--holler-team-modal-name-size);
   font-weight: 700;
   line-height: 1.4;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   color: var(--holler-team-name-color);
   text-decoration: none;
 }
@@ -122,6 +122,7 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   line-height: 1.4;
   color: var( --holler-team-title-color);
   text-decoration: none;
+  margin-bottom: 0 !important;
 }
 
 .modal {
@@ -163,7 +164,7 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
     max-width: 1000px;
   }
   
-  .team-lightbox-header{
+  .team-lightbox-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -171,8 +172,14 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
     align-content: center;
     width: 100%;
     margin-bottom: 1em;
+    column-gap: 24px;
   }
-
+  h2.team-name { 
+    margin-bottom: 0 !important;
+  }
+   h3.team-title {
+    margin-bottom: 0 !important;
+  }
   .team-lightbox-header .img-wrap {
     width: 33.3%;
     max-width: 166px;
@@ -186,3 +193,5 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
     padding: 1em;
   }  
 }
+
+ 

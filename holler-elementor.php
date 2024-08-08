@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:    	2.1.5 
+ * Version:    	2.1.6 
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: elementor-test-extension
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.1.5' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.1.6' );
 
 // Plugin Updater
 // https://github.com/YahnisElsts/plugin-update-checker
@@ -394,213 +394,7 @@ require_once( __DIR__ .'/inc/helpers/functions.php' );
 // Layouts
 require_once( __DIR__ .'/inc/layouts/holler-team.php' );
 
-class Holler_Widgets_Manager {
-    public function __construct() {
-        add_action('admin_menu', array($this, 'register_my_custom_menu_page'));
-        add_action('admin_init', array($this, 'register_my_custom_settings'));
-        add_action('elementor/widgets/register', array($this, 'unregister_elementor_widgets_based_on_settings'), 99);
-        add_action('elementor/widgets/widgets_registered', array($this, 'unregister_elementor_widgets_based_on_settings'), 15);
-		add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
-    }
-
-    public function register_my_custom_menu_page() {
-		add_options_page(
-			__('Holler Elementor Settings', 'holler'), // Page title
-			__('Holler Elementor', 'holler'), // Menu title
-			'manage_options', // Capability
-			'holler-elementor-settings', // Menu slug
-			array($this, 'elementor_widgets_settings_page'), // Function to display the settings page
-		);
-    }
-	public function enqueue_admin_styles() {
-        // Enqueue your stylesheet here
-
-        wp_enqueue_style('holler-admin-style',  plugins_url( '/assets/css/holler-admin.css', __FILE__ ), array( ),  null, 'all' );
-    }
-
-    public function elementor_widgets_settings_page() {
-        ?>
-        <div class="holler-menu-page-wrapper">
-            <h2>Elementor Widgets Settings</h2>
-            <form method="post" action="options.php">
-                <?php
-                settings_fields('elementor-widgets-settings-group');
-                do_settings_sections('elementor-widgets-settings-group');
-                $elementor_widget_blacklist = get_option('elementor_widget_blacklist');
-                if (!is_array($elementor_widget_blacklist)) {
-                    $elementor_widget_blacklist = []; // Initialize as empty array if not set
-                }
-                // List of all widgets
-                $widgets = $this->get_all_widgets();
-
-				echo "<div class='holler-widget-grid'>";
-                foreach ($widgets as $widget) {
-                    // Check if the widget is set in the array and then use its value for the checked attribute
-                    $is_checked = isset($elementor_widget_blacklist[$widget]) ? $elementor_widget_blacklist[$widget] : '';
-                    ?>
-						<div class="holler-widget-control">
-							<h2><?php echo $widget; ?></h2>
-							<div class="holler-container">
-								<label class="holler-switch" for="<?php echo $widget; ?>">
-								<input type="checkbox" name="elementor_widget_blacklist[<?php echo $widget; ?>]" value="1" <?php checked(1, $is_checked, true); ?> id="<?php echo $widget; ?>">
-									<div class="holler-switch-slider round"></div>
-								</label>
-							</div>
-						</div>
-
-			 
-                  
-                    <?php
-                }
-				echo "</div>";
-                submit_button();
-                ?>
-            </form>
-        </div>
-        <?php
-    }
-
-	public function register_my_custom_settings() {
-        register_setting(
-            'elementor-widgets-settings-group', // Option group
-            'elementor_widget_blacklist', // Option name
-            array($this, 'sanitize_elementor_widget_blacklist') // Sanitize callback
-        );
-    }
-
-	public function sanitize_elementor_widget_blacklist($input) {
-        // Ensure the input is an array
-        if (!is_array($input)) {
-            $input = [];
-        }
-
-        // Sanitize each widget name in the array
-        $input = array_map('sanitize_text_field', $input);
-
-        // Return the sanitized array
-        return $input;
-    }
-
-
-    public function unregister_elementor_widgets_based_on_settings($widgets_manager) {
-        $elementor_widget_blacklist = get_option('elementor_widget_blacklist');
-        if (!is_array($elementor_widget_blacklist)) {
-            return;
-        }
-
-        $all_widgets = $this->get_all_widgets();
-
-        foreach ($all_widgets as $widget_name) {
-		 
-            // if (!in_array($widget_name, $elementor_widget_blacklist)) {
-			if( isset($elementor_widget_blacklist[$widget_name]) && $elementor_widget_blacklist[$widget_name] == 1){
-				continue;
-			}else {
-				$widgets_manager->unregister($widget_name);
-			}
-        }
-    }
-
-    protected function get_all_widgets() {
-        // Return the array of all widgets
-        return [
-			//'common'
-			//,'heading'
-			//,'image'
-			//,'text-editor'
-			//,'video'
-			//,'button'
-			'divider'
-			,'spacer'
-			,'image-box'
-			,'google-maps'
-			,'icon'
-			,'icon-box'
-			,'image-gallery'
-			,'image-carousel'
-			,'icon-list'
-			,'counter'
-			,'progress'
-			,'testimonial'
-			,'tabs'
-			,'accordion'
-			,'toggle'
-			,'social-icons'
-			,'alert'
-			,'audio'
-			,'shortcode'
-			,'html'
-			,'menu-anchor'
-			,'sidebar'
-		  
-			// pro ----------------- //
-		   	,'posts'
-			,'portfolio'
-			,'slides'
-			,'form'
-			,'login'
-			,'media-carousel'
-			,'testimonial-carousel'
-			,'nav-menu'
-			,'pricing'
-			,'facebook-comment'
-			,'nav-menu'
-			,'animated-headline'
-			,'price-list'
-			,'price-table'
-			,'facebook-button'
-			,'facebook-comments'
-			,'facebook-embed'
-			,'facebook-page'
-			,'add-to-cart'
-			,'categories'
-			,'elements'
-			,'products'
-			,'flip-box'
-			,'carousel'
-			,'countdown'
-			,'share-buttons'
-			,'author-box'
-			,'breadcrumbs'
-			,'search-form'
-			,'post-navigation'
-			,'post-comments'
-			,'theme-elements'
-			,'blockquote'
-			,'template'
-			,'wp-widget-audio'
-			,'woocommerce'
-			,'social'
-			,'library'
-
-			// wp widgets ----------------- //
-			,'wp-widget-pages'
-			,'wp-widget-archives'
-			,'wp-widget-media_audio'
-			,'wp-widget-media_image'
-			,'wp-widget-media_gallery'
-			,'wp-widget-media_video'
-			,'wp-widget-meta'
-			,'wp-widget-search'
-			,'wp-widget-text'
-			,'wp-widget-categories'
-			,'wp-widget-recent-posts'
-			,'wp-widget-recent-comments'
-			,'wp-widget-rss'
-			,'wp-widget-tag_cloud'
-			,'wp-widget-nav_menu'
-			,'wp-widget-custom_html'
-			,'wp-widget-polylang'
-			,'wp-widget-calendar'
-			,'wp-widget-elementor-library'
-			,'wp-widget-block'
-        ];
-    }
-}
-
-// Instantiate the class
-// new Holler_Widgets_Manager();
-
+ 
 class Holler_Elementor_Extension {
     public function __construct() {
 		//require_once( __DIR__ .'/inc/helpers/functions.php' );
@@ -620,8 +414,14 @@ class Holler_Elementor_Extension {
         // Hook into Elementor's frontend rendering to modify container classes
         add_action('elementor/frontend/container/before_render', array($this, 'modify_container_classes'));
 		add_action('elementor/element/container/before_render', array($this, 'modify_container_classes'));
-    }
 
+    }
+	
+ 
+	
+ 
+	 
+	
     public function add_custom_spacing_control($element, $args) {
         $element->start_controls_section(
             'my_custom_section',
@@ -674,3 +474,201 @@ class Holler_Elementor_Extension {
 
 // Instantiate the class to ensure it's loaded
 new Holler_Elementor_Extension();
+
+
+
+class Holler_Team_Settings {
+
+    public function __construct() {
+        add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
+        add_action( 'admin_init', [ $this, 'register_settings' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_color_picker' ] );
+		add_action('wp_head', [ $this, 'output_custom_styles' ]);
+    }
+
+    public function add_settings_page() {
+        add_menu_page(
+            'Holler Team Settings',
+            'Holler Team',
+            'manage_options',
+            'holler-team-settings',
+            [ $this, 'holler_team_settings_html' ],
+            'dashicons-admin-customizer',
+            100
+        );
+    }
+
+    public function register_settings() {
+        register_setting( 'holler_team_settings_group', 'holler_team_settings' );
+
+        add_settings_section(
+            'holler_team_settings_section',
+            __( 'Default Styles', 'plugin-domain' ),
+            '__return_false',
+            'holler-team-settings'
+        );
+
+        // Team Name Size
+        add_settings_field(
+            'team_name_size',
+            __( 'Team Name Size', 'plugin-domain' ),
+            [ $this, 'render_font_size_input' ],
+            'holler-team-settings',
+            'holler_team_settings_section',
+            [
+                'label_for' => 'team_name_size',
+                'default'   => ['size' => '1.2', 'unit' => 'rem']
+            ]
+        );
+
+        // Team Title Size
+        add_settings_field(
+            'team_title_size',
+            __( 'Team Title Size', 'plugin-domain' ),
+            [ $this, 'render_font_size_input' ],
+            'holler-team-settings',
+            'holler_team_settings_section',
+            [
+                'label_for' => 'team_title_size',
+                'default'   => ['size' => '1', 'unit' => 'em']
+            ]
+        );
+
+        // Modal Name Size
+        add_settings_field(
+            'modal_name_size',
+            __( 'Modal Name Size', 'plugin-domain' ),
+            [ $this, 'render_font_size_input' ],
+            'holler-team-settings',
+            'holler_team_settings_section',
+            [
+                'label_for' => 'modal_name_size',
+                'default'   => ['size' => '1.5', 'unit' => 'em']
+            ]
+        );
+
+        // Modal Title Size
+        add_settings_field(
+            'modal_title_size',
+            __( 'Modal Title Size', 'plugin-domain' ),
+            [ $this, 'render_font_size_input' ],
+            'holler-team-settings',
+            'holler_team_settings_section',
+            [
+                'label_for' => 'modal_title_size',
+                'default'   => ['size' => '1.25', 'unit' => 'em']
+            ]
+        );
+
+        // Modal Background Color
+        add_settings_field(
+            'modal_bg_color',
+            __( 'Modal Background Color', 'plugin-domain' ),
+            [ $this, 'render_color_input' ],
+            'holler-team-settings',
+            'holler_team_settings_section',
+            [
+                'label_for' => 'modal_bg_color',
+                'default'   => 'rgba(8, 0, 92, 0.9)'
+            ]
+        );
+
+        // Modal Text Color
+        add_settings_field(
+            'modal_text_color',
+            __( 'Modal Text Color', 'plugin-domain' ),
+            [ $this, 'render_color_input' ],
+            'holler-team-settings',
+            'holler_team_settings_section',
+            [
+                'label_for' => 'modal_text_color',
+                'default'   => '#08005C'
+            ]
+        );
+    }
+
+    public function render_font_size_input($args) {
+        $options = get_option('holler_team_settings');
+        $size = isset($options[$args['label_for']]['size']) ? esc_attr($options[$args['label_for']]['size']) : esc_attr($args['default']['size']);
+        $unit = isset($options[$args['label_for']]['unit']) ? esc_attr($options[$args['label_for']]['unit']) : esc_attr($args['default']['unit']);
+        ?>
+        <input type="number" id="<?php echo esc_attr($args['label_for']); ?>" name="holler_team_settings[<?php echo esc_attr($args['label_for']); ?>][size]" value="<?php echo $size; ?>" min="0" step="0.1" style="width: 70px;">
+        <select name="holler_team_settings[<?php echo esc_attr($args['label_for']); ?>][unit]">
+            <option value="px" <?php selected($unit, 'px'); ?>>px</option>
+            <option value="em" <?php selected($unit, 'em'); ?>>em</option>
+            <option value="rem" <?php selected($unit, 'rem'); ?>>rem</option>
+            <option value="%" <?php selected($unit, '%'); ?>>%</option>
+        </select>
+        <?php
+    }
+
+    public function render_color_input($args) {
+        $options = get_option('holler_team_settings');
+        ?>
+        <input type="text" class="color-picker" id="<?php echo esc_attr($args['label_for']); ?>" name="holler_team_settings[<?php echo esc_attr($args['label_for']); ?>]" value="<?php echo isset($options[$args['label_for']]) ? esc_attr($options[$args['label_for']]) : esc_attr($args['default']); ?>">
+        <?php
+    }
+
+    public function enqueue_color_picker($hook_suffix) {
+        if ('toplevel_page_holler-team-settings' !== $hook_suffix) {
+            return;
+        }
+
+        wp_enqueue_style('wp-color-picker');
+        wp_enqueue_script('holler_team_color_picker', plugins_url('color-picker.js', __FILE__), array('wp-color-picker'), false, true);
+
+        // Inline script to initialize the color picker
+        wp_add_inline_script('holler_team_color_picker', 'jQuery(document).ready(function($){$(".color-picker").wpColorPicker();});');
+    }
+
+    public function holler_team_settings_html() {
+        ?>
+        <div class="wrap">
+            <h1><?php _e('Holler Team Settings', 'plugin-domain'); ?></h1>
+            <form method="post" action="options.php">
+                <?php
+                settings_fields('holler_team_settings_group');
+                do_settings_sections('holler-team-settings');
+                submit_button();
+                ?>
+            </form>
+        </div>
+        <?php
+    }
+
+	public function output_custom_styles() {
+		$options = get_option('holler_team_settings');
+	
+		// Retrieve and sanitize the values
+		$team_name_size = isset($options['team_name_size']) ? esc_attr($options['team_name_size']['size']) . esc_attr($options['team_name_size']['unit']) : '1.2rem';
+		$team_name_color = isset($options['team_name_color']) ? esc_attr($options['team_name_color']) : '#08005C';
+	
+		$team_title_size = isset($options['team_title_size']) ? esc_attr($options['team_title_size']['size']) . esc_attr($options['team_title_size']['unit']) : '1em';
+		$team_title_color = isset($options['team_title_color']) ? esc_attr($options['team_title_color']) : '#8C4EFD';
+	
+		$modal_bg_color = isset($options['modal_bg_color']) ? esc_attr($options['modal_bg_color']) : 'rgba(8, 0, 92, 0.9)';
+		$modal_name_size = isset($options['modal_name_size']) ? esc_attr($options['modal_name_size']['size']) . esc_attr($options['modal_name_size']['unit']) : '1.5em';
+		$modal_title_size = isset($options['modal_title_size']) ? esc_attr($options['modal_title_size']['size']) . esc_attr($options['modal_title_size']['unit']) : '1.25em';
+		$modal_text_color = isset($options['modal_text_color']) ? esc_attr($options['modal_text_color']) : '#08005C';
+	
+		// Output the custom CSS
+		echo "<style type='text/css'>
+			:root {
+				--holler-team-name-size: {$team_name_size};
+				--holler-team-name-color: {$team_name_color};
+				--holler-team-title-size: {$team_title_size};
+				--holler-team-title-color: {$team_title_color};
+				--holler-team-modal-bgcolor: {$modal_bg_color};
+				--holler-team-modal-name-size: {$modal_name_size};
+				--holler-team-modal-title-size: {$modal_title_size};
+				--holler-team-modal-color: {$modal_text_color};
+			}
+		</style>";
+	}
+	
+}
+
+// Instantiate the class
+//new Holler_Team_Settings();
+
+

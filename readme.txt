@@ -4,7 +4,7 @@ Donate link: https://hollerdigital.com/
 Tags: holler-elementor
 Requires at least: 6.0
 Tested up to: 6.4.3
-Stable tag: 2.1.5
+Stable tag: 2.1.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,6 +24,9 @@ Holler Elementor is a custom set of light weight widgets created by Holler Digit
 Documentation to come.
 
 == Changelog ==
+
+= 2.1.6- 08.08.2024 =
+* Add styles to the widget.
 
 = 2.1.5- 08.08.2024 =
 * Add the ability to not have a popup bio.
