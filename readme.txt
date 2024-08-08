@@ -25,6 +25,9 @@ Documentation to come.
 
 == Changelog ==
 
+= 2.1.5- 08.08.2024 =
+* Add the ability to not have a popup bio.
+
 = 2.1.4- 07.08.2024 =
 * Add Option of square or round image stylet to team widget
 

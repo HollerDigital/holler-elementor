@@ -2,7 +2,7 @@
 /**
  * Elementor oEmbed Widget.
  *
- * Elementor widget that inserts an embbedable content into the page, from any given URL.
+ * Elementor widget that inserts an embeddable content into the page, from any given URL.
  *
  * @since 1.0.0
  */
@@ -61,7 +61,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [  'holler' ];
+		return [ 'holler' ];
 	}
 
 	/**
@@ -102,26 +102,11 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 				'options' => [
 					'image-round' => __( 'Round', 'plugin-domain' ),
 					'image-square' => __( 'Square', 'plugin-domain' ),
-	
 				],
 				'default' => 'image-round',
 			]
 		);
-		
-		// $this->add_control(
-		// 	'team_image_dimension',
-		// 	[
-		// 		'label' => esc_html__( 'Image Dimension', 'plugin-name' ),
-		// 		'type' => \Elementor\Controls_Manager::IMAGE_DIMENSIONS,
-		// 		'description' => esc_html__( 'Crop the original image size to any custom size. Set custom width or height to keep the original size ratio.', 'plugin-name' ),
-		// 		'default' => [
-		// 			'width' => '128',
-		// 			'height' => '128',
-		// 		],
-		// 	]
-		// );
 	
-				
 		$this->add_control(
 			'team_name',
 			[
@@ -143,20 +128,31 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'show_bio',
+			[
+				'label' => __( 'Show Bio', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => __( 'Show', 'plugin-domain' ),
+				'label_off' => __( 'Hide', 'plugin-domain' ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
 			'team_bio',
 			[
 				'label' => __( 'Bio', 'plugin-domain' ),
 				'type' => \Elementor\Controls_Manager::WYSIWYG,
 				'default' => __( 'Bio', 'plugin-domain' ),
 				'placeholder' => __( 'Bio', 'plugin-domain' ),
+				'condition' => [
+					'show_bio' => 'yes',
+				],
 			]
 		);
 		
-		
-		
-
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -167,6 +163,8 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
+	 
+
 	protected function render() {
  
 		$settings = $this->get_settings_for_display();
@@ -175,7 +173,6 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 
        echo $result;
 	}
-
 
 
 }
