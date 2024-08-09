@@ -138,7 +138,22 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 				'default' => 'yes',
 			]
 		);
-
+		
+		$this->add_control(
+			'team_url_toggle',
+			[
+				'label' => __( 'Enable URL', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'plugin-domain' ),
+				'label_off' => __( 'No', 'plugin-domain' ),
+				'return_value' => 'yes',
+				'default' => 'no',
+				'condition' => [
+					'show_bio' => '',
+				],
+			]
+		);
+		
 		$this->add_control(
 			'team_bio',
 			[
@@ -151,6 +166,25 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 				],
 			]
 		);
+		$this->add_control(
+			'team_url',
+			[
+				'label' => __( 'URL', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::URL,
+				'placeholder' => __( 'https://example.com', 'plugin-domain' ),
+				'default' => [
+					'url' => '',
+					'is_external' => true,
+					'nofollow' => true,
+				],
+				'condition' => [
+					'team_url_toggle' => 'yes',
+				],
+			]
+		);
+		
+		 
+
 		
 		$this->end_controls_section();
 

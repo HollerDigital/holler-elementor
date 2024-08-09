@@ -4,7 +4,7 @@ Donate link: https://hollerdigital.com/
 Tags: holler-elementor
 Requires at least: 6.0
 Tested up to: 6.4.3
-Stable tag: 2.1.7
+Stable tag: 2.1.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,7 +25,10 @@ Documentation to come.
 
 == Changelog ==
 
-= 2.1.6- 09.08.2024 =
+= 2.1.8- 09.08.2024 =
+* Add the bio link option from client project
+
+= 2.1.7- 09.08.2024 =
 * updade CSS for improved modal visuals
 
 = 2.1.6- 08.08.2024 =

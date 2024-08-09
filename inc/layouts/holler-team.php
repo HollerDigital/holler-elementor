@@ -5,24 +5,48 @@ function _holler_team_template($settings) {
     // Get settings
     $imgSrc = esc_url($settings['team_image']['url']);
     $imgStyle = !empty($settings['team_image_style']) ? $settings['team_image_style'] : 'image-round';
+    
     $team_name = esc_html($settings['team_name']);
     $team_title = esc_html($settings['team_title']);
+    
     $show_bio = $settings['show_bio'] === 'yes';
+	$team_url_toggle =  $settings['team_url_toggle'];
     $content = $settings['team_bio'];
+    
     $style = 'holler-team';
     $rand = rand(99, 99999);
     $slug = slugify($team_name);
-    
+
+    $url = "javascript:void(0)";
+	$class = "holler_team";
+    $open_tag = "<div";
+    $close_tag ="</div>";
+
+
+    if( $settings['show_bio'] == "yes" ){
+        $open_tag = "<a";
+        $close_tag ="</a>";
+        $url = "javascript:void(0)";
+        $rand = rand(99, 99999);
+        $slug = slugify($team_name);
+        // $style = 'holler-team-link';
+		$class = "holler_team holler_team_link";
+    }    
+    if( $team_url_toggle == "yes" ){
+        $open_tag = "<a";
+        $close_tag ="</a>";
+		$url = $settings['team_url']['url'];
+		$slug = "";
+		$rand = "";
+		// $style = 'holler-team-link';
+		$class = "holler_team holler_team_link";
+	}
     // Start output buffering
     ob_start();
     ?>
     
     <article class="holler-widget <?php echo esc_attr($style); ?>">
-        <?php if ($show_bio): ?>
-            <a href="javascript:void(0)" data-modal="<?php echo esc_attr($slug . $rand); ?>" id="myBtn_<?php echo esc_attr($slug . $rand); ?>" class="holler_team">
-        <?php else: ?>
-            <div class="holler_team">
-        <?php endif; ?>
+        <?php echo $open_tag; ?> href="<?php echo  $url; ?>" data-modal="<?php echo $slug . $rand; ?>" id="myBtn_<?php echo  $slug . $rand; ?>" class="<?php echo  $class; ?>"> 	
         
         <figure class="img-wrap">
             <img src="<?php echo esc_attr($imgSrc); ?>" alt="<?php echo esc_attr($team_name); ?>" class="<?php echo esc_attr($imgStyle); ?>" />
@@ -33,11 +57,8 @@ function _holler_team_template($settings) {
             <h3 class="team-title"><?php echo esc_html($team_title); ?></h3>
         </header>
         
-        <?php if ($show_bio): ?>
-            </a>
-        <?php else: ?>
-            </div>
-        <?php endif; ?>
+        <?php  echo $close_tag; ?>
+ 
     </article>
     
     <?php if ($show_bio): ?>
