@@ -53,7 +53,7 @@ function _holler_team_template($settings) {
                         <h3 class="team-title"><?php echo esc_html($team_title); ?></h3>
                     </div>
                 </div>
-                <div class="team-lightbox-content">
+                <div class="team-lightbox-content modal_text_color">
                     <?php echo wp_kses_post($content); ?>
                 </div>
             </div>

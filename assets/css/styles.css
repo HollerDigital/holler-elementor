@@ -82,7 +82,7 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   text-decoration: none !important;
 }
 
-.holler-team-lightbox-wrap{
+.holler-team-lightbox-wrap {
   padding: 1em 2em;
   background-color: #fff;
   margin: 10% auto; /* 10% from the top and centered */
@@ -92,6 +92,44 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   border-radius: 8px;
   position: relative;
 }
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 99; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  overflow: auto !important; /* Enable scroll if needed */
+  background-color: var(--holler-team-modal-bgcolor); /* Black w/ opacity */
+  transition-duration: 0.5s;
+  overflow: hidden;
+  color: var(--holler-team-modal-color);
+}
+
+.modal .team-header h3.team-title {
+  font-size: var(--holler-team-title-size);
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 1em;
+  color: var( --holler-team-title-color);
+  text-decoration: none !important;
+}
+
+ /* The Close Button */
+.close {
+  color: var(-holler-team-modal-color);
+  display: block;
+  position: absolute;
+  right: 2em;
+  font-size: 28px;
+  font-weight: bold;
+  transition-duration: 0.5s;
+}
+.close:hover {
+  color: var(--holler-team-modal-hover-color);
+}
+
 .team-lightbox-header{
   align-content: left;
   width: 100%;
@@ -108,50 +146,24 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   width: 100%;
   margin: 1em;
 }
-.lightboox-team-header h2.team-name { 
+.team-lightbox-header h2.team-name { 
   font-size: var(--holler-team-modal-name-size);
   font-weight: 700;
   line-height: 1.4;
   margin-bottom: 0 !important;
-  color: var(--holler-team-name-color);
+  color: var(--holler-team-modal-name-color);
   text-decoration: none;
 }
-.lightboox-team-header h3.team-title {
+.team-lightbox-header h3.team-title {
   font-size: var(--holler-team-modal-title-size); 
   font-weight: 400;
   line-height: 1.4;
-  color: var( --holler-team-title-color);
+  color: var( --holler-team-title-color) ; 
   text-decoration: none;
   margin-bottom: 0 !important;
 }
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 99; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  overflow: auto !important; /* Enable scroll if needed */
-  background-color: var(--holler-team-modal-bgcolor); /* Black w/ opacity */
-  transition-duration: 0.5s;
-  overflow: hidden;
-}
 
- /* The Close Button */
-.close {
-  color: var(-holler-team-modal-color);
-  display: block;
-  position: absolute;
-  right: 2em;
-  font-size: 28px;
-  font-weight: bold;
-  transition-duration: 0.5s;
-}
-.close:hover {
-  color: var(--holler-team-modal-hover-color);
-}
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 768px) {

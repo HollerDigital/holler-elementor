@@ -25,6 +25,9 @@ Documentation to come.
 
 == Changelog ==
 
+= 2.1.6- 09.08.2024 =
+* updade CSS for improved modal visuals
+
 = 2.1.6- 08.08.2024 =
 * Add styles to the widget.
 

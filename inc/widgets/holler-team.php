@@ -289,7 +289,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 				],
 			]
 		);
-	
+	 
 		$this->add_control(
 			'modal_title_size',
 			[
@@ -333,7 +333,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		);
 	
 		$this->end_controls_section();
-		
+
 	}
 
 	/**
