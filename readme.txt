@@ -4,7 +4,7 @@ Donate link: https://hollerdigital.com/
 Tags: holler-elementor
 Requires at least: 6.0
 Tested up to: 6.4.3
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,6 +24,9 @@ Holler Elementor is a custom set of light weight widgets created by Holler Digit
 Documentation to come.
 
 == Changelog ==
+
+= 2.2.1- 21.08.2024 =
+* Bug Fixes
 
 = 2.2.0- 21.08.2024 =
 * update the spacing and heading controls to improve global styles 
