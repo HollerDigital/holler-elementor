@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:    	2.1.8
+ * Version:    	2.2.0
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: elementor-test-extension
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.1.8' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.2.0' );
 
 // Plugin Updater
 // https://github.com/YahnisElsts/plugin-update-checker
@@ -193,18 +193,18 @@ final class Elementor_Test_Extension {
 		add_action( 'elementor/elements/categories_registered', [ $this,'add_elementor_widget_categories'] );
 		
 		// Register Widget Styles
-		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'brandt_styles' ] , 500	);
+		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'holler_styles' ] , 500	);
 		
 		// Register Widget Scripts
-		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'brandt_scripts' ] );
+		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'holler_scripts' ] );
 		
 		
-		add_action( 'elementor/preview/enqueue_styles', [ $this, 'brandt_styles' ] );
-		add_action( 'elementor/preview/enqueue_styles', [ $this, 'brandt_scripts' ] );
+		add_action( 'elementor/preview/enqueue_styles', [ $this, 'holler_styles' ] );
+		add_action( 'elementor/preview/enqueue_styles', [ $this, 'holler_scripts' ] );
 		
 		
-		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'brandt_styles' ] );
-		//add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'brandt_scripts' ] );
+		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'holler_styles' ] );
+		//add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'holler_scripts' ] );
 		
 		// add_action( 'elementor/frontend/before_enqueue_scripts', function() {
 		//    wp_enqueue_script(
@@ -235,12 +235,12 @@ final class Elementor_Test_Extension {
 				
 	}
   
-	public function brandt_styles() {
+	public function holler_styles() {
     	wp_register_style( 'holler-elementor',  plugins_url( '/assets/css/styles.css', __FILE__ ), array( ),  HOLLER_ELEMENTOR_VERSION, 'all' );
     	wp_enqueue_style( 'holler-elementor');
 	}
 	
-	public function brandt_scripts() {
+	public function holler_scripts() {
     	//wp_register_script( 'brandt-elementor-plugins', plugins_url( '/assets/js/plugins.js', __FILE__ ), array('jquery'),HOLLER_ELEMENTOR_VERSION, true );
     	wp_register_script( 'holler-elementor', plugins_url( '/assets/js/holler-elementor-app.js', __FILE__ ), array('jquery'),HOLLER_ELEMENTOR_VERSION, true );
 		// wp_enqueue_script("jquery-ui-core");
@@ -410,17 +410,46 @@ class Holler_Elementor_Extension {
 
         // Hook into Elementor to add custom controls
         add_action('elementor/element/container/section_layout/after_section_end', array($this, 'add_custom_spacing_control'), 10, 2);
+		add_action('elementor/element/heading/section_title/after_section_end', array($this, 'add_custom_heading_control'), 10, 2);
 
         // Hook into Elementor's frontend rendering to modify container classes
-        add_action('elementor/frontend/container/before_render', array($this, 'modify_container_classes'));
-		add_action('elementor/element/container/before_render', array($this, 'modify_container_classes'));
+        // add_action('elementor/frontend/container/before_render', array($this, 'modify_container_classes'));
+		// add_action('elementor/element/container/before_render', array($this, 'modify_container_classes'));
 
     }
 	
- 
+	public function add_custom_heading_control($element, $args) {
+		$element->start_controls_section(
+			'custom_section',
+			[
+				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Global Typography Sizes', 'textdomain' ),
+			]
+		);
 	
- 
-	 
+		$element->add_control(
+			'heading_size',
+			[
+				'label' => __('Heading Size', 'text-domain'),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => __('Default', 'text-domain'),
+					'x-small' => __('Xtra Small', 'text-domain'),
+					'small' => __('Small', 'text-domain'),
+					'medium' => __('Medium', 'text-domain'),
+					'large' => __('Large', 'text-domain'),
+					'xl' => __('XL', 'text-domain'),
+					'xxl' => __('XXL', 'text-domain'),
+				],
+				'selectors' => [
+					'{{WRAPPER}} .elementor-heading-title' => 'font-size: var(--heading-size-{{VALUE}});',
+				]
+			]
+		);
+	
+		$element->end_controls_section();
+	}
 	
     public function add_custom_spacing_control($element, $args) {
         $element->start_controls_section(
@@ -431,27 +460,28 @@ class Holler_Elementor_Extension {
             ]
         );
 
-        $element->add_control(
-            'holler_container_spacing',
-            [
-                'label' => __('Container Spacing', 'text-domain'),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'default' => 'solid',
-                'options' => [
-                    '' => esc_html__('Default', 'textdomain'),
-                    'no-padding' => esc_html__('No Padding', 'textdomain'),
-                    'xxl-hero-padding' => esc_html__('XXL Hero Padding', 'textdomain'),
-                    'xl-padding' => esc_html__('XL Padding', 'textdomain'),
-                    'large-padding' => esc_html__('Large Padding', 'textdomain'),
-                    'medium-padding' => esc_html__('Medium Padding', 'textdomain'),
-					'small-padding' => esc_html__('Small Padding', 'textdomain'),
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .your-class' => 'border-style: {{VALUE}};',
-                ],
-            ]
-        );
-
+		$element->add_control(
+			'holler_container_spacing',
+			[
+				'label' => __('Container Spacing', 'text-domain'),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => '--default-padding',
+				'options' => [
+					'' => esc_html__('Default', 'textdomain'),
+					'--no-padding' => esc_html__('No Padding', 'textdomain'),
+					'--xxl-padding' => esc_html__('XXL Hero Padding', 'textdomain'),
+					'--xl-padding' => esc_html__('XL Padding', 'textdomain'),
+					'--large-padding' => esc_html__('Large Padding', 'textdomain'),
+					'--medium-padding' => esc_html__('Medium Padding', 'textdomain'),
+					'--small-padding' => esc_html__('Small Padding', 'textdomain'),
+				],
+				'selectors' => [
+					//'{{WRAPPER}}.elementor-element' => 'padding-top: var({{VALUE}}-top); padding-right: var({{VALUE}}-right); padding-bottom: var({{VALUE}}-bottom); padding-left: var({{VALUE}}-left);',
+					'{{WRAPPER}}.elementor-element' => ' --padding-block-start: var({{VALUE}}-block-start);  --padding-inline-end: var({{VALUE}}-inline-end);  --padding-block-end: var({{VALUE}}-block-end); --padding-inline-star: var({{VALUE}}-inline-start);',
+				],
+			]
+		);
+		
         $element->end_controls_section();
     }
 
