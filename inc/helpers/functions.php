@@ -36,11 +36,26 @@ function holler_memory_safe_render($callback, $args = [], $fallback_message = ''
     // Set a memory checkpoint
     $memory_before = memory_get_usage(true);
     
+    // Check if we're in an AJAX request
+    $is_ajax = defined('DOING_AJAX') && DOING_AJAX;
+    
     // Try to execute the callback
     try {
         // If memory is already high, use fallback
         if (holler_check_memory_usage(0.9)) {
+            if ($is_ajax) {
+                // For AJAX requests, return a simpler response to avoid potential issues
+                return '<div class="holler-memory-limit">Memory limit reached</div>';
+            }
             return $fallback_message ?: 'Unable to display content due to memory constraints.';
+        }
+        
+        // Set a reasonable time limit for the operation
+        // This helps prevent timeouts in AJAX requests
+        $original_time_limit = ini_get('max_execution_time');
+        if ($original_time_limit > 0 && $original_time_limit < 30) {
+            // Only increase the time limit if it's set and less than 30 seconds
+            @set_time_limit(30);
         }
         
         // Call the function
@@ -52,13 +67,28 @@ function holler_memory_safe_render($callback, $args = [], $fallback_message = ''
         
         // If function used excessive memory, log it for debugging
         if ($memory_used > 5 * 1024 * 1024) { // 5MB threshold
-            error_log("High memory usage detected in function call: {$memory_used} bytes");
+            error_log("High memory usage detected in Holler Elementor: {$memory_used} bytes");
         }
         
         return $result;
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         // Log the error
-        error_log("Memory error in function call: " . $e->getMessage());
+        error_log("Holler Elementor error: " . $e->getMessage());
+        
+        if ($is_ajax) {
+            // For AJAX requests, return a simpler response
+            return '<div class="holler-error">Error processing request</div>';
+        }
+        
+        return $fallback_message ?: 'An error occurred while processing this content.';
+    } catch (\Error $e) {
+        // Catch PHP 7+ errors
+        error_log("Holler Elementor fatal error: " . $e->getMessage());
+        
+        if ($is_ajax) {
+            return '<div class="holler-error">Error processing request</div>';
+        }
+        
         return $fallback_message ?: 'An error occurred while processing this content.';
     }
 }

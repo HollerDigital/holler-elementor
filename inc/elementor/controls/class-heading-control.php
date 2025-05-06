@@ -34,22 +34,22 @@ class Holler_Heading_Control {
 	 * @param array                   $args    The arguments.
 	 */
 	public function add_custom_heading_control($element, $args) {
+		// Use a more specific section ID to avoid conflicts
 		$element->start_controls_section(
-			'custom_section',
+			'holler_heading_size_section',
 			[
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-				'label' => esc_html__('Global Typography Sizes', 'holler-elementor'),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+				'label' => esc_html__('Holler Typography Sizes', 'holler-elementor'),
 			]
 		);
 	
 		$element->add_control(
-			'heading_size',
+			'holler_heading_size',
 			[
 				'label' => esc_html__('Heading Size', 'holler-elementor'),
 				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => '',
+				'default' => '',  // Empty string for no selection by default
 				'options' => [
-					'' => esc_html__('Default', 'holler-elementor'),
 					'x-small' => esc_html__('Xtra Small', 'holler-elementor'),
 					'small' => esc_html__('Small', 'holler-elementor'),
 					'medium' => esc_html__('Medium', 'holler-elementor'),
@@ -58,8 +58,9 @@ class Holler_Heading_Control {
 					'xxl' => esc_html__('XXL', 'holler-elementor'),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-heading-title' => 'font-size: var(--heading-size-{{VALUE}});',
-				]
+					'{{WRAPPER}} .elementor-heading-title' => 'font-size: var(--heading-size-{{VALUE}}, inherit);',
+				],
+				'prefix_class' => 'holler-heading-size-',
 			]
 		);
 	

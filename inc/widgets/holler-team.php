@@ -408,19 +408,27 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		
-		// Get the widget's unique ID
-		$widget_id = $this->get_id();
-		
-		// Use memory-safe rendering with fallback
-		$result = holler_memory_safe_render(
-			'_holler_team_template',
-			[$settings, $widget_id],
-			'<div class="holler-error">Unable to display team member due to resource constraints.</div>'
-		);
+		try {
+			$settings = $this->get_settings_for_display();
+			
+			// Get the widget's unique ID
+			$widget_id = $this->get_id();
+			
+			// Use memory-safe rendering with fallback
+			$result = holler_memory_safe_render(
+				'_holler_team_template',
+				[$settings, $widget_id],
+				'<div class="holler-error">Unable to display team member due to resource constraints.</div>'
+			);
 
-		echo $result;
+			echo $result;
+		} catch (\Exception $e) {
+			// Log the error for debugging
+			error_log('Holler Team Widget Error: ' . $e->getMessage());
+			
+			// Display a fallback for users
+			echo '<div class="holler-team-error">Team member information could not be displayed.</div>';
+		}
 	}
 	
 	/**

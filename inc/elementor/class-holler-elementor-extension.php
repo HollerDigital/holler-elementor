@@ -58,20 +58,33 @@ class Holler_Elementor_Extension {
     }
     
     /**
-     * Initialize controls based on settings
+     * Initialize the controls based on settings
      */
     private function init_controls() {
-        // Get plugin settings
-        $options = get_option('holler_elementor_options', array());
-        
-        // Initialize heading control if enabled (default is enabled)
-        if (!isset($options['enable_heading_control']) || $options['enable_heading_control']) {
-            $this->heading_control = new Holler_Heading_Control();
-        }
-        
-        // Initialize spacing control if enabled (default is enabled)
-        if (!isset($options['enable_spacing_control']) || $options['enable_spacing_control']) {
-            $this->spacing_control = new Holler_Spacing_Control();
+        try {
+            // Get plugin settings with default values
+            $default_settings = array(
+                'enable_heading_control' => 'off',
+                'enable_spacing_control' => 'off',
+            );
+            $settings = wp_parse_args(get_option('holler_elementor_options', array()), $default_settings);
+            
+            // Initialize heading control if enabled
+            // The checkbox value is saved as '1' in the database, not 'on'
+            if (isset($settings['enable_heading_control']) && $settings['enable_heading_control'] == '1') {
+                $this->heading_control = new Holler_Heading_Control();
+            }
+            
+            // Initialize spacing control if enabled
+            if (isset($settings['enable_spacing_control']) && $settings['enable_spacing_control'] == '1') {
+                $this->spacing_control = new Holler_Spacing_Control();
+            }
+            
+            // Debug log to help troubleshoot
+            error_log('Holler Elementor Settings: ' . print_r($settings, true));
+        } catch (\Exception $e) {
+            // Log the error but don't break the site
+            error_log('Holler Elementor Extension Error: ' . $e->getMessage());
         }
     }
 }
