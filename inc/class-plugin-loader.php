@@ -44,6 +44,7 @@ class Holler_Plugin_Loader {
         
         // Admin classes
         require_once HOLLER_ELEMENTOR_DIR . 'inc/admin/class-holler-team-settings.php';
+        require_once HOLLER_ELEMENTOR_DIR . 'inc/admin/class-holler-settings.php';
     }
 
     /**
@@ -78,12 +79,11 @@ class Holler_Plugin_Loader {
      * Initialize plugin components
      */
     private function init_components() {
-        // Instantiate the Elementor extension class
+        // Initialize Elementor extension
         new Holler_Elementor_Extension();
         
-        // Instantiate the Team Settings class if needed
-        // Uncomment the line below to activate
-        // new Holler_Team_Settings();
+        // Initialize Settings page
+        new Holler_Settings();
     }
 
     /**

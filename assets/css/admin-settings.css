@@ -1,0 +1,76 @@
+/**
+ * Holler Elementor Settings Page Styles
+ */
+
+.holler-settings-header {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.holler-settings-header h1 {
+    color: #23282d;
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+
+.holler-settings-header p {
+    color: #72777c;
+    font-size: 14px;
+    margin: 0;
+}
+
+.holler-settings-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.holler-settings-form .form-table th {
+    padding: 20px 10px 20px 0;
+    width: 200px;
+}
+
+.holler-settings-form .form-table td {
+    padding: 15px 10px;
+}
+
+.holler-settings-form input[type="text"],
+.holler-settings-form textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.holler-settings-form textarea.code {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 13px;
+}
+
+.holler-settings-form .description {
+    color: #72777c;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.holler-settings-section {
+    margin-bottom: 30px;
+}
+
+.holler-settings-section h2 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Version info */
+.holler-version-info {
+    float: right;
+    color: #72777c;
+    background: #f7f7f7;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+}
