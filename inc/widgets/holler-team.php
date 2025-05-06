@@ -1,8 +1,8 @@
 <?php
 /**
- * Elementor oEmbed Widget.
+ * Holler Team Widget.
  *
- * Elementor widget that inserts an embeddable content into the page, from any given URL.
+ * Elementor widget that displays team members with optional bio modal.
  *
  * @since 1.0.0
  */
@@ -33,7 +33,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Holler Team', 'plugin-name' );
+		return __( 'Holler Team', 'holler-elementor' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => __( 'Content', 'plugin-name' ),
+				'label' => __( 'Content', 'holler-elementor' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -85,11 +85,14 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_image',
 			[
-				'label' => __( 'Team Image', 'plugin-domain' ),
+				'label' => __( 'Team Image', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
-				'description' => __("Image Thumbnail 128px by 128px", 'plugin-domain' ),
+				'description' => __("Image Thumbnail 128px by 128px", 'holler-elementor' ),
 				'default' => [
 					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'dynamic' => [
+					'active' => true, // Enables dynamic tags
 				],
 			]
 		);
@@ -97,11 +100,11 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_image_style',
 			[
-				'label' => __( 'Image Style', 'plugin-domain' ),
+				'label' => __( 'Image Style', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::SELECT,
 				'options' => [
-					'image-round' => __( 'Round', 'plugin-domain' ),
-					'image-square' => __( 'Square', 'plugin-domain' ),
+					'image-round' => __( 'Round', 'holler-elementor' ),
+					'image-square' => __( 'Square', 'holler-elementor' ),
 				],
 				'default' => 'image-round',
 			]
@@ -110,30 +113,36 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_name',
 			[
-				'label' => __( 'Name', 'plugin-domain' ),
+				'label' => __( 'Name', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => __( 'Full Name', 'plugin-domain' ),
-				'placeholder' => __( 'Full Name', 'plugin-domain' ),
+				'default' => __( 'Full Name', 'holler-elementor' ),
+				'placeholder' => __( 'Full Name', 'holler-elementor' ),
+				'dynamic' => [
+					'active' => true, // Enables dynamic tags
+				],
 			]
 		);
 
 		$this->add_control(
 			'team_title',
 			[
-				'label' => __( 'Title', 'plugin-domain' ),
+				'label' => __( 'Title', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
-				'default' => __( 'Job Title', 'plugin-domain' ),
-				'placeholder' => __( 'Job Title', 'plugin-domain' ),
+				'default' => __( 'Job Title', 'holler-elementor' ),
+				'placeholder' => __( 'Job Title', 'holler-elementor' ),
+				'dynamic' => [
+					'active' => true, // Enables dynamic tags
+				],
 			]
 		);
 
 		$this->add_control(
 			'show_bio',
 			[
-				'label' => __( 'Show Bio', 'plugin-domain' ),
+				'label' => __( 'Show Bio', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => __( 'Show', 'plugin-domain' ),
-				'label_off' => __( 'Hide', 'plugin-domain' ),
+				'label_on' => __( 'Show', 'holler-elementor' ),
+				'label_off' => __( 'Hide', 'holler-elementor' ),
 				'return_value' => 'yes',
 				'default' => 'yes',
 			]
@@ -142,10 +151,10 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_url_toggle',
 			[
-				'label' => __( 'Enable URL', 'plugin-domain' ),
+				'label' => __( 'Enable URL', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => __( 'Yes', 'plugin-domain' ),
-				'label_off' => __( 'No', 'plugin-domain' ),
+				'label_on' => __( 'Yes', 'holler-elementor' ),
+				'label_off' => __( 'No', 'holler-elementor' ),
 				'return_value' => 'yes',
 				'default' => 'no',
 				'condition' => [
@@ -157,10 +166,10 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_bio',
 			[
-				'label' => __( 'Bio', 'plugin-domain' ),
+				'label' => __( 'Bio', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::WYSIWYG,
-				'default' => __( 'Bio', 'plugin-domain' ),
-				'placeholder' => __( 'Bio', 'plugin-domain' ),
+				'default' => __( 'Bio', 'holler-elementor' ),
+				'placeholder' => __( 'Bio', 'holler-elementor' ),
 				'condition' => [
 					'show_bio' => 'yes',
 				],
@@ -169,9 +178,9 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_url',
 			[
-				'label' => __( 'URL', 'plugin-domain' ),
+				'label' => __( 'URL', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::URL,
-				'placeholder' => __( 'https://example.com', 'plugin-domain' ),
+				'placeholder' => __( 'https://example.com', 'holler-elementor' ),
 				'default' => [
 					'url' => '',
 					'is_external' => true,
@@ -193,7 +202,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		  $this->start_controls_section(
 			'style_section',
 			[
-				'label' => __( 'Styles', 'plugin-name' ),
+				'label' => __( 'Styles', 'holler-elementor' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -201,7 +210,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_name_size',
 			[
-				'label' => __( 'Team Name Size', 'plugin-domain' ),
+				'label' => __( 'Team Name Size', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'range' => [
@@ -231,7 +240,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_name_color',
 			[
-				'label' => __( 'Team Name Color', 'plugin-domain' ),
+				'label' => __( 'Team Name Color', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--holler-team-name-color: {{VALUE}};',
@@ -243,7 +252,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_title_size',
 			[
-				'label' => __( 'Team Title Size', 'plugin-domain' ),
+				'label' => __( 'Team Title Size', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'range' => [
@@ -273,7 +282,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'team_title_color',
 			[
-				'label' => __( 'Team Title Color', 'plugin-domain' ),
+				'label' => __( 'Team Title Color', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--holler-team-title-color: {{VALUE}};',
@@ -285,7 +294,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'modal_bg_color',
 			[
-				'label' => __( 'Modal Background Color', 'plugin-domain' ),
+				'label' => __( 'Modal Background Color', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--holler-team-modal-bgcolor: {{VALUE}};',
@@ -297,7 +306,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'modal_name_size',
 			[
-				'label' => __( 'Modal Name Size', 'plugin-domain' ),
+				'label' => __( 'Modal Name Size', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'range' => [
@@ -327,7 +336,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'modal_title_size',
 			[
-				'label' => __( 'Modal Title Size', 'plugin-domain' ),
+				'label' => __( 'Modal Title Size', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'range' => [
@@ -357,7 +366,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'modal_text_color',
 			[
-				'label' => __( 'Modal Text Color', 'plugin-domain' ),
+				'label' => __( 'Modal Text Color', 'holler-elementor' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--holler-team-modal-color: {{VALUE}};',
@@ -371,22 +380,111 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 	}
 
 	/**
-	 * Render oEmbed widget output on the frontend.
+	 * Get widget stylesheet dependencies.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function get_style_depends() {
+		return ['holler-elementor'];
+	}
+
+	/**
+	 * Get widget script dependencies.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function get_script_depends() {
+		return ['holler-elementor'];
+	}
+
+	/**
+	 * Render widget output on the frontend.
 	 *
 	 * Written in PHP and used to generate the final HTML.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 */
-	 
-
 	protected function render() {
- 
 		$settings = $this->get_settings_for_display();
-	    
-	    $result = _holler_team_template($settings);
+		
+		// Get the widget's unique ID
+		$widget_id = $this->get_id();
+		
+		// Use memory-safe rendering with fallback
+		$result = holler_memory_safe_render(
+			'_holler_team_template',
+			[$settings, $widget_id],
+			'<div class="holler-error">Unable to display team member due to resource constraints.</div>'
+		);
 
-       echo $result;
+		echo $result;
+	}
+	
+	/**
+	 * Render widget output in the editor.
+	 *
+	 * Written as a JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
+	protected function content_template() {
+		?>
+		<# 
+		// Get settings
+		var imgSrc = settings.team_image.url;
+		var imgStyle = settings.team_image_style || 'image-round';
+		var teamName = settings.team_name || '';
+		var teamTitle = settings.team_title || '';
+		var showBio = settings.show_bio === 'yes';
+		var teamUrlToggle = settings.team_url_toggle || 'no';
+		#>
+		
+		<article class="holler-widget holler-team">
+			<# if (showBio) { #>
+			<a href="javascript:void(0)" class="holler_team holler_team_link">
+			<# } else if (teamUrlToggle === 'yes') { #>
+			<a href="{{ settings.team_url.url }}" class="holler_team holler_team_link">
+			<# } else { #>
+			<div class="holler_team">
+			<# } #>
+			
+			<figure class="img-wrap">
+				<img src="{{ imgSrc }}" alt="{{ teamName }}" class="{{ imgStyle }}" width="800" height="800" />
+			</figure>
+			
+			<header class="team-header">
+				<h2 class="team-name">{{ teamName }}</h2>
+				<h3 class="team-title">{{ teamTitle }}</h3>
+			</header>
+			
+			<# if (showBio || teamUrlToggle === 'yes') { #>
+			</a>
+			<# } else { #>
+			</div>
+			<# } #>
+		</article>
+		
+		<# if (showBio) { #>
+		<div class="modal modal-preview">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<div class="modal-inner">
+					<div class="modal-header">
+						<h2>{{ teamName }}</h2>
+						<h3>{{ teamTitle }}</h3>
+					</div>
+					<div class="modal-body">
+						{{{ settings.team_bio }}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<# } #>
+		<?php
 	}
 
 

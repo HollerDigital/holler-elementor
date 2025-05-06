@@ -11,7 +11,6 @@ jQuery(".holler_team").on( "click", function(e) {
 // When the user clicks on <span> (x), close the modal
 jQuery(".holler-team-close").on( "click", function(e) {
   var modal_id = jQuery(this).attr("data-modal")
-  console.log("hit ", modal_id)
   var modal = document.getElementById("myModal_" +  modal_id);
   modal.style.display = "none"; 
 });
@@ -47,13 +46,5 @@ jQuery(document).ready(function($) {
               // to include your custom settings and classes in a way that's reactive within Elementor's Vue.js components.
           }
       });
-  });
-});
-
-jQuery(document).ready(function($) {
-  console.log("Custom script loaded");
-  $(window).on('elementor:init', function() {
-      console.log("Elementor editor initialized");
-      // Your code here
   });
 });
