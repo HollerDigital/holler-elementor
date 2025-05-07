@@ -15,6 +15,13 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.2.15 (May 7, 2025)
+- **Code Refactoring and Security Improvements**
+  - Comprehensive code refactoring for improved maintainability
+  - Enhanced data sanitization and validation throughout the plugin
+  - Security improvements for form inputs and data handling
+  - Performance optimizations
+
 ### 2.2.14 (May 6, 2025)
 - **Improved Elementor Compatibility**
   - Fixed compatibility issues with latest Elementor version

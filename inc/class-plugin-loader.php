@@ -38,6 +38,7 @@ class Holler_Plugin_Loader {
         
         // Layouts
         require_once HOLLER_ELEMENTOR_DIR . 'inc/layouts/holler-team.php';
+        require_once HOLLER_ELEMENTOR_DIR . 'inc/layouts/team-modal-script.php';
         
         // Elementor extension class
         require_once HOLLER_ELEMENTOR_DIR . 'inc/elementor/class-holler-elementor-extension.php';
@@ -140,8 +141,7 @@ class Holler_Plugin_Loader {
             wp_enqueue_style('holler-elementor');
         }
         
-        // Debug information
-        error_log('Holler Elementor: Registering style at ' . plugins_url('assets/css/styles.css', $plugin_file));
+        // Register style silently
     }
     
     /**
@@ -151,10 +151,10 @@ class Holler_Plugin_Loader {
         // Get the main plugin file path
         $plugin_file = trailingslashit(dirname(dirname(__FILE__))) . 'holler-elementor.php';
         
-        // Register the main script
+        // Register the main script with cache busting
         wp_register_script(
             'holler-elementor',
-            plugins_url('assets/js/holler-elementor-app.js', $plugin_file),
+            plugins_url('assets/js/holler-elementor-app.js', $plugin_file) . '?ver=' . time(),
             array('jquery'),
             HOLLER_ELEMENTOR_VERSION,
             true
@@ -165,15 +165,13 @@ class Holler_Plugin_Loader {
             wp_enqueue_script('holler-elementor');
         }
         
-        // Debug information
-        error_log('Holler Elementor: Registering script at ' . plugins_url('assets/js/holler-elementor-app.js', $plugin_file));
+        // Register script silently
     }
     
     /**
      * Log memory usage for debugging
      */
     public function log_memory_usage() {
-        $peak_memory = memory_get_peak_usage(true) / 1024 / 1024;
-        error_log(sprintf('Holler Elementor peak memory usage: %.2f MB', $peak_memory));
+        // No longer logging memory usage
     }
 }

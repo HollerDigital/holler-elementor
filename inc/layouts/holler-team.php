@@ -29,7 +29,34 @@ function _holler_team_template($settings, $widget_id = '') {
     
     $show_bio = isset($settings['show_bio']) && $settings['show_bio'] === 'yes';
 	$team_url_toggle = isset($settings['team_url_toggle']) ? $settings['team_url_toggle'] : 'no';
-    $content = isset($settings['team_bio']) ? $settings['team_bio'] : '';
+    
+    // Sanitize bio content to prevent memory issues with long URLs or excessive HTML
+    $content = '';
+    if (isset($settings['team_bio'])) {
+        // Remove excessive whitespace and normalize line breaks
+        $clean_content = preg_replace('/\s+/', ' ', $settings['team_bio']);
+        
+        // Limit URL lengths to prevent memory issues
+        $clean_content = preg_replace_callback('/(href|src)=(["\'])([^"\']*)(["\'])/i', function($matches) {
+            // If URL is longer than 255 characters, truncate it
+            if (strlen($matches[3]) > 255) {
+                return $matches[1] . '=' . $matches[2] . '#long-url-removed' . $matches[4];
+            }
+            return $matches[0];
+        }, $clean_content);
+        
+        // Use wp_kses to allow only specific HTML tags and attributes
+        $content = wp_kses($clean_content, array(
+            'a' => array('href' => array(), 'title' => array(), 'target' => array()),
+            'br' => array(),
+            'p' => array('style' => array()),
+            'h1' => array(), 'h2' => array(), 'h3' => array(), 'h4' => array(), 'h5' => array(), 'h6' => array(),
+            'ul' => array(), 'ol' => array(), 'li' => array(),
+            'strong' => array(), 'em' => array(), 'b' => array(), 'i' => array(),
+            'span' => array('style' => array()),
+            'div' => array('class' => array(), 'style' => array()),
+        ));
+    }
     
     // Use Elementor widget ID or element ID if available
     $unique_id = '';
@@ -46,10 +73,9 @@ function _holler_team_template($settings, $widget_id = '') {
     $slug = slugify($team_name);
 
     $url = "javascript:void(0)";
-	$class = "holler_team";
+    $class = "holler-team"; // Default class
     $open_tag = "<div";
     $close_tag ="</div>";
-
 
     if( $show_bio ){
         $open_tag = "<a";
@@ -57,27 +83,26 @@ function _holler_team_template($settings, $widget_id = '') {
         $url = "javascript:void(0)";
         // Use consistent unique ID instead of random numbers
         $slug = slugify($team_name);
-        // $style = 'holler-team-link';
-		$class = "holler_team holler_team_link";
+        // Add specific class for team members with bio modals
+        $class = "holler-team holler-team-bio";
     }    
     if( $team_url_toggle == "yes" ){
         $open_tag = "<a";
         $close_tag ="</a>";
-		$url = $settings['team_url']['url'];
-		$slug = "";
-		$rand = "";
-		// $style = 'holler-team-link';
-		$class = "holler_team holler_team_link";
-	}
+$url = $settings['team_url']['url'];
+$slug = "";
+$rand = "";
+        $class = "holler-team holler-team-link";
+}
     // Build HTML using string concatenation instead of output buffering
     $html = '';
     
     // Start article
-    $html .= '<article class="holler-widget ' . esc_attr($style) . '">';
+    $html .= '<div class="holler-widget ' . esc_attr($style) . '">';
     
     // Team member container (div or link)
     $html .= $open_tag . ' href="' . $url . '" data-modal="' . $slug . '-' . $unique_id . '" ';
-    $html .= 'id="myBtn_' . $slug . '-' . $unique_id . '" class="' . $class . '">';
+    $html .= 'id="myBtn_' . $slug . '-' . $unique_id . '" class="' . $class . '" data-team-modal="true">';
     
     // Image with lazy loading and dimensions for better performance
     $html .= '<figure class="img-wrap">';
@@ -94,11 +119,12 @@ function _holler_team_template($settings, $widget_id = '') {
     $html .= $close_tag;
     
     // Close article
-    $html .= '</article>';
+    $html .= '</div>';
     
     // Add modal if bio is enabled
     if ($show_bio) {
-        $html .= '<div id="myModal_' . esc_attr($slug . '-' . $unique_id) . '" class="modal" data-id="' . esc_attr($slug . '-' . $unique_id) . '">';
+        // Modal container with proper attributes for the global script to target
+        $html .= '<div id="myModal_' . esc_attr($slug . '-' . $unique_id) . '" class="modal holler-team-modal" data-modal-id="' . esc_attr($slug . '-' . $unique_id) . '">';
         $html .= '<div class="holler-team-lightbox-wrap">';
         $html .= '<span class="close holler-team-close close_' . esc_attr($slug . '-' . $unique_id) . '" data-modal="' . esc_attr($slug . '-' . $unique_id) . '">&times;</span>';
         
@@ -127,6 +153,7 @@ function _holler_team_template($settings, $widget_id = '') {
         $html .= '</div>';
     }
     
-    // Return the HTML string
     return $html;
 }
+
+// Note: Using the slugify function from helpers/functions.php

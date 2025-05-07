@@ -80,11 +80,9 @@ class Holler_Elementor_Extension {
                 $this->spacing_control = new Holler_Spacing_Control();
             }
             
-            // Debug log to help troubleshoot
-            error_log('Holler Elementor Settings: ' . print_r($settings, true));
+            // Process settings silently
         } catch (\Exception $e) {
-            // Log the error but don't break the site
-            error_log('Holler Elementor Extension Error: ' . $e->getMessage());
+            // Silently handle exceptions
         }
     }
 }
