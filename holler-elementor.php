@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:    	2.2.16
+ * Version:    	2.2.17
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: holler-elementor
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define plugin constants
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.2.16' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.2.17' );
 
 // Include the plugin updater class
 require_once HOLLER_ELEMENTOR_DIR . 'inc/admin/class-plugin-updater.php';

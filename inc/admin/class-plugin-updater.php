@@ -50,6 +50,30 @@ class Holler_Plugin_Updater {
         // Set the branch that contains the stable release
         $this->update_checker->setBranch( $branch );
         $this->update_checker->getVcsApi()->enableReleaseAssets();
+        
+        // Add filters to include plugin icons
+        add_filter( 'puc_request_info_result-' . $slug, array( $this, 'add_icons_to_update_info' ) );
+    }
+    
+    /**
+     * Add icons to the update information
+     *
+     * @param object $info Update information object.
+     * @return object Modified update information object with icons.
+     */
+    public function add_icons_to_update_info( $info ) {
+        if ( ! is_object( $info ) ) {
+            return $info;
+        }
+        
+        // Define plugin icons
+        $info->icons = array(
+            '1x'      => plugins_url( 'assets/img/icon-128x128.png', HOLLER_ELEMENTOR_DIR . 'holler-elementor.php' ),
+            '2x'      => plugins_url( 'assets/img/icon-256x256.png', HOLLER_ELEMENTOR_DIR . 'holler-elementor.php' ),
+            'default' => plugins_url( 'assets/img/icon-128x128.png', HOLLER_ELEMENTOR_DIR . 'holler-elementor.php' ),
+        );
+        
+        return $info;
     }
 
     /**
