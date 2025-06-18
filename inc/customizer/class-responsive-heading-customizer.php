@@ -117,12 +117,12 @@ class Holler_Responsive_Heading_Customizer extends Holler_Customizer_Base {
 		// Create a section for each device (Desktop, Tablet, Mobile)
 		foreach ( $this->devices as $device_id => $device_data ) {
 			$section_id = 'holler_heading_size_' . $device_id . '_section';
-			$section_title = 'Heading: ' . $device_data['label'];
+			$section_title = 'Typography Sizes: ' . $device_data['label'];
 			$section_description = '';
 			
 			if (isset($device_data['media'])) {
 				$section_description = sprintf(
-					__('Heading size settings for %s devices. %s', 'holler-elementor'),
+					__('Typography size settings for %s devices. %s', 'holler-elementor'),
 					$device_data['label'],
 					$device_data['media']
 				);

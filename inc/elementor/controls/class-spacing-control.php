@@ -24,7 +24,7 @@ class Holler_Spacing_Control {
 	 */
 	public function __construct() {
 		// Log that the spacing control is being initialized
-		error_log('Holler Spacing Control initialized');
+	//error_log('Holler Spacing Control initialized');
 		
 		// Hook into Elementor to add custom controls - try different hooks for compatibility
 		// Main hook for container element
@@ -64,25 +64,19 @@ class Holler_Spacing_Control {
 			[
 				'label' => esc_html__('Container Spacing', 'holler-elementor'),
 				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => '--default-padding',  // Default padding option
+				'default' => '--default-padding',
 				'options' => [
-					'--default-padding' => esc_html__('Default', 'holler-elementor'),
-					'no-padding' => esc_html__('No Padding', 'holler-elementor'),
-					'xxl-padding' => esc_html__('XXL Hero Padding', 'holler-elementor'),
-					'xl-padding' => esc_html__('XL Padding', 'holler-elementor'),
-					'large-padding' => esc_html__('Large Padding', 'holler-elementor'),
-					'medium-padding' => esc_html__('Medium Padding', 'holler-elementor'),
-					'small-padding' => esc_html__('Small Padding', 'holler-elementor'),
+					'--no-padding' => esc_html__('No Padding', 'textdomain'),
+					'--default-padding' => esc_html__('Default', 'textdomain'),
+					'--small-padding' => esc_html__('Small Padding', 'textdomain'),
+					'--medium-padding' => esc_html__('Medium Padding', 'textdomain'),
+					'--large-padding' => esc_html__('Large Padding', 'textdomain'),
+					'--xl-padding' => esc_html__('XL Padding', 'textdomain'),
+					'--xxl-padding' => esc_html__('XXL Hero Padding', 'textdomain'),
+					'' => esc_html__('Custom Padding', 'textdomain'),
 				],
-				// Use direct padding values instead of CSS variables for better compatibility
 				'selectors' => [
-					'{{WRAPPER}}.elementor-element.holler-spacing---default-padding' => 'padding: 2rem;', // Default padding value
-					'{{WRAPPER}}.elementor-element.holler-spacing-no-padding' => 'padding: 0;',
-					'{{WRAPPER}}.elementor-element.holler-spacing-xxl-padding' => 'padding: 8rem;',
-					'{{WRAPPER}}.elementor-element.holler-spacing-xl-padding' => 'padding: 6rem;',
-					'{{WRAPPER}}.elementor-element.holler-spacing-large-padding' => 'padding: 4rem;',
-					'{{WRAPPER}}.elementor-element.holler-spacing-medium-padding' => 'padding: 2rem;',
-					'{{WRAPPER}}.elementor-element.holler-spacing-small-padding' => 'padding: 1rem;',
+					'{{WRAPPER}}.elementor-element' => ' --padding-block-start: var({{VALUE}}-block-start);  --padding-inline-end: var({{VALUE}}-inline-end);  --padding-block-end: var({{VALUE}}-block-end); --padding-inline-start: var({{VALUE}}-inline-start);',
 				],
 				'prefix_class' => 'holler-spacing-',
 			]
@@ -120,6 +114,7 @@ class Holler_Spacing_Control {
 			$this->add_custom_spacing_control($element, $args);
 		}
 	}
+ 
 
 	/**
 	 * Debug function to check if the control is being registered properly

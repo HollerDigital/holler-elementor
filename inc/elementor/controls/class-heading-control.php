@@ -50,6 +50,7 @@ class Holler_Heading_Control {
 				'type' => \Elementor\Controls_Manager::SELECT,
 				'default' => '',  // Empty string for no selection by default
 				'options' => [
+					'' => esc_html__('Theme Default', 'holler-elementor'),
 					'x-small' => esc_html__('Xtra Small', 'holler-elementor'),
 					'small' => esc_html__('Small', 'holler-elementor'),
 					'medium' => esc_html__('Medium', 'holler-elementor'),
@@ -58,7 +59,7 @@ class Holler_Heading_Control {
 					'xxl' => esc_html__('XXL', 'holler-elementor'),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-heading-title' => 'font-size: var(--heading-size-{{VALUE}}, inherit);',
+					'{{WRAPPER}} .elementor-heading-title' => 'font-size: var(--holler-heading-size-{{VALUE}}, inherit);',
 				],
 				'prefix_class' => 'holler-heading-size-',
 			]

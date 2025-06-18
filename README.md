@@ -15,6 +15,16 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.2.16 (June 18, 2025)
+- **Enhanced Responsive Customizer Integration**
+  - Added responsive spacing customizer with desktop, tablet, and mobile controls
+  - Added responsive heading size customizer with device-specific settings
+  - Organized customizer settings under a unified "Holler Elementor" panel
+  - Integrated with theme breakpoint settings for consistent responsive behavior
+  - Added directional padding CSS variables for complex layouts
+  - Improved heading size controls with better variable naming
+  - Fixed spacing and heading control issues in Elementor widgets
+
 ### 2.2.15 (May 7, 2025)
 - **Code Refactoring and Security Improvements**
   - Comprehensive code refactoring for improved maintainability

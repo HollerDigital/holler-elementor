@@ -205,5 +205,44 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
     padding: 1em;
   }  
 }
+ 
+ 
+:root {
+  --holler-heading-size-x-small: 14px;
+  --holler-heading-size-small: 16px;
+  --holler-heading-size-medium: 24px;
+  --holler-heading-size-large: 32px;
+  --holler-heading-size-xl: 48px;
+  --holler-heading-size-xxl: 64px;
+}
 
+.elementor-widget-heading p{
+  font-size: 16px;
+  line-height: 1.4em;
+  margin-bottom: 1.5em;
+}
+
+.text-small p{
+  font-size: 14px;
+  line-height: 1.4em;
+  margin-bottom: 1.5em;
+}
+
+.text-medium p{
+  font-size: 18px;
+  line-height: 1.4em;
+  margin-bottom: 1.5em;
+}
+.text-large,
+.text-large p,
+.text-large span,
+.text-large div.elementor-widget-container{
+  font-size: 20px;
+  line-height: 1.4em;
+  margin-bottom: 1.5em;
+}
+
+.clipped-container {
+  clip-path: polygon(0 0, 100% 0%, 80% 100%, 0% 100%);
+}
  

@@ -28,9 +28,9 @@ class Holler_Customizer_Base {
             $wp_customize->add_panel(
                 self::PARENT_PANEL_ID,
                 array(
-                    'title'       => __( 'Holler Elementor', 'holler-elementor' ),
+                    'title'       => __( 'Holler Elementor Settings', 'holler-elementor' ),
                     'description' => __( 'Customize Holler Elementor plugin settings.', 'holler-elementor' ),
-                    'priority'    => 120,
+                    'priority'    => 165,
                 )
             );
         }
