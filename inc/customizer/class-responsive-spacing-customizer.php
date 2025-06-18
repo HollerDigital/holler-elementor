@@ -11,13 +11,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Holler_Responsive_Spacing_Customizer class
+ * Holler Responsive Spacing Customizer
  *
- * Adds responsive custom spacing controls to WordPress Customizer
- *
- * @since 1.0.0
+ * @package Holler_Elementor
  */
-class Holler_Responsive_Spacing_Customizer {
+
+/**
+ * Class Holler_Responsive_Spacing_Customizer
+ * 
+ * Adds responsive spacing customizer options with device-specific settings.
+ */
+class Holler_Responsive_Spacing_Customizer extends Holler_Customizer_Base {
 
 	/**
 	 * Device breakpoints
@@ -129,20 +133,13 @@ class Holler_Responsive_Spacing_Customizer {
 	 * @param WP_Customize_Manager $wp_customize The customizer manager.
 	 */
 	public function register_customizer_settings( $wp_customize ) {
-		// Add Spacing panel
-		$wp_customize->add_panel(
-			'holler_spacing_panel',
-			array(
-				'title'       => __( 'Holler Spacing Settings', 'holler-elementor' ),
-				'description' => __( 'Customize the responsive spacing variables used throughout the site.', 'holler-elementor' ),
-				'priority'    => 120,
-			)
-		);
+		// Create parent panel if it doesn't exist
+		self::ensure_parent_panel( $wp_customize );
 
 		// Create a section for each device (Desktop, Tablet, Mobile)
 		foreach ( $this->devices as $device_id => $device_data ) {
 			$section_id = 'holler_spacing_' . $device_id . '_section';
-			$section_title = $device_data['label'] . ' Spacing';
+			$section_title = 'Spacing: ' . $device_data['label'];
 			$section_description = '';
 			
 			if (isset($device_data['media'])) {
@@ -158,7 +155,7 @@ class Holler_Responsive_Spacing_Customizer {
 				array(
 					'title'       => $section_title,
 					'description' => $section_description,
-					'panel'       => 'holler_spacing_panel',
+					'panel'       => self::PARENT_PANEL_ID,
 				)
 			);
 			
@@ -299,7 +296,7 @@ class Holler_Responsive_Spacing_Customizer {
 		// Only proceed if we have values
 		if (!empty($main_value)) {
 			// For small, medium, large, xl, xxl paddings, use gutter for inline padding
-			if ($padding_type !== 'no_padding' && $padding_type !== 'default_padding') {
+			if ($padding_type !== 'no_padding') {
 				$css .= "\n\t\t--{$prefix}-padding-block-start: {$main_value};";
 				$css .= "\n\t\t--{$prefix}-padding-inline-end: {$gutter_value};";
 				$css .= "\n\t\t--{$prefix}-padding-block-end: {$main_value};";

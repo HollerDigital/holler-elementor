@@ -10,7 +10,7 @@
  * 
  * Adds responsive heading size customizer options with device-specific settings.
  */
-class Holler_Responsive_Heading_Customizer {
+class Holler_Responsive_Heading_Customizer extends Holler_Customizer_Base {
 	
 	/**
 	 * Device breakpoints
@@ -111,20 +111,13 @@ class Holler_Responsive_Heading_Customizer {
 	 * @param WP_Customize_Manager $wp_customize The customizer manager.
 	 */
 	public function register_customizer_settings( $wp_customize ) {
-		// Add heading size panel
-		$wp_customize->add_panel(
-			'holler_heading_size_panel',
-			array(
-				'title'       => __( 'Holler Heading Size Settings', 'holler-elementor' ),
-				'description' => __( 'Customize the responsive heading size variables used throughout the site.', 'holler-elementor' ),
-				'priority'    => 125, // After spacing panel
-			)
-		);
+		// Create parent panel if it doesn't exist
+		self::ensure_parent_panel( $wp_customize );
 
 		// Create a section for each device (Desktop, Tablet, Mobile)
 		foreach ( $this->devices as $device_id => $device_data ) {
 			$section_id = 'holler_heading_size_' . $device_id . '_section';
-			$section_title = $device_data['label'] . ' Heading Sizes';
+			$section_title = 'Heading: ' . $device_data['label'];
 			$section_description = '';
 			
 			if (isset($device_data['media'])) {
@@ -140,7 +133,7 @@ class Holler_Responsive_Heading_Customizer {
 				array(
 					'title'       => $section_title,
 					'description' => $section_description,
-					'panel'       => 'holler_heading_size_panel',
+					'panel'       => self::PARENT_PANEL_ID,
 				)
 			);
 			
