@@ -1,0 +1,215 @@
+<?php
+/**
+ * Spacing Customizer Settings
+ *
+ * @package HollerElementor
+ */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Holler_Spacing_Customizer class
+ *
+ * Adds custom spacing controls to WordPress Customizer
+ *
+ * @since 1.0.0
+ */
+class Holler_Spacing_Customizer {
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		add_action( 'customize_register', array( $this, 'register_customizer_settings' ) );
+		add_action( 'wp_head', array( $this, 'output_customizer_css' ), 999 );
+	}
+
+	/**
+	 * Register customizer settings and controls
+	 *
+	 * @param WP_Customize_Manager $wp_customize The customizer manager.
+	 */
+	public function register_customizer_settings( $wp_customize ) {
+		// Add Spacing section
+		$wp_customize->add_section(
+			'holler_spacing_section',
+			array(
+				'title'       => __( 'Holler Spacing Settings', 'holler-elementor' ),
+				'description' => __( 'Customize the spacing variables used throughout the site.', 'holler-elementor' ),
+				'priority'    => 120,
+			)
+		);
+
+		// No Padding Setting
+		$wp_customize->add_setting(
+			'holler_spacing_no_padding',
+			array(
+				'default'           => '0px',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'holler_spacing_no_padding',
+			array(
+				'label'       => __( 'No Padding', 'holler-elementor' ),
+				'description' => __( 'Value for --no-padding variable (e.g. 0px)', 'holler-elementor' ),
+				'section'     => 'holler_spacing_section',
+				'type'        => 'text',
+			)
+		);
+
+		// Gutter Setting
+		$wp_customize->add_setting(
+			'holler_spacing_gutter',
+			array(
+				'default'           => '24px',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'holler_spacing_gutter',
+			array(
+				'label'       => __( 'Gutter', 'holler-elementor' ),
+				'description' => __( 'Value for --gutter variable (e.g. 24px)', 'holler-elementor' ),
+				'section'     => 'holler_spacing_section',
+				'type'        => 'text',
+			)
+		);
+
+		// Spacing Small Setting
+		$wp_customize->add_setting(
+			'holler_spacing_small',
+			array(
+				'default'           => '24px',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'holler_spacing_small',
+			array(
+				'label'       => __( 'Small Spacing', 'holler-elementor' ),
+				'description' => __( 'Value for --spacing-small variable (e.g. 24px)', 'holler-elementor' ),
+				'section'     => 'holler_spacing_section',
+				'type'        => 'text',
+			)
+		);
+
+		// Spacing Medium Setting
+		$wp_customize->add_setting(
+			'holler_spacing_medium',
+			array(
+				'default'           => '40px',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'holler_spacing_medium',
+			array(
+				'label'       => __( 'Medium Spacing', 'holler-elementor' ),
+				'description' => __( 'Value for --spacing-medium variable (e.g. 40px)', 'holler-elementor' ),
+				'section'     => 'holler_spacing_section',
+				'type'        => 'text',
+			)
+		);
+
+		// Spacing Large Setting
+		$wp_customize->add_setting(
+			'holler_spacing_large',
+			array(
+				'default'           => '80px',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'holler_spacing_large',
+			array(
+				'label'       => __( 'Large Spacing', 'holler-elementor' ),
+				'description' => __( 'Value for --spacing-large variable (e.g. 80px)', 'holler-elementor' ),
+				'section'     => 'holler_spacing_section',
+				'type'        => 'text',
+			)
+		);
+
+		// Spacing XL Setting
+		$wp_customize->add_setting(
+			'holler_spacing_xl',
+			array(
+				'default'           => '100px',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'holler_spacing_xl',
+			array(
+				'label'       => __( 'XL Spacing', 'holler-elementor' ),
+				'description' => __( 'Value for --spacing-xl variable (e.g. 100px)', 'holler-elementor' ),
+				'section'     => 'holler_spacing_section',
+				'type'        => 'text',
+			)
+		);
+
+		// Spacing XXL Setting
+		$wp_customize->add_setting(
+			'holler_spacing_xxl',
+			array(
+				'default'           => '200px',
+				'sanitize_callback' => 'sanitize_text_field',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'holler_spacing_xxl',
+			array(
+				'label'       => __( 'XXL Spacing', 'holler-elementor' ),
+				'description' => __( 'Value for --spacing-xxl variable (e.g. 200px)', 'holler-elementor' ),
+				'section'     => 'holler_spacing_section',
+				'type'        => 'text',
+			)
+		);
+	}
+
+	/**
+	 * Output customizer CSS to wp_head
+	 */
+	public function output_customizer_css() {
+		$no_padding = get_theme_mod( 'holler_spacing_no_padding', '0px' );
+		$gutter = get_theme_mod( 'holler_spacing_gutter', '24px' );
+		$spacing_small = get_theme_mod( 'holler_spacing_small', '24px' );
+		$spacing_medium = get_theme_mod( 'holler_spacing_medium', '40px' );
+		$spacing_large = get_theme_mod( 'holler_spacing_large', '80px' );
+		$spacing_xl = get_theme_mod( 'holler_spacing_xl', '100px' );
+		$spacing_xxl = get_theme_mod( 'holler_spacing_xxl', '200px' );
+		?>
+		<style type="text/css">
+			:root {
+				--no-padding: <?php echo esc_attr( $no_padding ); ?>;
+				--gutter: <?php echo esc_attr( $gutter ); ?>;
+				--spacing-small: <?php echo esc_attr( $spacing_small ); ?>;
+				--spacing-medium: <?php echo esc_attr( $spacing_medium ); ?>;
+				--spacing-large: <?php echo esc_attr( $spacing_large ); ?>;
+				--spacing-xl: <?php echo esc_attr( $spacing_xl ); ?>;
+				--spacing-xxl: <?php echo esc_attr( $spacing_xxl ); ?>;
+			}
+		</style>
+		<?php
+	}
+}
+
+// Initialize the class
+new Holler_Spacing_Customizer();

@@ -46,6 +46,9 @@ class Holler_Plugin_Loader {
         // Admin classes
         require_once HOLLER_ELEMENTOR_DIR . 'inc/admin/class-holler-team-settings.php';
         require_once HOLLER_ELEMENTOR_DIR . 'inc/admin/class-holler-settings.php';
+        
+        // Customizer classes
+        require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/class-responsive-spacing-customizer.php';
     }
 
     /**
