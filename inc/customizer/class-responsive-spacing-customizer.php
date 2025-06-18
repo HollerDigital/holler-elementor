@@ -74,6 +74,12 @@ class Holler_Responsive_Spacing_Customizer {
 			'default' => '0px',
 			'css_var' => '--no-padding',
 		),
+		'default_padding' => array(
+			'name' => 'Default Padding',
+			'default' => '24px',
+			'css_var' => '--default-padding',
+			'description' => 'Default padding used for containers (all sides)',
+		),
 		'gutter' => array(
 			'name' => 'Gutter',
 			'default' => '24px',
@@ -210,50 +216,102 @@ class Holler_Responsive_Spacing_Customizer {
 		// Re-initialize device breakpoints to ensure we have the latest values
 		$this->init_devices();
 		
-		// Generate desktop CSS
-		if (isset($this->devices['desktop']['media'])) {
-			$css .= $this->devices['desktop']['media'] . " {\n\t:root {";
-		} else {
-			$css .= ':root {';
-		}
-		
-		foreach ( $this->spacing_vars as $var_id => $var_data ) {
-			$setting_id = 'holler_' . $var_id;
-			$value = get_theme_mod( $setting_id, $var_data['default'] );
-			$css .= "\n\t" . $var_data['css_var'] . ': ' . esc_attr( $value ) . ';';
-		}
-		
-		if (isset($this->devices['desktop']['media'])) {
-			$css .= "\n\t}\n}\n\n";
-		} else {
-			$css .= "\n}\n\n";
-		}
-		
-		// Generate tablet CSS
-		$css .= $this->devices['tablet']['media'] . " {\n\t:root {";
-		foreach ( $this->spacing_vars as $var_id => $var_data ) {
-			$setting_id = 'holler_' . $var_id . $this->devices['tablet']['suffix'];
-			$value = get_theme_mod( $setting_id, $var_data['default'] );
-			$css .= "\n\t\t" . $var_data['css_var'] . ': ' . esc_attr( $value ) . ';';
-		}
-		$css .= "\n\t}\n}\n\n";
-		
-		// Generate mobile CSS
-		$css .= $this->devices['mobile']['media'] . " {\n\t:root {";
-		foreach ( $this->spacing_vars as $var_id => $var_data ) {
-			$setting_id = 'holler_' . $var_id . $this->devices['mobile']['suffix'];
-			$value = get_theme_mod( $setting_id, $var_data['default'] );
-			$css .= "\n\t\t" . $var_data['css_var'] . ': ' . esc_attr( $value ) . ';';
-		}
-		$css .= "\n\t}\n}\n";
-		
 		// Add inline comment to show breakpoint values from the theme settings
 		$mobile_breakpoint = get_theme_mod('holler_mobile_breakpoint', 767);
 		$tablet_breakpoint = get_theme_mod('holler_tablet_breakpoint', 1024);
+		$css = "/* Holler Responsive Spacing - Using Theme Breakpoints: Mobile: {$mobile_breakpoint}px, Tablet: {$tablet_breakpoint}px */\n";
 		
-		$css = "/* Holler Responsive Spacing - Using Theme Breakpoints: Mobile: {$mobile_breakpoint}px, Tablet: {$tablet_breakpoint}px */\n" . $css;
+		// Generate CSS for each device
+		foreach ( $this->devices as $device_id => $device_data ) {
+			$css_device = '';
+			$has_changes = false;
+			
+			// Start CSS rule
+			if (isset($device_data['media']) && !empty($device_data['media'])) {
+				$css_device .= $device_data['media'] . " {\n\t:root {";
+			} else {
+				$css_device .= ':root {';
+			}
+			
+			// Add base spacing variables
+			foreach ( $this->spacing_vars as $var_id => $var_data ) {
+				$setting_id = 'holler_' . $var_id . $device_data['suffix'];
+				$value = get_theme_mod( $setting_id, $var_data['default'] );
+				
+				// Only add if it has a value
+				if (!empty($value)) {
+					$css_device .= "\n\t\t" . $var_data['css_var'] . ': ' . esc_attr( $value ) . ';';
+					$has_changes = true;
+				}
+			}
+			
+			// Add directional padding variables based on main variables
+			$this->add_directional_padding_css($css_device, 'no_padding', $device_data['suffix']);
+			$this->add_directional_padding_css($css_device, 'default_padding', $device_data['suffix']);
+			$this->add_directional_padding_css($css_device, 'small', $device_data['suffix'], 'spacing_small');
+			$this->add_directional_padding_css($css_device, 'medium', $device_data['suffix'], 'spacing_medium');
+			$this->add_directional_padding_css($css_device, 'large', $device_data['suffix'], 'spacing_large');
+			$this->add_directional_padding_css($css_device, 'xl', $device_data['suffix'], 'spacing_xl');
+			$this->add_directional_padding_css($css_device, 'xxl', $device_data['suffix'], 'spacing_xxl');
+			
+			// Close CSS rule
+			if (isset($device_data['media']) && !empty($device_data['media'])) {
+				$css_device .= "\n\t}\n}\n\n";
+			} else {
+				$css_device .= "\n}\n\n";
+			}
+			
+			// Add to main CSS if we have changes
+			if ($has_changes) {
+				$css .= $css_device;
+			}
+		}
 		
 		echo '<style type="text/css">' . $css . '</style>';
+	}
+	
+	/**
+	 * Add directional padding CSS variables
+	 * 
+	 * @param string &$css The CSS string to append to
+	 * @param string $padding_type The padding type (no_padding, default_padding, small, etc.)
+	 * @param string $suffix The device suffix
+	 * @param string $var_id Optional variable ID if different from padding type
+	 */
+	private function add_directional_padding_css( &$css, $padding_type, $suffix, $var_id = null ) {
+		// Use provided var_id or construct from padding_type
+		$spacing_var_id = $var_id ?: $padding_type;
+		$prefix = $padding_type;
+		
+		// Handle special case for default padding which uses a different naming pattern
+		if ($padding_type === 'default_padding') {
+			$prefix = 'default';
+		}
+		
+		// Get the main padding value
+		$setting_id = 'holler_' . $spacing_var_id . $suffix;
+		$main_value = get_theme_mod( $setting_id, $this->spacing_vars[$spacing_var_id]['default'] );
+		
+		// Get the gutter value for sides that use gutter
+		$gutter_id = 'holler_gutter' . $suffix;
+		$gutter_value = get_theme_mod( $gutter_id, $this->spacing_vars['gutter']['default'] );
+		
+		// Only proceed if we have values
+		if (!empty($main_value)) {
+			// For small, medium, large, xl, xxl paddings, use gutter for inline padding
+			if ($padding_type !== 'no_padding' && $padding_type !== 'default_padding') {
+				$css .= "\n\t\t--{$prefix}-padding-block-start: {$main_value};";
+				$css .= "\n\t\t--{$prefix}-padding-inline-end: {$gutter_value};";
+				$css .= "\n\t\t--{$prefix}-padding-block-end: {$main_value};";
+				$css .= "\n\t\t--{$prefix}-padding-inline-start: {$gutter_value};";
+			} else {
+				// For no-padding and default-padding, use the same value for all sides
+				$css .= "\n\t\t--{$prefix}-padding-block-start: {$main_value};";
+				$css .= "\n\t\t--{$prefix}-padding-inline-end: {$main_value};";
+				$css .= "\n\t\t--{$prefix}-padding-block-end: {$main_value};";
+				$css .= "\n\t\t--{$prefix}-padding-inline-start: {$main_value};";
+			}
+		}
 	}
 }
 
