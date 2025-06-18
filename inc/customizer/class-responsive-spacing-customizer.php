@@ -24,22 +24,44 @@ class Holler_Responsive_Spacing_Customizer {
 	 *
 	 * @var array
 	 */
-	private $devices = array(
-		'desktop' => array(
-			'label' => 'Desktop',
-			'suffix' => '',
-		),
-		'tablet' => array(
-			'label' => 'Tablet',
-			'suffix' => '_tablet',
-			'media' => '@media only screen and (min-width: 767px) and (max-width: 1023px)',
-		),
-		'mobile' => array(
-			'label' => 'Mobile',
-			'suffix' => '_mobile',
-			'media' => '@media only screen and (max-width: 766px)',
-		),
-	);
+	private $devices = array();
+	
+	/**
+	 * Initialize device breakpoints based on theme settings
+	 */
+	private function init_devices() {
+		// Get breakpoints from theme settings, or use defaults
+		$mobile_breakpoint = get_theme_mod('holler_mobile_breakpoint', 767);
+		$tablet_breakpoint = get_theme_mod('holler_tablet_breakpoint', 1024);
+		
+		// Ensure we have numeric values
+		$mobile_breakpoint = absint($mobile_breakpoint);
+		$tablet_breakpoint = absint($tablet_breakpoint);
+		
+		// Calculate max values for media queries (subtract 1 to prevent overlap)
+		$mobile_max = $mobile_breakpoint;
+		$tablet_min = $mobile_max + 1;
+		$tablet_max = $tablet_breakpoint;
+		$desktop_min = $tablet_max + 1;
+		
+		$this->devices = array(
+			'desktop' => array(
+				'label' => 'Desktop',
+				'suffix' => '',
+				'media' => sprintf('@media only screen and (min-width: %dpx)', $desktop_min),
+			),
+			'tablet' => array(
+				'label' => 'Tablet',
+				'suffix' => '_tablet',
+				'media' => sprintf('@media only screen and (min-width: %dpx) and (max-width: %dpx)', $tablet_min, $tablet_max),
+			),
+			'mobile' => array(
+				'label' => 'Mobile',
+				'suffix' => '_mobile',
+				'media' => sprintf('@media only screen and (max-width: %dpx)', $mobile_max),
+			),
+		);
+	}
 
 	/**
 	 * Spacing variables
@@ -88,6 +110,9 @@ class Holler_Responsive_Spacing_Customizer {
 	 * Constructor
 	 */
 	public function __construct() {
+		// Initialize device breakpoints from theme settings
+		$this->init_devices();
+		
 		add_action( 'customize_register', array( $this, 'register_customizer_settings' ) );
 		add_action( 'wp_head', array( $this, 'output_customizer_css' ), 999 );
 	}
@@ -182,14 +207,27 @@ class Holler_Responsive_Spacing_Customizer {
 	public function output_customizer_css() {
 		$css = '';
 		
-		// Generate desktop CSS (no media query)
-		$css .= ':root {';
+		// Re-initialize device breakpoints to ensure we have the latest values
+		$this->init_devices();
+		
+		// Generate desktop CSS
+		if (isset($this->devices['desktop']['media'])) {
+			$css .= $this->devices['desktop']['media'] . " {\n\t:root {";
+		} else {
+			$css .= ':root {';
+		}
+		
 		foreach ( $this->spacing_vars as $var_id => $var_data ) {
 			$setting_id = 'holler_' . $var_id;
 			$value = get_theme_mod( $setting_id, $var_data['default'] );
 			$css .= "\n\t" . $var_data['css_var'] . ': ' . esc_attr( $value ) . ';';
 		}
-		$css .= "\n}\n\n";
+		
+		if (isset($this->devices['desktop']['media'])) {
+			$css .= "\n\t}\n}\n\n";
+		} else {
+			$css .= "\n}\n\n";
+		}
 		
 		// Generate tablet CSS
 		$css .= $this->devices['tablet']['media'] . " {\n\t:root {";
@@ -208,6 +246,12 @@ class Holler_Responsive_Spacing_Customizer {
 			$css .= "\n\t\t" . $var_data['css_var'] . ': ' . esc_attr( $value ) . ';';
 		}
 		$css .= "\n\t}\n}\n";
+		
+		// Add inline comment to show breakpoint values from the theme settings
+		$mobile_breakpoint = get_theme_mod('holler_mobile_breakpoint', 767);
+		$tablet_breakpoint = get_theme_mod('holler_tablet_breakpoint', 1024);
+		
+		$css = "/* Holler Responsive Spacing - Using Theme Breakpoints: Mobile: {$mobile_breakpoint}px, Tablet: {$tablet_breakpoint}px */\n" . $css;
 		
 		echo '<style type="text/css">' . $css . '</style>';
 	}
