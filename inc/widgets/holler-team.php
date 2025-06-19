@@ -424,7 +424,7 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 			echo $result;
 		} catch (\Exception $e) {
 			// Log the error for debugging
-			error_log('Holler Team Widget Error: ' . $e->getMessage());
+			// error_log('Holler Team Widget Error: ' . $e->getMessage());
 			
 			// Display a fallback for users
 			echo '<div class="holler-team-error">Team member information could not be displayed.</div>';

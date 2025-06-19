@@ -15,6 +15,12 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.2.19 (June 19, 2025)
+- **Bug Fixes & Improvements**
+  - Fixed Elementor control conflict (duplicate declaration issue with container spacing controls)
+  - Removed redundant CSS section from plugin settings (now using customizer)
+  - Disabled debug logging for improved performance
+
 ### 2.2.18 (June 18, 2025)
 - **Maintenance Update**
   - Version increment for deployment tracking

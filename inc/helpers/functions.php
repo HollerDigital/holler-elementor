@@ -67,13 +67,13 @@ function holler_memory_safe_render($callback, $args = [], $fallback_message = ''
         
         // If function used excessive memory, log it for debugging
         if ($memory_used > 5 * 1024 * 1024) { // 5MB threshold
-            error_log("High memory usage detected in Holler Elementor: {$memory_used} bytes");
+            // error_log("High memory usage detected in Holler Elementor: {$memory_used} bytes");
         }
         
         return $result;
     } catch (\Exception $e) {
         // Log the error
-        error_log("Holler Elementor error: " . $e->getMessage());
+        // error_log("Holler Elementor error: " . $e->getMessage());
         
         if ($is_ajax) {
             // For AJAX requests, return a simpler response
@@ -83,7 +83,7 @@ function holler_memory_safe_render($callback, $args = [], $fallback_message = ''
         return $fallback_message ?: 'An error occurred while processing this content.';
     } catch (\Error $e) {
         // Catch PHP 7+ errors
-        error_log("Holler Elementor fatal error: " . $e->getMessage());
+        // error_log("Holler Elementor fatal error: " . $e->getMessage());
         
         if ($is_ajax) {
             return '<div class="holler-error">Error processing request</div>';

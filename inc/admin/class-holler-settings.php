@@ -139,25 +139,6 @@ class Holler_Settings {
 			$this->page_slug,
 			'holler_elementor_extensions_section'
 		);
-		
-		// API section removed as requested
-		
-		// Add Custom CSS section
-		add_settings_section(
-			'holler_elementor_css_section',
-			esc_html__( 'Custom CSS', 'holler-elementor' ),
-			array( $this, 'render_css_section' ),
-			$this->page_slug
-		);
-		
-		// Add custom CSS field
-		add_settings_field(
-			'custom_css',
-			esc_html__( 'Custom CSS', 'holler-elementor' ),
-			array( $this, 'render_custom_css_field' ),
-			$this->page_slug,
-			'holler_elementor_css_section'
-		);
 	}
 
 	/**
@@ -178,8 +159,7 @@ class Holler_Settings {
 		// Sanitize enable_spacing_control
 		$sanitized_input['enable_spacing_control'] = isset( $input['enable_spacing_control'] ) ? 1 : 0;
 		
-		// Sanitize custom CSS
-		$sanitized_input['custom_css'] = isset( $input['custom_css'] ) ? wp_strip_all_tags( $input['custom_css'] ) : '';
+
 
 		return $sanitized_input;
 	}
@@ -205,14 +185,7 @@ class Holler_Settings {
 		echo '<p>' . esc_html__( 'Enable or disable Holler Elementor extensions for the Elementor editor.', 'holler-elementor' ) . '</p>';
 	}
 	
-	// API section removed as requested
-	
-	/**
-	 * Render CSS section
-	 */
-	public function render_css_section() {
-		echo '<p>' . esc_html__( 'Add custom CSS for Holler Elementor widgets and features.', 'holler-elementor' ) . '</p>';
-	}
+
 
 	/**
 	 * Render enable team widget field
@@ -259,20 +232,6 @@ class Holler_Settings {
 		<?php
 	}
 	
-	// API key field removed as requested
-	
-	/**
-	 * Render custom CSS field
-	 */
-	public function render_custom_css_field() {
-		$options = get_option( $this->option_name );
-		$custom_css = isset( $options['custom_css'] ) ? $options['custom_css'] : '';
-		?>
-		<textarea id="custom_css" name="<?php echo esc_attr( $this->option_name ); ?>[custom_css]" rows="8" cols="50" class="large-text code"><?php echo esc_textarea( $custom_css ); ?></textarea>
-		<p class="description"><?php esc_html_e( 'Add custom CSS for Holler Elementor widgets.', 'holler-elementor' ); ?></p>
-		<?php
-	}
-
 	/**
 	 * Enqueue admin assets
 	 *

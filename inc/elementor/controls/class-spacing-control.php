@@ -24,17 +24,16 @@ class Holler_Spacing_Control {
 	 */
 	public function __construct() {
 		// Log that the spacing control is being initialized
-	//error_log('Holler Spacing Control initialized');
+		//error_log('Holler Spacing Control initialized');
 		
-		// Hook into Elementor to add custom controls - try different hooks for compatibility
-		// Main hook for container element
+		// Use only the main hook for container element to avoid duplications
 		add_action('elementor/element/container/section_layout/after_section_end', array($this, 'add_custom_spacing_control'), 10, 2);
 		
-		// Alternative hook that might work with newer Elementor versions
-		add_action('elementor/element/container/section_layout_additional/after_section_end', array($this, 'add_custom_spacing_control'), 10, 2);
+		// Alternative hook that might work with newer Elementor versions - used as fallback, lower priority
+		add_action('elementor/element/container/section_layout_additional/after_section_end', array($this, 'add_custom_spacing_control'), 20, 2);
 		
-		// Fallback hook for all elements
-		add_action('elementor/element/after_section_end', array($this, 'maybe_add_spacing_control'), 10, 3);
+		// Fallback hook for all elements - used with lowest priority
+		add_action('elementor/element/after_section_end', array($this, 'maybe_add_spacing_control'), 30, 3);
 		
 		// Add a debug action to check if Elementor is properly loading our control
 		add_action('elementor/editor/before_enqueue_scripts', array($this, 'debug_control_registration'));
@@ -50,6 +49,12 @@ class Holler_Spacing_Control {
 	 * @param array                   $args    The arguments.
 	 */
 	public function add_custom_spacing_control($element, $args) {
+		// Check if the section already exists to prevent duplicate declarations
+		if ($element->get_controls('holler_container_spacing_section')) {
+			// Section already exists, no need to add it again
+			return;
+		}
+
 		// Use a more specific section ID to avoid conflicts
 		$element->start_controls_section(
 			'holler_container_spacing_section',
@@ -58,29 +63,32 @@ class Holler_Spacing_Control {
 				'tab' => \Elementor\Controls_Manager::TAB_LAYOUT,
 			]
 		);
-
-		$element->add_control(
-			'holler_container_spacing',
-			[
-				'label' => esc_html__('Container Spacing', 'holler-elementor'),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => '--default-padding',
-				'options' => [
-					'--no-padding' => esc_html__('No Padding', 'textdomain'),
-					'--default-padding' => esc_html__('Default', 'textdomain'),
-					'--small-padding' => esc_html__('Small Padding', 'textdomain'),
-					'--medium-padding' => esc_html__('Medium Padding', 'textdomain'),
-					'--large-padding' => esc_html__('Large Padding', 'textdomain'),
-					'--xl-padding' => esc_html__('XL Padding', 'textdomain'),
-					'--xxl-padding' => esc_html__('XXL Hero Padding', 'textdomain'),
-					'' => esc_html__('Custom Padding', 'textdomain'),
-				],
-				'selectors' => [
-					'{{WRAPPER}}.elementor-element' => ' --padding-block-start: var({{VALUE}}-block-start);  --padding-inline-end: var({{VALUE}}-inline-end);  --padding-block-end: var({{VALUE}}-block-end); --padding-inline-start: var({{VALUE}}-inline-start);',
-				],
-				'prefix_class' => 'holler-spacing-',
-			]
-		);
+		
+		// Check if the control already exists to prevent duplicate declarations
+		if (!$element->get_controls('holler_container_spacing')) {
+			$element->add_control(
+				'holler_container_spacing',
+				[
+					'label' => esc_html__('Container Spacing', 'holler-elementor'),
+					'type' => \Elementor\Controls_Manager::SELECT,
+					'default' => '--default-padding',
+					'options' => [
+						'--no-padding' => esc_html__('No Padding', 'textdomain'),
+						'--default-padding' => esc_html__('Default', 'textdomain'),
+						'--small-padding' => esc_html__('Small Padding', 'textdomain'),
+						'--medium-padding' => esc_html__('Medium Padding', 'textdomain'),
+						'--large-padding' => esc_html__('Large Padding', 'textdomain'),
+						'--xl-padding' => esc_html__('XL Padding', 'textdomain'),
+						'--xxl-padding' => esc_html__('XXL Hero Padding', 'textdomain'),
+						'' => esc_html__('Custom Padding', 'textdomain'),
+					],
+					'selectors' => [
+						'{{WRAPPER}}.elementor-element' => ' --padding-block-start: var({{VALUE}}-block-start);  --padding-inline-end: var({{VALUE}}-inline-end);  --padding-block-end: var({{VALUE}}-block-end); --padding-inline-start: var({{VALUE}}-inline-start);',
+					],
+					'prefix_class' => 'holler-spacing-',
+				]
+			);
+		}
 		
 		$element->end_controls_section();
 	}
@@ -108,9 +116,9 @@ class Holler_Spacing_Control {
 	 * @param array                   $args The arguments.
 	 */
 	public function maybe_add_spacing_control($element, $section_id, $args) {
-		// Only add to container elements
-		if ($element->get_name() === 'container' && $section_id === 'section_layout') {
-			error_log('Holler Spacing Control: Adding to container via fallback method');
+		// Only add to container elements and check if the control already exists
+		if ($element->get_name() === 'container' && $section_id === 'section_layout' && !$element->get_controls('holler_container_spacing')) {
+			// error_log('Holler Spacing Control: Adding to container via fallback method');
 			$this->add_custom_spacing_control($element, $args);
 		}
 	}
@@ -120,15 +128,15 @@ class Holler_Spacing_Control {
 	 * Debug function to check if the control is being registered properly
 	 */
 	public function debug_control_registration() {
-		error_log('Holler Spacing Control: debug_control_registration called');
+		// error_log('Holler Spacing Control: debug_control_registration called');
 		
 		// Check if the container element exists in Elementor
 		if (class_exists('\Elementor\Plugin')) {
 			$elements = \Elementor\Plugin::$instance->elements_manager->get_element_types();
 			if (isset($elements['container'])) {
-				error_log('Holler Spacing Control: Container element exists in Elementor');
+				// error_log('Holler Spacing Control: Container element exists in Elementor');
 			} else {
-				error_log('Holler Spacing Control: Container element does NOT exist in Elementor');
+				// error_log('Holler Spacing Control: Container element does NOT exist in Elementor');
 			}
 		}
 	}
