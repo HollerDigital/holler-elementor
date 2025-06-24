@@ -53,9 +53,6 @@ class Holler_Plugin_Loader {
         require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/class-responsive-heading-customizer.php';
         require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/sanitization.php';
         require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/class-elementor-enhancements-customizer.php';
-
-        // Flush rewrite rules
-        flush_rewrite_rules();
     }
 
     /**

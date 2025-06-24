@@ -387,3 +387,13 @@ function run_holler_elementor() {
 
 // Run the plugin
 add_action('plugins_loaded', 'run_holler_elementor', 11); // Priority 11 to ensure it runs after Elementor
+
+/**
+ * Flush rewrite rules on plugin activation.
+ *
+ * @since 2.3.1
+ */
+function holler_elementor_activate() {
+    flush_rewrite_rules();
+}
+register_activation_hook(__FILE__, 'holler_elementor_activate');
