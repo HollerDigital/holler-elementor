@@ -167,12 +167,30 @@ class Holler_Plugin_Loader {
             true
         );
         
+        // Register the elementor button styles script
+        wp_register_script(
+            'holler-elementor-button-styles',
+            plugins_url('assets/js/elementor-button-styles.js', $plugin_file) . '?ver=' . time(),
+            array('jquery'),
+            HOLLER_ELEMENTOR_VERSION,
+            true
+        );
+        
         // Only enqueue on frontend or in Elementor editor
         if (!is_admin() || isset($_GET['elementor-preview'])) {
             wp_enqueue_script('holler-elementor');
+            wp_enqueue_script('holler-elementor-button-styles');
+            
+            // Localize script with Elementor customizer settings
+            wp_localize_script(
+                'holler-elementor-button-styles',
+                'hollerElementorData',
+                array(
+                    'elementorButtonStyle' => esc_attr(get_theme_mod('holler_elementor_button_style', 'default')),
+                    'buttonBorderRadius' => absint(get_theme_mod('holler_elementor_button_radius', 3))
+                )
+            );
         }
-        
-        // Register script silently
     }
     
     /**

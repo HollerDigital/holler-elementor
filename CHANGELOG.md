@@ -2,6 +2,17 @@
 
 All notable changes to the Holler Elementor Extension will be documented in this file.
 
+## [2.3.1] - 2025-06-24
+
+### Added
+- Migrated Elementor button styles from theme CSS
+- Migrated Elementor button styling JavaScript from theme
+- Added CSS files for Elementor button customization
+
+### Changed
+- Completed migration of all Elementor-specific code from theme
+- Improved organization of Elementor styling components
+
 ## [2.3.0] - 2025-06-24
 
 ### Added

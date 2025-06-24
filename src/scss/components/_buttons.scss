@@ -7,6 +7,21 @@
 
 /* ELEMENTOR BUTTON STYLES */
 
+/* Button styles migrated from theme - 2025-06-24 */
+.elementor-widget-button .elementor-button.holler-rounded {
+    border-radius: 6px;
+}
+
+.elementor-widget-button .elementor-button.holler-pill {
+    border-radius: 50px;
+}
+
+.elementor-widget-button .elementor-button.holler-square {
+    border-radius: 0;
+}
+
+/* Custom radius will be set in JS */
+
 .theme-button{
     // transition: all 0.3s;
     display: flex;
