@@ -43,12 +43,17 @@
 /*--------------------------------------------------------------
 # Components
 --------------------------------------------------------------*/
-// @import 'components/buttons';
-// @import 'components/footer';
-// @import 'components/header';
-// @import 'components/sliders';
-// @import 'components/forms';
+@import 'components/buttons';
+@import 'components/footer';
+@import 'components/header';
+@import 'components/sliders';
+@import 'components/forms';
 // @import 'components/tables';
+
+/*--------------------------------------------------------------
+# Elementor Customizations
+--------------------------------------------------------------*/
+@import 'components/partials/elementor.headingwidget';
 
 
 /*--------------------------------------------------------------

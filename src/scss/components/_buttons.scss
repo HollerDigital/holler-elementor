@@ -5,6 +5,8 @@
  and keep button styles consistent across all components.
 --------------------------------------------------------------*/
 
+/* ELEMENTOR BUTTON STYLES */
+
 .theme-button{
     // transition: all 0.3s;
     display: flex;
@@ -129,4 +131,120 @@ a, button, [class*="brxe-"], .bricks-container{
     //     width: 100%;
     //     max-width: var(--button-min-width);
     // }
+}
+
+/* Elementor Button Customizations */
+.theme-button {
+    display: inline-block;
+    line-height: 1;
+    color: #fff;
+    fill: #fff;
+    text-align: center;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: all .3s;
+    text-decoration: none;
+}
+
+.ast-container .elementor-button.elementor-size-xs  {
+    padding: 10px 20px;
+    font-size: var(--font-heading-size-xxs );
+    font-weight: 400;
+    text-decoration: underline !important;
+    color: var(--ast-global-color-0);
+    fill: var(--ast-global-color-0);
+    text-decoration-color: var(--ast-global-color-0);
+    background: none;
+    
+    &:hover {
+        color: var(--ast-global-color-2);
+        fill: var(--ast-global-color-2);
+        background: none;
+    }
+    
+    &:active {
+        color: var(--ast-global-color-2);
+        fill: var(--ast-global-color-2);
+        background: none;
+    }
+}
+
+.ast-container .elementor-button.elementor-size-sm  {
+    padding: 12px 24px;
+    font-size: var(--font-heading-size-xxs );
+    color: var(--ast-global-color-5);
+    fill: var(--ast-global-color-5);
+    background:var(--ast-global-color-0);
+    
+    &:hover{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
+    
+    &:active{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
+}
+
+.ast-container .elementor-button.elementor-size-md  {
+    padding: 20px 48px;
+    font-size: var(--font-heading-size-xs );
+    color: var(--ast-global-color-5);
+    fill: var(--ast-global-color-5);
+    background:var(--ast-global-color-0);
+    
+    &:hover{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
+    
+    &:active{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
+}
+
+.ast-container .elementor-button.elementor-size-lg  {
+    padding: 20px 48px;
+    font-size: var(--font-heading-size-sm );
+    color: var(--ast-global-color-5);
+    fill: var(--ast-global-color-5);
+    background:var(--ast-global-color-0);
+    
+    &:hover{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
+    
+    &:active{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
+}
+
+.ast-container .elementor-button.elementor-size-xl  {
+    padding: 20px 48px;
+    font-size: var(--font-heading-size-m );
+    color: var(--ast-global-color-5);
+    fill: var(--ast-global-color-5);
+    background:var(--ast-global-color-0);
+    
+    &:hover{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
+    
+    &:active{
+        color: var(--ast-global-color-5);
+        fill: var(--ast-global-color-2);
+        background:var(--ast-global-color-2);
+    }
 }

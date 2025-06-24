@@ -51,6 +51,8 @@ class Holler_Plugin_Loader {
         require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/class-holler-customizer-base.php';
         require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/class-responsive-spacing-customizer.php';
         require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/class-responsive-heading-customizer.php';
+        require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/sanitization.php';
+        require_once HOLLER_ELEMENTOR_DIR . 'inc/customizer/class-elementor-enhancements-customizer.php';
     }
 
     /**

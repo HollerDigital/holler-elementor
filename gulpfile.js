@@ -22,13 +22,13 @@ var notify = require("gulp-notify");
 // FILE PATHS =========================================================
 
 var source = {
-  vendor  : 'source/vendor',
-  style   : 'source/styles/',
-  styles  : 'source/styles/**/**/*.scss',
-  scripts : 'source/scripts/*.js',
-  images  : 'source/images/*.{png,jpg,gif}',
-  sprite  : 'source/images/*.png',
-  svgs    : 'source/images/*.svg'
+  vendor  : 'src/vendor',
+  style   : 'src/scss/',
+  styles  : 'src/scss/**/**/*.scss',
+  scripts : 'src/js/*.js',
+  images  : 'src/images/*.{png,jpg,gif}',
+  sprite  : 'src/images/*.png',
+  svgs    : 'src/images/*.svg'
 };
 
 var assets = {

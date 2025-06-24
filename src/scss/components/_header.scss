@@ -67,3 +67,62 @@
     }
     
 }
+
+/* ELEMENTOR HEADER CUSTOMIZATIONS */
+
+header .elementor-widget {
+	margin-bottom: 0 !important
+}
+
+header.elementor-widget-container {
+	margin-bottom: 0 !important; 
+}
+
+header.sticky-header {
+	--header-height: 140px;
+	--shrink-header-to: 0.6;
+	--transition: .45s cubic-bezier(.4, 0, .2, 1);
+
+	transition: box-shadow var(--transition);
+}
+
+.elementor-kit-90 .elementor-widget:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+/* Active Sticky Nav */
+header.sticky-header.elementor-sticky--effects {
+	box-shadow: 0 4px 33px 1px rgba(0, 0, 0, .07);
+	margin-top: 16px !important;
+	transition: var(--transition);
+}
+
+header.sticky-header > .elementor-container {
+	min-height: var(--header-height);
+	transition: min-height var(--transition);
+}
+
+header.sticky-header.elementor-sticky--effects > .elementor-container {
+	min-height: calc( var(--header-height) * var(--shrink-header-to) );
+}
+
+/* Shorter header on mobile (70px instead of 100px) */
+@media only screen and (max-width: 767px) {
+	header.sticky-header {
+		--header-height: 70px;
+	}
+}
+
+/* Sticky Nav Logo */
+header.sticky-header .header-logo img {
+	transition: transform var(--transition);
+}
+
+header.sticky-header.elementor-sticky--effects .header-logo img {
+	transform: scale(.8);
+}
+
+header.sticky-header.elementor-sticky--effects .btn-donate {
+	transform: scale(.8);
+	transition: transform var(--transition);
+}
