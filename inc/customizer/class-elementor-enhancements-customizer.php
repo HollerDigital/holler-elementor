@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+// Include the custom controls
+require_once plugin_dir_path( __FILE__ ) . 'class-customizer-controls.php';
+
 /**
  * Class Holler_Elementor_Enhancements_Customizer
  * 
@@ -118,10 +121,11 @@ class Holler_Elementor_Enhancements_Customizer extends Holler_Customizer_Base {
             'transport'         => 'refresh',
         ));
         
-        $wp_customize->add_control( 'holler_elementor_button_radius', array(
+        // Use our custom range control for the button radius
+        $wp_customize->add_control( new Holler_Elementor_Range_Control( $wp_customize, 'holler_elementor_button_radius', array(
             'label'       => __( 'Button Border Radius (px)', 'holler-elementor' ),
+            'description' => __( 'Adjust border radius between 0-50px.', 'holler-elementor' ),
             'section'     => 'holler_elementor_enhancements_section',
-            'type'        => 'number',
             'priority'    => $priority + 10,
             'input_attrs' => array(
                 'min'   => 0,
@@ -131,7 +135,7 @@ class Holler_Elementor_Enhancements_Customizer extends Holler_Customizer_Base {
             'active_callback' => function() use ( $wp_customize ) {
                 return ( 'custom' === $wp_customize->get_setting( 'holler_elementor_button_style' )->value() );
             },
-        ));
+        )));
     }
 
 

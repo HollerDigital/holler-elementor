@@ -51,15 +51,18 @@ class Holler_Heading_Control {
 				'default' => '',  // Empty string for no selection by default
 				'options' => [
 					'' => esc_html__('Theme Default', 'holler-elementor'),
-					'x-small' => esc_html__('Xtra Small', 'holler-elementor'),
-					'small' => esc_html__('Small', 'holler-elementor'),
-					'medium' => esc_html__('Medium', 'holler-elementor'),
-					'large' => esc_html__('Large', 'holler-elementor'),
-					'xl' => esc_html__('XL', 'holler-elementor'),
-					'xxl' => esc_html__('XXL', 'holler-elementor'),
+					'pre-header' => esc_html__('Pre-Header Text', 'holler-elementor'),
+					'text-small' => esc_html__('Text Small', 'holler-elementor'),
+					'text-big' => esc_html__('Text Big', 'holler-elementor'),
+					'x-small' => esc_html__('Xtra Small Header', 'holler-elementor'),
+					'small' => esc_html__('Small Header', 'holler-elementor'),
+					'medium' => esc_html__('Medium Header', 'holler-elementor'),
+					'large' => esc_html__('Large Header', 'holler-elementor'),
+					'xl' => esc_html__('XL Header', 'holler-elementor'),
+					'xxl' => esc_html__('XXL Header', 'holler-elementor'),
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-heading-title' => 'font-size: var(--holler-heading-size-{{VALUE}}, inherit);',
+					'{{WRAPPER}} .elementor-heading-title' => 'font-size: var(--holler-heading-size-{{VALUE}}, inherit); line-height: var(--holler-heading-line-height-{{VALUE}}, inherit); font-weight: var(--holler-heading-font-weight-{{VALUE}}, inherit);',
 				],
 				'prefix_class' => 'holler-heading-size-',
 			]

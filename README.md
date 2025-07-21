@@ -15,6 +15,27 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.3.2 (January 20, 2025)
+- **Enhanced Typography System**
+  - Added Pre-Header, Text Small, and Text Big heading sizes to responsive heading customizer
+  - Added line height and font weight controls for each heading size
+  - Complete typography control system with size, line height, and font weight for all heading sizes
+  - Responsive defaults that scale appropriately across desktop, tablet, and mobile devices
+  - Updated Elementor heading control to apply all three typography properties (size, line height, font weight)
+
+- **Improved Spacing Customizer**
+  - Fixed spacing customizer unit saving issue - now properly saves both numeric values and units
+  - Added automatic migration system for backward compatibility with legacy spacing values
+  - Split value/unit system allows independent control of numbers and units (px, rem, em, %, vh, vw)
+  - Enhanced range controls with unit selection dropdowns
+  - Improved CSS output to include proper units in custom properties
+
+- **Backward Compatibility**
+  - Automatic migration converts old "20px" style values to split numeric (20) + unit (px) system
+  - Version-tracked migration prevents duplicate conversions
+  - Debug logging for troubleshooting migration process
+  - Seamless upgrade experience for existing users
+
 ### 2.2.19 (June 19, 2025)
 - **Bug Fixes & Improvements**
   - Fixed Elementor control conflict (duplicate declaration issue with container spacing controls)
