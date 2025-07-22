@@ -1,6 +1,16 @@
 # Changelog
 
 All notable changes to the Holler Elementor Extension will be documented in this file.
+### 2.3.3 (July 22, 2025)
+- **Team Widget Social Icons Enhancement**
+  - Added LinkedIn and Instagram social media icons to team member widget
+  - Implemented proper HTML structure to avoid nested anchor tags
+  - Added comprehensive style controls for social icons (color, hover color, size, spacing, alignment)
+  - Social icons positioned outside main team member link to maintain full functionality
+  - Icons default to center alignment with customizable left/center/right options
+  - Fixed spacing controls to add both top margin and horizontal spacing
+  - Social links open in new tabs while preserving bio modal and external URL functionality
+
 
 ## [2.3.1] - 2025-06-24
 

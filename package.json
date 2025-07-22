@@ -1,6 +1,6 @@
 {
 	"name": "Holler-Elementor",
-	"version": "2.2.18",
+	"version": "2.3.2 - 2025-07-20",
 	"description": "Gulpfile setup for Javascript ES6 compiling, plus SCSS, images, and fonts handling",
 	"author": "James Murgatroyd <hello@hollerdigital.com> (https://hollerdigital.com)",
 	"repository": {
@@ -12,7 +12,7 @@
 		"es6",
 		"scss"
 	],
-	"dependencies": {
+	"dependencies": {	
 		"semver": "^7.5.4"
 	},
 	"devDependencies": {

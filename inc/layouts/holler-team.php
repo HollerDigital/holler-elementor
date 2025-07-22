@@ -28,6 +28,20 @@ function _holler_team_template($settings, $widget_id = '') {
     $team_title = isset($settings['team_title']) ? esc_html($settings['team_title']) : '';
     
     $show_bio = isset($settings['show_bio']) && $settings['show_bio'] === 'yes';
+    
+    // Social media settings
+    $show_social = isset($settings['show_social']) && $settings['show_social'] === 'yes';
+    $linkedin_url = '';
+    $instagram_url = '';
+    
+    if ($show_social) {
+        if (isset($settings['linkedin_url']['url']) && !empty($settings['linkedin_url']['url'])) {
+            $linkedin_url = esc_url($settings['linkedin_url']['url']);
+        }
+        if (isset($settings['instagram_url']['url']) && !empty($settings['instagram_url']['url'])) {
+            $instagram_url = esc_url($settings['instagram_url']['url']);
+        }
+    }
 	$team_url_toggle = isset($settings['team_url_toggle']) ? $settings['team_url_toggle'] : 'no';
     
     // Sanitize bio content to prevent memory issues with long URLs or excessive HTML
@@ -117,6 +131,25 @@ $rand = "";
     
     // Close container
     $html .= $close_tag;
+    
+    // Social media icons (outside main link to avoid nesting)
+    if ($show_social) {
+        $html .= '<div class="team-social-icons">';
+        
+        if (!empty($linkedin_url)) {
+            $html .= '<a href="' . esc_url($linkedin_url) . '" target="_blank" rel="nofollow" class="team-social-icon">';
+            $html .= '<i class="fab fa-linkedin"></i>';
+            $html .= '</a>';
+        }
+        
+        if (!empty($instagram_url)) {
+            $html .= '<a href="' . esc_url($instagram_url) . '" target="_blank" rel="nofollow" class="team-social-icon">';
+            $html .= '<i class="fab fa-instagram"></i>';
+            $html .= '</a>';
+        }
+        
+        $html .= '</div>';
+    }
     
     // Close article
     $html .= '</div>';

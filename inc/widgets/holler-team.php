@@ -136,6 +136,53 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		// Social Media Section
+		$this->add_control(
+			'show_social',
+			[
+				'label' => __( 'Show Social Icons', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => __( 'Show', 'plugin-domain' ),
+				'label_off' => __( 'Hide', 'plugin-domain' ),
+				'return_value' => 'yes',
+				'default' => 'no',
+			]
+		);
+
+		$this->add_control(
+			'linkedin_url',
+			[
+				'label' => __( 'LinkedIn URL', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::URL,
+				'placeholder' => __( 'https://linkedin.com/in/username', 'plugin-domain' ),
+				'default' => [
+					'url' => '',
+					'is_external' => true,
+					'nofollow' => true,
+				],
+				'condition' => [
+					'show_social' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'instagram_url',
+			[
+				'label' => __( 'Instagram URL', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::URL,
+				'placeholder' => __( 'https://instagram.com/username', 'plugin-domain' ),
+				'default' => [
+					'url' => '',
+					'is_external' => true,
+					'nofollow' => true,
+				],
+				'condition' => [
+					'show_social' => 'yes',
+				],
+			]
+		);
+
 		$this->add_control(
 			'show_bio',
 			[
@@ -197,7 +244,116 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 		
 		$this->end_controls_section();
 
+// Social Icons Style Section
+$this->start_controls_section(
+	'section_social_style',
+	[
+		'label' => __('Social Icons', 'plugin-domain'),
+		'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+		'condition' => [
+			'show_social' => 'yes',
+		],
+	]
+);
 
+$this->add_control(
+	'social_icons_color',
+	[
+		'label' => __('Icons Color', 'plugin-domain'),
+		'type' => \Elementor\Controls_Manager::COLOR,
+		'default' => '#333333',
+		'selectors' => [
+			'{{WRAPPER}} .team-social-icon i' => 'color: {{VALUE}};',
+		],
+	]
+);
+
+$this->add_control(
+	'social_icons_hover_color',
+	[
+		'label' => __('Icons Hover Color', 'plugin-domain'),
+		'type' => \Elementor\Controls_Manager::COLOR,
+		'default' => '#0077B5',
+		'selectors' => [
+			'{{WRAPPER}} .team-social-icon:hover i' => 'color: {{VALUE}};',
+		],
+	]
+);
+
+$this->add_control(
+	'social_icons_size',
+	[
+		'label' => __('Icons Size', 'plugin-domain'),
+		'type' => \Elementor\Controls_Manager::SLIDER,
+		'size_units' => ['px'],
+		'range' => [
+			'px' => [
+				'min' => 12,
+				'max' => 48,
+				'step' => 1,
+			],
+		],
+		'default' => [
+			'unit' => 'px',
+			'size' => 20,
+		],
+		'selectors' => [
+			'{{WRAPPER}} .team-social-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
+		],
+	]
+);
+
+$this->add_control(
+	'social_icons_spacing',
+	[
+		'label' => __('Icons Spacing', 'plugin-domain'),
+		'type' => \Elementor\Controls_Manager::SLIDER,
+		'size_units' => ['px'],
+		'range' => [
+			'px' => [
+				'min' => 0,
+				'max' => 50,
+				'step' => 1,
+			],
+		],
+		'default' => [
+			'unit' => 'px',
+			'size' => 10,
+		],
+		'selectors' => [
+			'{{WRAPPER}} .team-social-icons' => 'margin-top: {{SIZE}}{{UNIT}};',
+			'{{WRAPPER}} .team-social-icon' => 'margin: 0 {{SIZE}}{{UNIT}};',
+		],
+	]
+);
+
+$this->add_control(
+	'social_icons_alignment',
+	[
+		'label' => __('Icons Alignment', 'plugin-domain'),
+		'type' => \Elementor\Controls_Manager::CHOOSE,
+		'options' => [
+			'left' => [
+				'title' => __('Left', 'plugin-domain'),
+				'icon' => 'eicon-text-align-left',
+			],
+			'center' => [
+				'title' => __('Center', 'plugin-domain'),
+				'icon' => 'eicon-text-align-center',
+			],
+			'right' => [
+				'title' => __('Right', 'plugin-domain'),
+				'icon' => 'eicon-text-align-right',
+			],
+		],
+		'default' => 'center',
+		'selectors' => [
+			'{{WRAPPER}} .team-social-icons' => 'text-align: {{VALUE}};',
+		],
+	]
+);
+
+$this->end_controls_section();
 		  // Styles Tab
 		  $this->start_controls_section(
 			'style_section',
