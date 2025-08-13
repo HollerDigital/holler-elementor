@@ -15,6 +15,14 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.3.4 (August 13, 2025)
+- **Team Widget Image Size Enhancement**
+  - Added image size dropdown control to team member widget
+  - Users can now select from standard WordPress image sizes: Thumbnail (150x150), Medium (300x300), Medium Large (768x768), Large (1024x1024), or Full Size
+  - Improved image crop ratio control for better visual consistency
+  - Enhanced template rendering to use selected image size via wp_get_attachment_image_src()
+  - Maintains backward compatibility with existing widgets (defaults to Medium size)
+
 ### 2.3.3 (July 22, 2025)
 - **Team Widget Social Icons Enhancement**
   - Added LinkedIn and Instagram social media icons to team member widget

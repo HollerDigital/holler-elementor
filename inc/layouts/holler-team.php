@@ -8,11 +8,14 @@ function _holler_team_template($settings, $widget_id = '') {
         return '<div class="holler-memory-limit-reached">Memory limit approaching. Simplified output shown.</div>';
     }
     // Get settings with validation
-    // Use the custom image size if available, otherwise fall back to the original URL
+    // Get the selected image size, default to 'medium' if not set
+    $image_size = isset($settings['team_image_size']) ? $settings['team_image_size'] : 'medium';
+    
+    // Use the selected image size if available, otherwise fall back to the original URL
     $imgSrc = '';
     if (isset($settings['team_image']['id'])) {
-        // Get the optimized image URL using the custom size
-        $image_data = wp_get_attachment_image_src($settings['team_image']['id'], 'holler-team-member');
+        // Get the optimized image URL using the selected size
+        $image_data = wp_get_attachment_image_src($settings['team_image']['id'], $image_size);
         if ($image_data && !empty($image_data[0])) {
             $imgSrc = $image_data[0];
         }

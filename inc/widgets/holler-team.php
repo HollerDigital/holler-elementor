@@ -109,6 +109,23 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 				'default' => 'image-round',
 			]
 		);
+
+		$this->add_control(
+			'team_image_size',
+			[
+				'label' => __( 'Image Size', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'thumbnail' => __( 'Thumbnail (150x150)', 'holler-elementor' ),
+					'medium' => __( 'Medium (300x300)', 'holler-elementor' ),
+					'medium_large' => __( 'Medium Large (768x768)', 'holler-elementor' ),
+					'large' => __( 'Large (1024x1024)', 'holler-elementor' ),
+					'full' => __( 'Full Size', 'holler-elementor' ),
+				],
+				'default' => 'medium',
+				'description' => __( 'Select the image size/crop ratio to use for the team member image.', 'holler-elementor' ),
+			]
+		);
 	
 		$this->add_control(
 			'team_name',
@@ -601,10 +618,12 @@ $this->end_controls_section();
 		// Get settings
 		var imgSrc = settings.team_image.url;
 		var imgStyle = settings.team_image_style || 'image-round';
+		var imageSize = settings.team_image_size || 'medium';
 		var teamName = settings.team_name || '';
 		var teamTitle = settings.team_title || '';
 		var showBio = settings.show_bio === 'yes';
 		var teamUrlToggle = settings.team_url_toggle || 'no';
+		// Note: Image size selection will be applied on frontend render, not in editor preview
 		#>
 		
 		<article class="holler-widget holler-team">
