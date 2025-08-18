@@ -76,11 +76,13 @@ function _holler_conveyor_template($settings, $widget_id = '') {
                 if (class_exists('Elementor\\Icons_Manager') && is_array($item['item_icon'])) {
                     ob_start();
                     \Elementor\Icons_Manager::render_icon($item['item_icon'], ['aria-hidden' => 'true', 'class' => 'holler-conveyor-icon']);
-                    $icon_html = ob_get_clean();
+                    $icon_raw = ob_get_clean();
+                    $icon_html = '<span class="holler-conveyor-icon-wrap">' . $icon_raw . '</span>';
                 } else {
                     // Fallback older format string
                     if (is_string($item['item_icon'])) {
-                        $icon_html = '<i class="' . esc_attr($item['item_icon']) . ' holler-conveyor-icon" aria-hidden="true"></i> ';
+                        $icon_raw = '<i class="' . esc_attr($item['item_icon']) . ' holler-conveyor-icon" aria-hidden="true"></i>';
+                        $icon_html = '<span class="holler-conveyor-icon-wrap">' . $icon_raw . '</span>';
                     }
                 }
             }

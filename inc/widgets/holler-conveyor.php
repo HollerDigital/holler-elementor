@@ -307,22 +307,23 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 		<div class="holler-widget holler-conveyor {{ iconPos === 'right' ? 'icon-right' : 'icon-left' }} {{ isReversed ? 'is-reversed' : '' }}" data-reverse-elm="{{ isReversed ? '1' : '0' }}">
 			<ul class="jcticker holler-conveyor-track">
 					<# _.each(items, function(item){ #>
-						<li>
-							<# if (item.item_link && item.item_link.url) { #>
-								<a href="{{ item.item_link.url }}">
+						<li class="holler-conveyor-item">
+							<# var hasLink = item.item_link && item.item_link.url; #>
+							<# if (hasLink) { #>
+								<a class="holler-conveyor-link" href="{{ item.item_link.url }}">
 							<# } #>
 								<# if (iconPos !== 'right') { #>
 									<# if (item.item_icon && item.item_icon.value) { #>
-										<i class="{{ item.item_icon.value }} holler-conveyor-icon" aria-hidden="true"></i>
+										<span class="holler-conveyor-icon-wrap"><i class="{{ item.item_icon.value }} holler-conveyor-icon" aria-hidden="true"></i></span>
 									<# } #>
 									<span class="holler-conveyor-item-text">{{{ item.item_text }}}</span>
 								<# } else { #>
 									<span class="holler-conveyor-item-text">{{{ item.item_text }}}</span>
 									<# if (item.item_icon && item.item_icon.value) { #>
-										<i class="{{ item.item_icon.value }} holler-conveyor-icon" aria-hidden="true"></i>
+										<span class="holler-conveyor-icon-wrap"><i class="{{ item.item_icon.value }} holler-conveyor-icon" aria-hidden="true"></i></span>
 									<# } #>
 								<# } #>
-							<# if (item.item_link && item.item_link.url) { #>
+							<# if (hasLink) { #>
 								</a>
 							<# } #>
 						</li>

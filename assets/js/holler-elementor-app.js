@@ -55,9 +55,14 @@ jQuery(document).ready(function($) {
             $ul.css({ transform: '', 'transform-origin': '' });
             $ul.children('li').children().css({ transform: '' });
 
-            // Apply per-item spacing if provided
+            // Apply per-item spacing if provided (pre-init for original items)
             if (itemGap >= 0) {
-                $ul.children('li').css('margin-right', itemGap + 'px');
+                // Expose as CSS variable for CSS-enforced fallback
+                try { $wrap.css('--holler-conveyor-item-gap', itemGap + 'px'); } catch(e){}
+                $ul.children('li').css({
+                    'margin-right': itemGap + 'px',
+                    'margin-left': itemGap + 'px'
+                });
             }
             if (trackHeight > 0) {
                 $ul.css('height', trackHeight + 'px');
@@ -73,6 +78,21 @@ jQuery(document).ready(function($) {
                 force_loop: forceLoop,
                 start_paused: startPaused
             });
+
+            // After init, the plugin may wrap/duplicate items inside .jctkr-wrapper
+            // Apply spacing to those as well
+            if (itemGap >= 0) {
+                var applyGap = function(){
+                    $wrap.find('.jctkr-wrapper ul li').css({
+                        'margin-right': itemGap + 'px',
+                        'margin-left': itemGap + 'px'
+                    });
+                };
+                applyGap();
+                // Attempt again shortly in case of async cloning
+                setTimeout(applyGap, 50);
+                setTimeout(applyGap, 200);
+            }
 
             // Hover behavior
             if (instance && instance.pauseAnim && instance.playAnim) {

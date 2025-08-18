@@ -269,6 +269,12 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   column-gap: var(--holler-conveyor-icon-gap); /* robust spacing between icon and text */
   margin-right: 24px; /* overridden inline by JS when set */
 }
+
+/* Ensure spacing also applies to cloned items within the ticker wrapper */
+.elementor-widget-holler-conveyor .jctkr-wrapper ul li {
+  margin-left: var(--holler-conveyor-item-gap, 24px) !important;
+  margin-right: var(--holler-conveyor-item-gap, 24px) !important;
+}
 .holler-conveyor .holler-conveyor-item-text {
   display: inline-block;
 }
