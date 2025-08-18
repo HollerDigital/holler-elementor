@@ -172,6 +172,16 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 				'default' => '#222222',
 			]
 		);
+		$this->add_control(
+			'items_hover_color',
+			[
+				'label' => __( 'Text Hover Color', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .holler-conveyor' => '--holler-conveyor-text-hover: {{VALUE}};',
+				],
+			]
+		);
 
 		// Icon controls
 		$this->add_control(
@@ -230,6 +240,16 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .holler-conveyor .holler-conveyor-icon' => 'color: {{VALUE}}; fill: currentColor;',
+				],
+			]
+		);
+		$this->add_control(
+			'icon_hover_color',
+			[
+				'label' => __( 'Icon Hover Color', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .holler-conveyor' => '--holler-conveyor-icon-hover: {{VALUE}};',
 				],
 			]
 		);
