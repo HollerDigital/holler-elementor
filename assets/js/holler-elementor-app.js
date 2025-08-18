@@ -25,6 +25,94 @@ jQuery(document).ready(function($) {
         }
     });
 
+/**
+ * Holler Conveyor init
+ * Initializes jConveyorTicker on widgets rendered on the page and Elementor editor.
+ */
+(function($){
+    function initHollerConveyors(scope){
+        if (typeof $.fn.jConveyorTicker !== 'function') return; // library not loaded
+        var $scope = scope ? $(scope) : $(document);
+
+        $scope.find('.holler-conveyor').each(function(){
+            var $wrap = $(this);
+            var $ul = $wrap.children('ul.jcticker'); // UL must be direct child now
+            if (!$ul.length || !$ul.children('li').length) return; // nothing to animate
+
+            // Avoid double init
+            if ($wrap.data('hollerConveyorInit')) return;
+
+            var animDuration = parseInt($wrap.attr('data-anim-duration'), 10) || 200; // ms per 10px
+            var reverseElm   = $wrap.attr('data-reverse-elm') === '1';
+            var forceLoop    = $wrap.attr('data-force-loop') === '1';
+            var startPaused  = $wrap.attr('data-start-paused') === '1';
+            var pauseHover   = $wrap.attr('data-pause-hover') === '1';
+            var itemGap      = parseInt($wrap.attr('data-item-gap'), 10) || 24;
+            var trackHeight  = parseInt($wrap.attr('data-track-height'), 10) || 0;
+
+            // Ensure no CSS/JS transform-based mirroring remains
+            $wrap.removeClass('is-reversed').css({ transform: '', 'transform-origin': '' });
+            $ul.css({ transform: '', 'transform-origin': '' });
+            $ul.children('li').children().css({ transform: '' });
+
+            // Apply per-item spacing if provided
+            if (itemGap >= 0) {
+                $ul.children('li').css('margin-right', itemGap + 'px');
+            }
+            if (trackHeight > 0) {
+                $ul.css('height', trackHeight + 'px');
+                $ul.css('line-height', trackHeight + 'px');
+            }
+
+            // Initialize on the wrapper so it sees label + UL as children
+            // Use the plugin's native reverse. Pass the UI flag directly.
+            var instance = $wrap.jConveyorTicker({
+                anim_duration: animDuration,
+                reverse_elm: reverseElm,
+                reverse: reverseElm,
+                force_loop: forceLoop,
+                start_paused: startPaused
+            });
+
+            // Hover behavior
+            if (instance && instance.pauseAnim && instance.playAnim) {
+                if (pauseHover) {
+                    // Respect pause on hover
+                    $wrap.on('mouseenter', function(){ instance.pauseAnim(); });
+                    $wrap.on('mouseleave', function(){ instance.playAnim(); });
+                } else {
+                    // Some builds pause by default on hover; force play to keep it running
+                    $wrap.on('mouseenter', function(){ instance.playAnim(); });
+                    $wrap.on('mouseleave', function(){ instance.playAnim(); });
+                }
+            }
+
+            // No need to mirror left->right; wrapper mirroring handles perceived direction while
+            // allowing the plugin to manage its own left-based animation.
+
+            // No DOM mutation observers needed when using native reverse
+            var moChildren = null;
+
+            $wrap.data('hollerConveyorInit', true)
+                 .data('hollerConveyorInstance', instance)
+                 .data('hollerConveyorObserverChildren', moChildren || null);
+        });
+    }
+
+    // Frontend
+    jQuery(function(){ initHollerConveyors(document); });
+
+    // Elementor Editor hook
+    if (window.elementorFrontend && window.elementorFrontend.hooks) {
+        window.elementorFrontend.hooks.addAction('frontend/element_ready/widget', function($scope){
+            initHollerConveyors($scope);
+        });
+        window.elementorFrontend.hooks.addAction('frontend/element_ready/holler-conveyor.default', function($scope){
+            initHollerConveyors($scope);
+        });
+    }
+})(jQuery);
+
     // When the close button is clicked
     $(document).on('click', '.holler-team-close, .close', function() {
         //console.log("Close button clicked");

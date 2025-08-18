@@ -1,6 +1,25 @@
 # Changelog
 
 All notable changes to the Holler Elementor Extension will be documented in this file.
+
+## [2.3.53] - 2025-08-18
+
+### Added
+- New Conveyor widget (scrolling ticker)
+  - Items support text, optional link, and optional icon
+  - Icon controls: size, position (left/right), color, spacing
+  - Controls for animation duration, item gap, and track height
+  - Pause on hover toggle respected in frontend and editor
+  - Reverse direction toggle via widget setting
+
+### Changed
+- Improved live editor preview parity for Conveyor widget (direction, spacing, color, icons)
+
+### Fixed
+- Color control applies to ticker text and icons
+- Spacing made robust with flex gap patterns
+- Safer sanitization and escaping across Conveyor output
+
 ### 2.3.3 (July 22, 2025)
 - **Team Widget Social Icons Enhancement**
   - Added LinkedIn and Instagram social media icons to team member widget

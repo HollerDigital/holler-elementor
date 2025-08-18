@@ -39,6 +39,7 @@ class Holler_Plugin_Loader {
         // Layouts
         require_once HOLLER_ELEMENTOR_DIR . 'inc/layouts/holler-team.php';
         require_once HOLLER_ELEMENTOR_DIR . 'inc/layouts/team-modal-script.php';
+        require_once HOLLER_ELEMENTOR_DIR . 'inc/layouts/holler-conveyor.php';
         
         // Elementor extension class
         require_once HOLLER_ELEMENTOR_DIR . 'inc/elementor/class-holler-elementor-extension.php';
@@ -122,9 +123,11 @@ class Holler_Plugin_Loader {
     public function register_widgets() {
         // Include Widget files
         require_once HOLLER_ELEMENTOR_DIR . 'inc/widgets/holler-team.php';
+        require_once HOLLER_ELEMENTOR_DIR . 'inc/widgets/holler-conveyor.php';
         
         // Register widget
         \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \Holler_Team_Widget());
+        \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \Holler_Conveyor_Widget());
     }
 
     /**
@@ -142,10 +145,19 @@ class Holler_Plugin_Loader {
             HOLLER_ELEMENTOR_VERSION,
             'all'
         );
+        // Register jConveyorTicker stylesheet (CDN)
+        wp_register_style(
+            'holler-conveyor-lib',
+            'https://cdn.jsdelivr.net/gh/lluz/jquery-conveyor-ticker@master/dist/css/jquery.jConveyorTicker.min.css',
+            array(),
+            HOLLER_ELEMENTOR_VERSION,
+            'all'
+        );
         
         // Only enqueue on frontend or in Elementor editor
         if (!is_admin() || isset($_GET['elementor-preview'])) {
             wp_enqueue_style('holler-elementor');
+            wp_enqueue_style('holler-conveyor-lib');
         }
         
         // Register style silently
@@ -175,11 +187,21 @@ class Holler_Plugin_Loader {
             HOLLER_ELEMENTOR_VERSION,
             true
         );
+
+        // Register jConveyorTicker script (CDN)
+        wp_register_script(
+            'holler-conveyor-lib',
+            'https://cdn.jsdelivr.net/gh/lluz/jquery-conveyor-ticker@master/dist/js/jquery.jConveyorTicker.min.js',
+            array('jquery'),
+            HOLLER_ELEMENTOR_VERSION,
+            true
+        );
         
         // Only enqueue on frontend or in Elementor editor
         if (!is_admin() || isset($_GET['elementor-preview'])) {
             wp_enqueue_script('holler-elementor');
             wp_enqueue_script('holler-elementor-button-styles');
+            wp_enqueue_script('holler-conveyor-lib');
             
             // Localize script with Elementor customizer settings
             wp_localize_script(

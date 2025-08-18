@@ -15,6 +15,20 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.3.53 (August 18, 2025)
+- New Conveyor widget for scrolling tickers
+  - Text items with optional links and icons
+  - Icon controls: size, position (left/right), color, spacing
+  - Animation duration, item gap, track height controls
+  - Pause on hover toggle respected in both frontend and editor
+  - Reverse direction toggle implemented via widget setting
+- Frontend and editor parity
+  - Live preview updates for direction, spacing, color, and icons
+- Fixes and improvements
+  - Color control now applies to ticker text and icons
+  - Robust spacing using flex gap patterns
+  - Safe sanitization and escaping of item fields
+
 ### 2.3.4 (August 13, 2025)
 - **Team Widget Image Size Enhancement**
   - Added image size dropdown control to team member widget
