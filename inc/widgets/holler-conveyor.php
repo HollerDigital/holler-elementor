@@ -10,11 +10,11 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 	public function get_categories() { return [ 'holler' ]; }
 
 	public function get_style_depends() {
-		return [ 'holler-elementor', 'holler-conveyor-lib' ];
+		return [ 'holler-elementor' ];
 	}
 
 	public function get_script_depends() {
-		return [ 'holler-elementor', 'holler-conveyor-lib' ];
+		return [ 'holler-elementor' ];
 	}
 
 	protected function _register_controls() {
@@ -124,6 +124,16 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 			]
 		);
 		$this->add_control(
+			'link',
+			[
+				'label' => __( 'Widget Link (whole section)', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::URL,
+				'dynamic' => [ 'active' => true ],
+				'default' => [ 'url' => '', 'is_external' => true, 'nofollow' => true ],
+				'description' => __( 'If set, the entire conveyor becomes a single link and item-level links are disabled.', 'holler-elementor' ),
+			]
+		);
+		$this->add_control(
 			'item_gap',
 			[
 				'label' => __( 'Item Gap', 'holler-elementor' ),
@@ -131,6 +141,28 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 				'size_units' => ['px'],
 				'range' => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
 				'default' => [ 'size' => 24, 'unit' => 'px' ],
+				'selectors' => [
+					'{{WRAPPER}} .holler-conveyor .holler-conveyor-item' => 'margin-right: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'show_separator',
+			[
+				'label' => __( 'Show Separator', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'separator_text',
+			[
+				'label' => __( 'Separator Text', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => '•',
+				'condition' => [ 'show_separator' => 'yes' ],
 			]
 		);
 		$this->add_control(
@@ -158,7 +190,7 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name' => 'items_typography',
-				'selector' => '{{WRAPPER}} .holler-conveyor .jcticker',
+				'selector' => '{{WRAPPER}} .holler-conveyor .holler-conveyor-item-text',
 			]
 		);
 		$this->add_control(
@@ -170,16 +202,6 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 					'{{WRAPPER}} .holler-conveyor' => '--holler-conveyor-text: {{VALUE}};',
 				],
 				'default' => '#222222',
-			]
-		);
-		$this->add_control(
-			'items_hover_color',
-			[
-				'label' => __( 'Text Hover Color', 'holler-elementor' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .holler-conveyor' => '--holler-conveyor-text-hover: {{VALUE}};',
-				],
 			]
 		);
 
@@ -210,7 +232,7 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 					'rem' => [ 'min' => 0.5, 'max' => 6 ],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .holler-conveyor .holler-conveyor-icon' => 'font-size: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .holler-conveyor .holler-conveyor-icon-wrap' => 'font-size: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -240,16 +262,6 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .holler-conveyor .holler-conveyor-icon' => 'color: {{VALUE}}; fill: currentColor;',
-				],
-			]
-		);
-		$this->add_control(
-			'icon_hover_color',
-			[
-				'label' => __( 'Icon Hover Color', 'holler-elementor' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .holler-conveyor' => '--holler-conveyor-icon-hover: {{VALUE}};',
 				],
 			]
 		);
@@ -301,15 +313,32 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 
 	protected function content_template() {
 		?>
-		<# var items = settings.items || []; #>
-		<# var iconPos = settings.icon_position || 'left'; #>
-		<# var isReversed = settings.reverse_elm === 'yes'; #>
-		<div class="holler-widget holler-conveyor {{ iconPos === 'right' ? 'icon-right' : 'icon-left' }} {{ isReversed ? 'is-reversed' : '' }}" data-reverse-elm="{{ isReversed ? '1' : '0' }}">
-			<ul class="jcticker holler-conveyor-track">
-					<# _.each(items, function(item){ #>
-						<li class="holler-conveyor-item">
-							<# var hasLink = item.item_link && item.item_link.url; #>
-							<# if (hasLink) { #>
+		<#
+		var items = settings.items || [];
+		var iconPos = settings.icon_position || 'left';
+		var isReversed = settings.reverse_elm === 'yes';
+		var startPaused = settings.start_paused === 'yes';
+		var pauseHover = settings.pause_hover === 'yes';
+		var itemGap = (settings.item_gap && settings.item_gap.size) ? settings.item_gap.size : 24;
+		var showSep = settings.show_separator === 'yes';
+		var sepText = settings.separator_text || '•';
+		var trackHeight = (settings.track_height && settings.track_height.size) ? settings.track_height.size : 0;
+		var animDuration = Number(settings.anim_duration) || 200; // ms per 10px -> approximate seconds
+		var durationSeconds = Math.max(5, Math.min(120, Math.round(animDuration / 10)));
+		#>
+		<div class="holler-widget holler-conveyor holler-marquee {{ iconPos === 'right' ? 'icon-right' : 'icon-left' }} {{ isReversed ? 'is-reversed' : '' }}"
+			 style="--marquee-duration: {{ durationSeconds }}s; --spaceBetweenItems: {{ itemGap }}px; --marquee-animation-state: {{ startPaused ? 'paused' : 'running' }}; {{ trackHeight > 0 ? ('--marquee-track-height: ' + trackHeight + 'px;') : '' }}"
+			 data-pause-hover="{{ pauseHover ? '1' : '0' }}">
+			<div class="holler-marquee-track" role="marquee" aria-live="off">
+				<# var is_widget_linked = settings.link && settings.link.url; #>
+				<# if (is_widget_linked) { #>
+					<a class="holler-conveyor-widget-link" href="{{ settings.link.url }}">
+				<# } #>
+				<div class="holler-marquee-run" data-marquee-animation="{{ isReversed ? 'left' : 'right' }}">
+					<# _.each(items, function(item, idx){ #>
+						<span class="holler-marquee-unit">
+							<# var is_widget_linked = settings.link && settings.link.url; #>
+							<# if (!is_widget_linked && item.item_link && item.item_link.url) { #>
 								<a class="holler-conveyor-link" href="{{ item.item_link.url }}">
 							<# } #>
 								<# if (iconPos !== 'right') { #>
@@ -323,12 +352,46 @@ class Holler_Conveyor_Widget extends \Elementor\Widget_Base {
 										<span class="holler-conveyor-icon-wrap"><i class="{{ item.item_icon.value }} holler-conveyor-icon" aria-hidden="true"></i></span>
 									<# } #>
 								<# } #>
-							<# if (hasLink) { #>
+							<# if (item.item_link && item.item_link.url) { #>
 								</a>
 							<# } #>
-						</li>
+						</span>
+						<# if (showSep && idx < items.length - 1) { #>
+							<span class="holler-marquee-sep" aria-hidden="true">{{ sepText }}</span>
+						<# } #>
 					<# }); #>
-				</ul>
+				</div>
+				<div class="holler-marquee-run" data-marquee-animation="{{ isReversed ? 'left' : 'right' }}" aria-hidden="true">
+					<# _.each(items, function(item, idx){ #>
+						<span class="holler-marquee-unit">
+							<# var is_widget_linked = settings.link && settings.link.url; #>
+							<# if (!is_widget_linked && item.item_link && item.item_link.url) { #>
+								<a class="holler-conveyor-link" href="{{ item.item_link.url }}">
+							<# } #>
+								<# if (iconPos !== 'right') { #>
+									<# if (item.item_icon && item.item_icon.value) { #>
+										<span class="holler-conveyor-icon-wrap"><i class="{{ item.item_icon.value }} holler-conveyor-icon" aria-hidden="true"></i></span>
+									<# } #>
+									<span class="holler-conveyor-item-text">{{{ item.item_text }}}</span>
+								<# } else { #>
+									<span class="holler-conveyor-item-text">{{{ item.item_text }}}</span>
+									<# if (item.item_icon && item.item_icon.value) { #>
+										<span class="holler-conveyor-icon-wrap"><i class="{{ item.item_icon.value }} holler-conveyor-icon" aria-hidden="true"></i></span>
+									<# } #>
+								<# } #>
+							<# if (item.item_link && item.item_link.url) { #>
+								</a>
+							<# } #>
+						</span>
+						<# if (showSep && idx < items.length - 1) { #>
+							<span class="holler-marquee-sep" aria-hidden="true">{{ sepText }}</span>
+						<# } #>
+					<# }); #>
+				</div>
+				<# if (is_widget_linked) { #>
+					</a>
+				<# } #>
+			</div>
 		</div>
 		<?php
 	}

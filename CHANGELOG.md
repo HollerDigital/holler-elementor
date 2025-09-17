@@ -2,6 +2,17 @@
 
 All notable changes to the Holler Elementor Extension will be documented in this file.
 
+## [2.3.54] - 2025-09-17
+
+### Changed
+- Removed jConveyorTicker CDN CSS/JS registrations and enqueues in `inc/class-plugin-loader.php`.
+- Updated `inc/widgets/holler-conveyor.php` to drop `holler-conveyor-lib` from `get_style_depends()` and `get_script_depends()`.
+- Removed dead jConveyorTicker initialization block from `assets/js/holler-elementor-app.js`.
+
+### Why
+- Conveyor widget now uses a CSS-based marquee implementation (`inc/layouts/holler-conveyor.php`) and no longer relies on the jQuery plugin.
+- Reduces network requests, payload size, and eliminates unused code.
+
 ## [2.3.53] - 2025-08-18
 
 ### Added

@@ -8,19 +8,34 @@ function _holler_team_template($settings, $widget_id = '') {
         return '<div class="holler-memory-limit-reached">Memory limit approaching. Simplified output shown.</div>';
     }
     // Get settings with validation
-    // Get the selected image size, default to 'medium' if not set
-    $image_size = isset($settings['team_image_size']) ? $settings['team_image_size'] : 'medium';
-    
+    // Determine selected image size from Group Control (supports custom dimensions)
+    $image_size_setting = isset($settings['team_image_size']) ? $settings['team_image_size'] : 'medium';
+    $image_size = $image_size_setting;
+    if (
+        'custom' === $image_size_setting &&
+        !empty($settings['team_image_custom_dimension']['width']) &&
+        !empty($settings['team_image_custom_dimension']['height'])
+    ) {
+        $image_size = [
+            (int) $settings['team_image_custom_dimension']['width'],
+            (int) $settings['team_image_custom_dimension']['height']
+        ];
+    }
+
     // Use the selected image size if available, otherwise fall back to the original URL
     $imgSrc = '';
+    $img_width = '';
+    $img_height = '';
     if (isset($settings['team_image']['id'])) {
-        // Get the optimized image URL using the selected size
+        // Get the optimized image data using the selected size
         $image_data = wp_get_attachment_image_src($settings['team_image']['id'], $image_size);
         if ($image_data && !empty($image_data[0])) {
             $imgSrc = $image_data[0];
+            if (!empty($image_data[1])) { $img_width = (int) $image_data[1]; }
+            if (!empty($image_data[2])) { $img_height = (int) $image_data[2]; }
         }
     }
-    
+
     // Fallback to original URL if optimized version isn't available
     if (empty($imgSrc) && isset($settings['team_image']['url'])) {
         $imgSrc = esc_url($settings['team_image']['url']);
@@ -123,12 +138,18 @@ $rand = "";
     
     // Image with lazy loading and dimensions for better performance
     $html .= '<figure class="img-wrap">';
-    $html .= '<img src="' . esc_attr($imgSrc) . '" alt="' . esc_attr($team_name) . '" class="' . esc_attr($imgStyle) . '" loading="lazy" width="800" height="800" />';
+    $width_attr = $img_width ? ' width="' . esc_attr($img_width) . '"' : '';
+    $height_attr = $img_height ? ' height="' . esc_attr($img_height) . '"' : '';
+    $html .= '<img src="' . esc_attr($imgSrc) . '" alt="' . esc_attr($team_name) . '" class="' . esc_attr($imgStyle) . '" loading="lazy"' . $width_attr . $height_attr . ' />';
     $html .= '</figure>';
     
     // Name and title
     $html .= '<header class="team-header">';
-    $html .= '<h2 class="team-name">' . esc_html($team_name) . '</h2>';
+    $allowed_name_tags = ['h1','h2','h3','h4','h5','h6','p','div','span'];
+    $name_tag_card = isset($settings['team_name_tag']) && in_array($settings['team_name_tag'], $allowed_name_tags, true)
+        ? $settings['team_name_tag']
+        : 'h2';
+    $html .= '<' . $name_tag_card . ' class="team-name">' . esc_html($team_name) . '</' . $name_tag_card . '>';
     $html .= '<h3 class="team-title">' . esc_html($team_title) . '</h3>';
     $html .= '</header>';
     
@@ -168,13 +189,17 @@ $rand = "";
         $html .= '<div class="team-lightbox-header">';
         $html .= '<figure class="img-wrap">';
         
-        // Use the same optimized image in the modal
-        $html .= '<img src="' . esc_attr($imgSrc) . '" alt="' . esc_attr($team_name) . '" loading="lazy" width="800" height="800" />';
+        // Use the same optimized image in the modal with same dimensions
+        $html .= '<img src="' . esc_attr($imgSrc) . '" alt="' . esc_attr($team_name) . '" loading="lazy"' . $width_attr . $height_attr . ' />';
         $html .= '</figure>';
         
         // Modal name and title
         $html .= '<div class="lightbox-team-header">';
-        $html .= '<h2 class="team-name">' . esc_html($team_name) . '</h2>';
+        $allowed_modal_tags = ['h1','h2','h3','h4','h5','h6','p','div','span'];
+        $name_tag_modal = isset($settings['modal_name_tag']) && in_array($settings['modal_name_tag'], $allowed_modal_tags, true)
+            ? $settings['modal_name_tag']
+            : 'h2';
+        $html .= '<' . $name_tag_modal . ' class="team-name">' . esc_html($team_name) . '</' . $name_tag_modal . '>';
         $html .= '<h3 class="team-title">' . esc_html($team_title) . '</h3>';
         $html .= '</div>';
         $html .= '</div>';

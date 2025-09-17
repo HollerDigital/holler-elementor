@@ -15,6 +15,10 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.3.54 (September 17, 2025)
+- Removed jConveyorTicker CDN dependencies (CSS/JS) and dead initialization code
+- Conveyor widget uses CSS-based marquee implementation; reduced payload and requests
+
 ### 2.3.53 (August 18, 2025)
 - New Conveyor widget for scrolling tickers
   - Text items with optional links and icons

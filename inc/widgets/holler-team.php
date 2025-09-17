@@ -110,22 +110,18 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'team_image_size',
-			[
-				'label' => __( 'Image Size', 'holler-elementor' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'options' => [
-					'thumbnail' => __( 'Thumbnail (150x150)', 'holler-elementor' ),
-					'medium' => __( 'Medium (300x300)', 'holler-elementor' ),
-					'medium_large' => __( 'Medium Large (768x768)', 'holler-elementor' ),
-					'large' => __( 'Large (1024x1024)', 'holler-elementor' ),
-					'full' => __( 'Full Size', 'holler-elementor' ),
-				],
-				'default' => 'medium',
-				'description' => __( 'Select the image size/crop ratio to use for the team member image.', 'holler-elementor' ),
-			]
-		);
+        // Use Elementor's Image Size Group Control for better integration and consistency
+        $this->add_group_control(
+            \Elementor\Group_Control_Image_Size::get_type(),
+            [
+                // Use the same base name as the media control so generated keys are
+                // `team_image_size` and `team_image_custom_dimension` (backward compatible
+                // with existing layout which reads `team_image_size`).
+                'name' => 'team_image',
+                'default' => 'medium',
+                'separator' => 'none',
+            ]
+        );
 	
 		$this->add_control(
 			'team_name',
@@ -140,6 +136,27 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		// Heading tag for card name
+		$this->add_control(
+			'team_name_tag',
+			[
+				'label' => __( 'Card Name Tag', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'h1' => 'H1',
+					'h2' => 'H2',
+					'h3' => 'H3',
+					'h4' => 'H4',
+					'h5' => 'H5',
+					'h6' => 'H6',
+					'p'  => 'p',
+					'div'=> 'div',
+					'span'=> 'span',
+				],
+				'default' => 'h2',
+			]
+		);
+
 		$this->add_control(
 			'team_title',
 			[
@@ -149,6 +166,30 @@ class Holler_Team_Widget extends \Elementor\Widget_Base {
 				'placeholder' => __( 'Job Title', 'holler-elementor' ),
 				'dynamic' => [
 					'active' => true, // Enables dynamic tags
+				],
+			]
+		);
+
+		// Heading tag for modal name
+		$this->add_control(
+			'modal_name_tag',
+			[
+				'label' => __( 'Modal Name Tag', 'holler-elementor' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'h1' => 'H1',
+					'h2' => 'H2',
+					'h3' => 'H3',
+					'h4' => 'H4',
+					'h5' => 'H5',
+					'h6' => 'H6',
+					'p'  => 'p',
+					'div'=> 'div',
+					'span'=> 'span',
+				],
+				'default' => 'h2',
+				'condition' => [
+					'show_bio' => 'yes',
 				],
 			]
 		);
@@ -640,7 +681,8 @@ $this->end_controls_section();
 			</figure>
 			
 			<header class="team-header">
-				<h2 class="team-name">{{ teamName }}</h2>
+				<# var teamNameTag = settings.team_name_tag || 'h2'; #>
+				<{{ teamNameTag }} class="team-name">{{ teamName }}</{{ teamNameTag }}>
 				<h3 class="team-title">{{ teamTitle }}</h3>
 			</header>
 			
@@ -657,7 +699,8 @@ $this->end_controls_section();
 				<span class="close">&times;</span>
 				<div class="modal-inner">
 					<div class="modal-header">
-						<h2>{{ teamName }}</h2>
+						<# var modalNameTag = settings.modal_name_tag || 'h2'; #>
+						<{{ modalNameTag }}>{{ teamName }}</{{ modalNameTag }}>
 						<h3>{{ teamTitle }}</h3>
 					</div>
 					<div class="modal-body">

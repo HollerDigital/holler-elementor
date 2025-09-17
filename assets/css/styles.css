@@ -41,6 +41,47 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
 
 
 /* .holler-widget {} */
+
+.holler-conveyor-link {
+  position: relative;
+  display: flex;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.holler-conveyor-icon-wrap {
+  width: 22px;
+  height: 22px;
+}
+
+.holler-conveyor-icon-wrap svg {
+  fill: white;
+  width: 100%;
+  height: 100%;
+}
+
+.holler-conveyor .holler-conveyor-link {
+    color: var(--holler-conveyor-text, inherit);
+}
+
+/* Icon gap: apply based on icon position class on wrapper */
+.holler-marquee.icon-left .holler-conveyor-icon-wrap {
+  margin-right: var(--holler-conveyor-icon-gap, 0.5em);
+  margin-left: 0;
+}
+.holler-marquee.icon-right .holler-conveyor-icon-wrap {
+  margin-left: var(--holler-conveyor-icon-gap, 0.5em);
+  margin-right: 0;
+}
+
+.holler-conveyor.is-reversed .holler-conveyor-track {
+  transform: scaleX(-1);
+}
+
+.holler-conveyor.is-reversed .holler-conveyor-item {
+  transform: scaleX(-1);
+}
+
 .holler-team a{
   text-decoration: none !important;
   cursor: pointer;
@@ -246,103 +287,83 @@ $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
   clip-path: polygon(0 0, 100% 0%, 80% 100%, 0% 100%);
 }
  
-/* --------------------------------------------------------------
-   Holler Conveyor (ticker)
-   -------------------------------------------------------------- */
-.holler-conveyor {
+/* --------------------------------------
+   Holler Conveyor CSS Marquee
+   -------------------------------------- */
+.holler-marquee {
+  --marquee-duration: 40s;
+  --marquee-animation-state: running;
+  --spaceBetweenItems: 10px;
+}
+
+.holler-marquee .holler-marquee-track {
   position: relative;
-}
-.holler-conveyor .holler-conveyor-track {
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: hidden;
   width: 100%;
-}
-.holler-conveyor .jcticker {
-  display: inline-block;
-  white-space: nowrap;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.holler-conveyor .jcticker > li.holler-conveyor-item {
-  display: inline-flex;
-  align-items: center; /* center icon and text vertically */
-  column-gap: var(--holler-conveyor-icon-gap); /* robust spacing between icon and text */
-  margin-right: 24px; /* overridden inline by JS when set */
+  height: var(--marquee-track-height, auto);
 }
 
-/* Ensure spacing also applies to cloned items within the ticker wrapper */
-.elementor-widget-holler-conveyor .jctkr-wrapper ul li {
-  margin-left: var(--holler-conveyor-item-gap, 24px) !important;
-  margin-right: var(--holler-conveyor-item-gap, 24px) !important;
-}
-.holler-conveyor .holler-conveyor-item-text {
-  display: inline-block;
-}
-.holler-conveyor .holler-conveyor-link {
-  text-decoration: none;
+@supports not (overflow-x: clip) {
+  .holler-marquee .holler-marquee-track {
+    overflow: hidden;
+  }
 }
 
-/* Elementor color control hook: apply variable to text and icons */
-.holler-conveyor {
-  --holler-conveyor-text: inherit;
-  --holler-conveyor-text-hover: var(--holler-conveyor-text);
-  --holler-conveyor-icon-hover: var(--holler-conveyor-text-hover);
-  --holler-conveyor-icon-gap: 0.5em; /* default, can be overridden by widget control */
-}
-.holler-conveyor,
-.holler-conveyor .holler-conveyor-track,
-.holler-conveyor .jcticker,
-.holler-conveyor .holler-conveyor-item,
-.holler-conveyor .holler-conveyor-item-text,
-.holler-conveyor .holler-conveyor-link {
-  color: var(--holler-conveyor-text);
-}
-.holler-conveyor a {
-  color: inherit;
-}
-.holler-conveyor .holler-conveyor-icon {
-  color: var(--holler-conveyor-text);
-  fill: currentColor;
-}
-
-/* Ensure widget-level color overrides theme styles */
-.elementor-widget-holler-conveyor .holler-conveyor,
-.elementor-widget-holler-conveyor .holler-conveyor * {
-  color: var(--holler-conveyor-text);
-}
-
-/* Hover colors: force via higher specificity within the widget */
-.elementor-widget-holler-conveyor .holler-conveyor .holler-conveyor-item:hover,
-.elementor-widget-holler-conveyor .holler-conveyor .holler-conveyor-item:hover .holler-conveyor-item-text,
-.elementor-widget-holler-conveyor .holler-conveyor .holler-conveyor-link:hover,
-.elementor-widget-holler-conveyor .holler-conveyor .holler-conveyor-link:hover .holler-conveyor-item-text {
-  color: var(--holler-conveyor-text-hover);
-}
-.elementor-widget-holler-conveyor .holler-conveyor .holler-conveyor-item:hover .holler-conveyor-icon,
-.elementor-widget-holler-conveyor .holler-conveyor .holler-conveyor-link:hover .holler-conveyor-icon {
-  color: var(--holler-conveyor-icon-hover, var(--holler-conveyor-text-hover));
-  fill: currentColor;
-}
-
-/* Icon spacing based on position */
-/* When items are wrapped in a link, apply gap within the link as well */
-.holler-conveyor .holler-conveyor-link {
+.holler-marquee .holler-marquee-run {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: inline-flex;
   align-items: center;
-  column-gap: var(--holler-conveyor-icon-gap);
+  gap: var(--spaceBetweenItems, 10px);
+  white-space: nowrap;
+  will-change: transform;
+  animation-duration: var(--marquee-duration, 40s);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-play-state: var(--marquee-animation-state, running);
 }
 
-/* Align icons nicely with text */
-.holler-conveyor .holler-conveyor-icon {
-  vertical-align: middle;
-  display: inline-block;
+/* Left direction: first run goes 0 -> -100%, second 100% -> 0 */
+.holler-marquee .holler-marquee-run[data-marquee-animation="left"]:first-child {
+  animation-name: holler-scroll-left-a;
+}
+.holler-marquee .holler-marquee-run[data-marquee-animation="left"]:last-child {
+  animation-name: holler-scroll-left-b;
 }
 
-/* Reverse direction (CSS-based): flip the track, unflip each item so text is readable */
-.holler-conveyor.is-reversed .jcticker {
-  transform: scaleX(-1) !important;
-  transform-origin: center;
+/* Right direction: first run 0 -> 100%, second -100% -> 0 */
+.holler-marquee .holler-marquee-run[data-marquee-animation="right"]:first-child {
+  animation-name: holler-scroll-right-a;
 }
-.holler-conveyor.is-reversed .jcticker > li {
-  transform: scaleX(-1) !important;
+.holler-marquee .holler-marquee-run[data-marquee-animation="right"]:last-child {
+  animation-name: holler-scroll-right-b;
 }
+
+.holler-marquee .holler-marquee-unit,
+.holler-marquee .holler-marquee-sep {
+  display: inline-flex;
+  align-items: center;
+}
+
+.holler-marquee .holler-marquee-sep {
+  margin: 0 var(--spaceBetweenItems, 10px);
+  opacity: 0.6;
+}
+
+/* Pause on hover when enabled */
+.holler-marquee[data-pause-hover="1"]:hover .holler-marquee-run {
+  animation-play-state: paused;
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .holler-marquee .holler-marquee-run { animation-play-state: paused; }
+}
+
+/* Keyframes */
+@keyframes holler-scroll-left-a { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes holler-scroll-left-b { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes holler-scroll-right-a { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes holler-scroll-right-b { from { transform: translateX(-100%); } to { transform: translateX(0); } }
