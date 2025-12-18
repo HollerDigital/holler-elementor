@@ -2,7 +2,7 @@
 
 All notable changes to the Holler Elementor Extension will be documented in this file.
 
-## [2.3.55] - 2025-12-18
+## [2.3.56] - 2025-12-18
 
 ### Added
 - Easy Digital Downloads Software Licensing SDK integration for plugin updates

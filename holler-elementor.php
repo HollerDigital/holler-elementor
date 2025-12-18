@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Holler Elementor Extension
+ * Plugin Name: Holler Elementor Extensions
  * Description: Custom Elementor extension by Holler Digital.
- * Plugin URI:  https://hollerdigital.com/
- * Version:    	2.3.55
+ * Plugin URI:  https://store.hollerdigital.dev/
+ * Version:    	2.3.56
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: holler-elementor
@@ -17,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define plugin constants
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.3.55' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.3.56' );
 
 if ( ! defined( 'HOLLER_ELEMENTOR_EDD_STORE_URL' ) ) {
-	define( 'HOLLER_ELEMENTOR_EDD_STORE_URL', 'https://code.hollerdigital.dev/' );
+	define( 'HOLLER_ELEMENTOR_EDD_STORE_URL', 'https://store.hollerdigital.dev/' );
 }
 
 if ( ! defined( 'HOLLER_ELEMENTOR_EDD_ITEM_ID' ) ) {
