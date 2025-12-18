@@ -2,6 +2,18 @@
 
 All notable changes to the Holler Elementor Extension will be documented in this file.
 
+## [2.3.55] - 2025-12-18
+
+### Added
+- Easy Digital Downloads Software Licensing SDK integration for plugin updates
+- License key management in Settings → Holler Elementor page
+- License activation/deactivation functionality with status display
+- License expiration info display
+
+### Removed
+- Old GitHub-based plugin-update-checker library
+- class-plugin-updater.php (replaced by EDD SL SDK)
+
 ## [2.3.54] - 2025-09-17
 
 ### Changed

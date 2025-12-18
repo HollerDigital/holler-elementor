@@ -74,3 +74,51 @@
     border-radius: 3px;
     font-size: 12px;
 }
+
+/* License field styles */
+.holler-license-field-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.holler-license-field-wrap input[type="text"] {
+    flex: 0 1 300px;
+}
+
+.holler-license-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.holler-license-status--valid {
+    background: #d4edda;
+    color: #155724;
+}
+
+.holler-license-status--valid .dashicons {
+    color: #28a745;
+}
+
+.holler-license-status--invalid {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.holler-license-status--invalid .dashicons {
+    color: #ffc107;
+}
+
+.holler-license-actions {
+    margin-top: 10px;
+}
+
+.holler-license-actions .button {
+    margin-right: 10px;
+}

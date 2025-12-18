@@ -63,6 +63,9 @@ class Holler_Settings {
 		
 		// Enqueue admin scripts and styles
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		
+		// Handle license activation/deactivation
+		add_action( 'admin_init', array( $this, 'handle_license_action' ) );
 	}
 
 	/**
@@ -139,6 +142,23 @@ class Holler_Settings {
 			$this->page_slug,
 			'holler_elementor_extensions_section'
 		);
+		
+		// Add License section
+		add_settings_section(
+			'holler_elementor_license_section',
+			esc_html__( 'License', 'holler-elementor' ),
+			array( $this, 'render_license_section' ),
+			$this->page_slug
+		);
+		
+		// Add license key field
+		add_settings_field(
+			'license_key',
+			esc_html__( 'License Key', 'holler-elementor' ),
+			array( $this, 'render_license_key_field' ),
+			$this->page_slug,
+			'holler_elementor_license_section'
+		);
 	}
 
 	/**
@@ -185,7 +205,264 @@ class Holler_Settings {
 		echo '<p>' . esc_html__( 'Enable or disable Holler Elementor extensions for the Elementor editor.', 'holler-elementor' ) . '</p>';
 	}
 	
-
+	/**
+	 * Render license section
+	 */
+	public function render_license_section() {
+		echo '<p>' . esc_html__( 'Enter your license key to receive automatic updates and support.', 'holler-elementor' ) . '</p>';
+	}
+	
+	/**
+	 * Render license key field
+	 */
+	public function render_license_key_field() {
+		$license_key    = get_option( 'holler-elementor_license_key', '' );
+		$license_status = get_option( 'holler-elementor_license' );
+		$status         = isset( $license_status->license ) ? $license_status->license : 'inactive';
+		$is_valid       = in_array( $status, array( 'valid', 'active' ), true );
+		
+		// Mask the license key if it exists and is valid
+		$display_key = $license_key;
+		if ( ! empty( $license_key ) && $is_valid ) {
+			$display_key = substr( $license_key, 0, 4 ) . str_repeat( '*', max( 0, strlen( $license_key ) - 8 ) ) . substr( $license_key, -4 );
+		}
+		?>
+		</table>
+		</form>
+		
+		<form method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=holler-elementor' ) ); ?>" class="holler-license-form">
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><?php esc_html_e( 'License Key', 'holler-elementor' ); ?></th>
+					<td>
+						<div class="holler-license-field-wrap">
+							<input 
+								type="text" 
+								id="holler_license_key" 
+								name="holler_license_key" 
+								value="<?php echo esc_attr( $display_key ); ?>" 
+								class="regular-text" 
+								<?php echo $is_valid ? 'readonly' : ''; ?>
+								placeholder="<?php esc_attr_e( 'Enter your license key', 'holler-elementor' ); ?>"
+							/>
+							
+							<?php if ( $is_valid ) : ?>
+								<span class="holler-license-status holler-license-status--valid">
+									<span class="dashicons dashicons-yes-alt"></span>
+									<?php esc_html_e( 'Active', 'holler-elementor' ); ?>
+								</span>
+							<?php elseif ( ! empty( $license_key ) ) : ?>
+								<span class="holler-license-status holler-license-status--invalid">
+									<span class="dashicons dashicons-warning"></span>
+									<?php esc_html_e( 'Inactive', 'holler-elementor' ); ?>
+								</span>
+							<?php endif; ?>
+						</div>
+						
+						<p class="holler-license-actions">
+							<?php if ( $is_valid ) : ?>
+								<?php wp_nonce_field( 'holler_license_deactivate', 'holler_license_nonce' ); ?>
+								<button type="submit" name="holler_license_action" value="deactivate" class="button button-secondary">
+									<?php esc_html_e( 'Deactivate License', 'holler-elementor' ); ?>
+								</button>
+							<?php else : ?>
+								<?php wp_nonce_field( 'holler_license_activate', 'holler_license_nonce' ); ?>
+								<button type="submit" name="holler_license_action" value="activate" class="button button-primary">
+									<?php esc_html_e( 'Activate License', 'holler-elementor' ); ?>
+								</button>
+							<?php endif; ?>
+						</p>
+						
+						<?php if ( ! empty( $license_status->expires ) && 'lifetime' !== $license_status->expires && $is_valid ) : ?>
+							<p class="description">
+								<?php
+								printf(
+									esc_html__( 'License expires: %s', 'holler-elementor' ),
+									date_i18n( get_option( 'date_format' ), strtotime( $license_status->expires ) )
+								);
+								?>
+							</p>
+						<?php elseif ( ! empty( $license_status->expires ) && 'lifetime' === $license_status->expires && $is_valid ) : ?>
+							<p class="description">
+								<?php esc_html_e( 'Lifetime license', 'holler-elementor' ); ?>
+							</p>
+						<?php endif; ?>
+					</td>
+				</tr>
+		<?php
+	}
+	
+	/**
+	 * Handle license activation/deactivation
+	 */
+	public function handle_license_action() {
+		if ( ! isset( $_POST['holler_license_action'] ) || ! isset( $_POST['holler_license_nonce'] ) ) {
+			return;
+		}
+		
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		
+		$action = sanitize_text_field( $_POST['holler_license_action'] );
+		
+		if ( 'activate' === $action ) {
+			if ( ! wp_verify_nonce( $_POST['holler_license_nonce'], 'holler_license_activate' ) ) {
+				return;
+			}
+			$this->activate_license();
+		} elseif ( 'deactivate' === $action ) {
+			if ( ! wp_verify_nonce( $_POST['holler_license_nonce'], 'holler_license_deactivate' ) ) {
+				return;
+			}
+			$this->deactivate_license();
+		}
+	}
+	
+	/**
+	 * Activate license
+	 */
+	private function activate_license() {
+		$license_key = isset( $_POST['holler_license_key'] ) ? sanitize_text_field( $_POST['holler_license_key'] ) : '';
+		
+		if ( empty( $license_key ) ) {
+			add_settings_error(
+				'holler_license',
+				'license_empty',
+				esc_html__( 'Please enter a license key.', 'holler-elementor' ),
+				'error'
+			);
+			return;
+		}
+		
+		$api_params = array(
+			'edd_action' => 'activate_license',
+			'license'    => $license_key,
+			'item_id'    => HOLLER_ELEMENTOR_EDD_ITEM_ID,
+			'url'        => home_url(),
+		);
+		
+		$response = wp_remote_post(
+			HOLLER_ELEMENTOR_EDD_STORE_URL,
+			array(
+				'timeout'   => 15,
+				'sslverify' => true,
+				'body'      => $api_params,
+			)
+		);
+		
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			add_settings_error(
+				'holler_license',
+				'license_error',
+				esc_html__( 'There was an error connecting to the license server. Please try again.', 'holler-elementor' ),
+				'error'
+			);
+			return;
+		}
+		
+		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+		
+		if ( empty( $license_data->success ) || 'valid' !== $license_data->license ) {
+			$message = $this->get_license_error_message( $license_data );
+			add_settings_error(
+				'holler_license',
+				'license_invalid',
+				$message,
+				'error'
+			);
+			return;
+		}
+		
+		// Save license key and status
+		update_option( 'holler-elementor_license_key', $license_key );
+		update_option( 'holler-elementor_license', $license_data );
+		
+		add_settings_error(
+			'holler_license',
+			'license_activated',
+			esc_html__( 'License activated successfully!', 'holler-elementor' ),
+			'success'
+		);
+	}
+	
+	/**
+	 * Deactivate license
+	 */
+	private function deactivate_license() {
+		$license_key = get_option( 'holler-elementor_license_key', '' );
+		
+		if ( empty( $license_key ) ) {
+			return;
+		}
+		
+		$api_params = array(
+			'edd_action' => 'deactivate_license',
+			'license'    => $license_key,
+			'item_id'    => HOLLER_ELEMENTOR_EDD_ITEM_ID,
+			'url'        => home_url(),
+		);
+		
+		$response = wp_remote_post(
+			HOLLER_ELEMENTOR_EDD_STORE_URL,
+			array(
+				'timeout'   => 15,
+				'sslverify' => true,
+				'body'      => $api_params,
+			)
+		);
+		
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			add_settings_error(
+				'holler_license',
+				'license_error',
+				esc_html__( 'There was an error connecting to the license server. Please try again.', 'holler-elementor' ),
+				'error'
+			);
+			return;
+		}
+		
+		// Clear license data
+		delete_option( 'holler-elementor_license' );
+		
+		add_settings_error(
+			'holler_license',
+			'license_deactivated',
+			esc_html__( 'License deactivated successfully.', 'holler-elementor' ),
+			'success'
+		);
+	}
+	
+	/**
+	 * Get license error message
+	 *
+	 * @param object $license_data License data from API.
+	 * @return string
+	 */
+	private function get_license_error_message( $license_data ) {
+		if ( empty( $license_data->error ) ) {
+			return esc_html__( 'An error occurred. Please try again.', 'holler-elementor' );
+		}
+		
+		switch ( $license_data->error ) {
+			case 'expired':
+				return esc_html__( 'Your license key has expired.', 'holler-elementor' );
+			case 'disabled':
+			case 'revoked':
+				return esc_html__( 'Your license key has been disabled.', 'holler-elementor' );
+			case 'missing':
+				return esc_html__( 'Invalid license key.', 'holler-elementor' );
+			case 'invalid':
+			case 'site_inactive':
+				return esc_html__( 'Your license is not active for this URL.', 'holler-elementor' );
+			case 'item_name_mismatch':
+				return esc_html__( 'This license key is not valid for this product.', 'holler-elementor' );
+			case 'no_activations_left':
+				return esc_html__( 'Your license key has reached its activation limit.', 'holler-elementor' );
+			default:
+				return esc_html__( 'An error occurred. Please try again.', 'holler-elementor' );
+		}
+	}
 
 	/**
 	 * Render enable team widget field
@@ -267,12 +544,15 @@ class Holler_Settings {
 				<span class="holler-version-info"><?php echo esc_html__( 'Version', 'holler-elementor' ) . ': ' . esc_html( HOLLER_ELEMENTOR_VERSION ); ?></span>
 			</div>
 			
+			<?php settings_errors( 'holler_license' ); ?>
+			
 			<form method="post" action="options.php" class="holler-settings-form">
 				<?php
 				settings_fields( $this->option_group );
 				do_settings_sections( $this->page_slug );
 				submit_button();
 				?>
+			</table>
 			</form>
 		</div>
 		<?php

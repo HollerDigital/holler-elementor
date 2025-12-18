@@ -15,6 +15,15 @@ The Holler Elementor Extension adds custom widgets and functionality to the Elem
 
 ## Version History
 
+### 2.3.55 (December 18, 2025)
+- **EDD Software Licensing Integration**
+  - Replaced GitHub-based update system with Easy Digital Downloads Software Licensing SDK
+  - Added license key management to Settings → Holler Elementor page
+  - License activation/deactivation with status display and expiration info
+  - Automatic updates via EDD when license is active
+- **Cleanup**
+  - Removed old plugin-update-checker library and class-plugin-updater.php
+
 ### 2.3.54 (September 17, 2025)
 - Removed jConveyorTicker CDN dependencies (CSS/JS) and dead initialization code
 - Conveyor widget uses CSS-based marquee implementation; reduced payload and requests

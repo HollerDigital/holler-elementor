@@ -3,7 +3,7 @@
  * Plugin Name: Holler Elementor Extension
  * Description: Custom Elementor extension by Holler Digital.
  * Plugin URI:  https://hollerdigital.com/
- * Version:    	2.3.54
+ * Version:    	2.3.55
  * Author:      Holler Digital
  * Author URI:  https://hollerdigital.com/
  * Text Domain: holler-elementor
@@ -17,21 +17,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define plugin constants
 define( 'HOLLER_ELEMENTOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOLLER_ELEMENTOR_THEME_DIR', get_template_directory() );
-define( 'HOLLER_ELEMENTOR_VERSION', '2.3.54' );
+define( 'HOLLER_ELEMENTOR_VERSION', '2.3.55' );
 
-// Include the plugin updater class
-require_once HOLLER_ELEMENTOR_DIR . 'inc/admin/class-plugin-updater.php';
+if ( ! defined( 'HOLLER_ELEMENTOR_EDD_STORE_URL' ) ) {
+	define( 'HOLLER_ELEMENTOR_EDD_STORE_URL', 'https://code.hollerdigital.dev/' );
+}
 
-// Initialize the plugin updater
-$updater = new Holler_Plugin_Updater(
-    'https://github.com/HollerDigital/holler-elementor',
-    __FILE__,
-    'holler-elementor',
-    'master'
-);
+if ( ! defined( 'HOLLER_ELEMENTOR_EDD_ITEM_ID' ) ) {
+	define( 'HOLLER_ELEMENTOR_EDD_ITEM_ID', 2997 );
+}
 
-// Optional: If you're using a private repository, specify the access token like this:
-// $updater->set_authentication('your-token-here');
+if ( is_admin() || wp_doing_cron() ) {
+	require_once HOLLER_ELEMENTOR_DIR . 'inc/vendor/edd-sl-sdk-main/edd-sl-sdk.php';
+
+	add_action(
+		'edd_sl_sdk_registry',
+		static function( $registry ) {
+			$store_url = apply_filters( 'holler_elementor_edd_store_url', HOLLER_ELEMENTOR_EDD_STORE_URL );
+			$item_id   = (int) apply_filters( 'holler_elementor_edd_item_id', HOLLER_ELEMENTOR_EDD_ITEM_ID );
+
+			if ( empty( $store_url ) || empty( $item_id ) ) {
+				return;
+			}
+
+			$registry->register(
+				array(
+					'id'          => $item_id,
+					'url'         => $store_url,
+					'item_id'     => $item_id,
+					'type'        => 'plugin',
+					'file'        => __FILE__,
+					'version'     => HOLLER_ELEMENTOR_VERSION,
+					'option_name' => 'holler-elementor_license_key',
+				)
+			);
+		},
+		10,
+		1
+	);
+}
 
 
 /**
